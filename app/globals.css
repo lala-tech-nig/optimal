@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Custom global styles */
+body {
+  @apply bg-wine text-gold;
+  font-family: 'Inter', sans-serif;
+}
