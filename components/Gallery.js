@@ -10,18 +10,33 @@ export default function Gallery() {
   ];
 
   return (
-    <section className="py-20 px-10 bg-black/50">
-      <h2 className="text-4xl font-bold text-gold text-center mb-10">Gallery</h2>
-      <div className="grid md:grid-cols-4 gap-6">
+    <section className="py-20 px-10 bg-gradient-to-b from-black via-wine/90 to-black">
+      <h2 className="text-4xl md:text-5xl font-bold text-gold text-center mb-14 tracking-wide drop-shadow-lg">
+        Gallery
+      </h2>
+
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
         {items.map((item, i) => (
           <motion.div
             key={i}
-            whileHover={{ scale: 1.05 }}
-            className="bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: i * 0.2 }}
+            viewport={{ once: true }}
+            className="relative group rounded-2xl overflow-hidden shadow-xl border border-gold/30"
           >
-            <img src={item.img} alt={item.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <p className="text-sm">{item.title}</p>
+            {/* Image */}
+            <img
+              src={item.img}
+              alt={item.title}
+              className="w-full h-56 object-cover transform group-hover:scale-110 transition-transform duration-500"
+            />
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+              <p className="text-gold font-semibold text-sm md:text-base">
+                {item.title}
+              </p>
             </div>
           </motion.div>
         ))}
