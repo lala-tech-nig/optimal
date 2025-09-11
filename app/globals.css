@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+:root {
+  --wine: #722F37;
+  --gold: #D4AF37;
+}
+
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
