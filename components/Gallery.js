@@ -65,26 +65,37 @@ export default function Gallery() {
 	const router = useRouter();
 
 	return (
-		<section id="gallery" className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#f7f7fa]">
-			<div className="max-w-6xl mx-auto w-full">
-				<h2 className="text-4xl text-center font-extrabold text-[color:var(--gold)] mb-2 drop-shadow-lg">Event Gallery</h2>
-				<p className="text-center text-gray-700 mb-8 text-lg">Browse our events and explore memorable moments from each occasion.</p>
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+		<section
+			id="gallery"
+			className="min-h-screen flex flex-col items-center justify-center px-6"
+			style={{
+				background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)"
+			}}
+		>
+			<div className="max-w-6xl mx-auto w-full mt-8">
+				<h2 className="text-5xl text-center font-extrabold text-[color:var(--gold)] mb-4 drop-shadow-lg">
+					Event Gallery
+				</h2>
+				<p className="text-center text-[#7B294E] mb-8 text-lg">
+					Browse our events and explore memorable moments from each occasion.
+				</p>
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 					{EVENTS.slice(0, 6).map((event, i) => (
 						<div
 							key={i}
 							className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 border border-gray-200 flex flex-col"
+							style={{ minHeight: "220px", maxWidth: "320px", margin: "0 auto" }}
 							onClick={() => { setOpenEvent(event); setOpenImageIdx(0); }}
 						>
-							<img src={event.cover} alt={event.title} className="w-full h-64 object-cover" />
-							<div className="p-5 flex-1 flex flex-col">
-								<h3 className="text-xl font-bold text-[color:var(--gold)] mb-2">{event.title}</h3>
-								<p className="text-gray-700 text-base flex-1">{event.description}</p>
+							<img src={event.cover} alt={event.title} className="w-full h-40 object-cover" />
+							<div className="p-4 flex-1 flex flex-col">
+								<h3 className="text-lg font-bold text-[color:var(--gold)] mb-1">{event.title}</h3>
+								<p className="text-[#7B294E] text-sm flex-1">{event.description}</p>
 							</div>
 						</div>
 					))}
 				</div>
-				<div className="flex justify-center mt-10">
+				<div className="flex justify-center mt-8 mb-8">
 					<button
 						className="px-8 py-3 rounded-full bg-[color:var(--gold)] text-black font-bold shadow-lg hover:bg-yellow-400 transition-all text-lg"
 						onClick={() => router.push("/gallery")}
@@ -115,7 +126,7 @@ export default function Gallery() {
 								{openEvent.images.map((img, idx) => (
 									<div
 										key={idx}
-										className={`min-w-[90px] h-20 rounded-xl overflow-hidden cursor-pointer border-2 ${idx === openImageIdx ? "border-[color:var(--gold)]" : "border-gray-200"}`}
+										className={`min-w-[70px] h-16 rounded-xl overflow-hidden cursor-pointer border-2 ${idx === openImageIdx ? "border-[color:var(--gold)]" : "border-gray-200"}`}
 										onClick={() => setOpenImageIdx(idx)}
 									>
 										<img src={img} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
@@ -125,7 +136,7 @@ export default function Gallery() {
 						</div>
 						<div className="flex-1 px-6">
 							<h3 className="text-3xl font-bold text-[color:var(--gold)] mb-3">{openEvent.title}</h3>
-							<p className="text-gray-700 mb-4 text-lg">{openEvent.description}</p>
+							<p className="text-[#7B294E] mb-4 text-lg">{openEvent.description}</p>
 						</div>
 					</div>
 				</div>

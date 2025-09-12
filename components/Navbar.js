@@ -34,7 +34,10 @@ const linkVariants = {
 
 export default function Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/10">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-white/10"
+      style={{ background: "#7B294E" }} // Wine color background
+    >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center">
         {/* Logo on the top left */}
         <a href="#home" className="mr-10 flex-shrink-0">
@@ -69,7 +72,7 @@ export default function Navbar() {
         .nav-link {
           position: relative;
           padding: 8px 6px;
-          color: var(--gold, #FFD700);
+          color: var(--gold, #FFD700); /* Gold color for nav links */
           text-decoration: none;
           cursor: pointer;
           transition: color 0.2s, transform 0.2s;

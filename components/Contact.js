@@ -7,7 +7,7 @@ export default function Contact() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [toast, setToast] = useState("");
   const formRef = useRef(null);
-  const [formHeight, setFormHeight] = useState(500);
+  const [formHeight, setFormHeight] = useState(200);
 
   useEffect(() => {
     if (formRef.current) {
@@ -47,15 +47,18 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen flex items-center justify-center px-6 relative"
+      className="min-h-[240px] flex flex-col items-center justify-center px-6 relative"
       style={{
-        background: "linear-gradient(135deg, #4B183B 0%, #7B294E 100%)",
+        background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)",
       }}
     >
+      {/* Section Header */}
+      <h2 className="text-5xl text-center font-extrabold text-[color:var(--gold)] mb-6 drop-shadow-lg tracking-wide">
+        Contact Us
+      </h2>
+
       {/* Confetti Canvas */}
-      {showConfetti && (
-        <Confetti />
-      )}
+      {showConfetti && <Confetti />}
 
       {/* Toast Message */}
       {toast && (
@@ -64,7 +67,7 @@ export default function Contact() {
         </div>
       )}
 
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center z-10">
+      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center z-10">
         {/* Left: Video */}
         <div className="flex justify-center items-center">
           <div
@@ -81,7 +84,7 @@ export default function Contact() {
               height={formHeight}
               className="object-cover w-full h-full"
               poster="https://images.pexels.com/videos/3184292/free-video-3184292.jpg"
-              style={{ minWidth: 350, minHeight: 250 }}
+              style={{ minWidth: 350, minHeight: 120 }}
             />
           </div>
         </div>
@@ -90,17 +93,17 @@ export default function Contact() {
         <form
           ref={formRef}
           onSubmit={submit}
-          className="card grid gap-5 bg-black/60 rounded-2xl shadow-2xl p-8"
+          className="card grid gap-4 bg-white rounded-2xl shadow-2xl p-6"
         >
-          <h2 className="text-4xl font-extrabold text-[color:var(--gold)] mb-4 drop-shadow-lg text-center tracking-wide">
+          <h3 className="text-2xl font-extrabold text-[color:var(--gold)] mb-3 drop-shadow-lg text-center tracking-wide">
             Get In Touch
-          </h2>
+          </h3>
           <input
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Name"
-            className="p-4 rounded-lg bg-[rgba(255,255,255,0.06)] text-white/90 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <input
             required
@@ -108,30 +111,30 @@ export default function Contact() {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="Email"
-            className="p-4 rounded-lg bg-[rgba(255,255,255,0.06)] text-white/90 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <input
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             placeholder="Phone"
-            className="p-4 rounded-lg bg-[rgba(255,255,255,0.06)] text-white/90 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <textarea
             required
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
-            rows="5"
+            rows="3"
             placeholder="Message"
-            className="p-4 rounded-lg bg-[rgba(255,255,255,0.06)] text-white/90 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <div className="flex items-center gap-4 mt-2">
             <button
               type="submit"
-              className="px-7 py-3 rounded-full bg-[color:var(--gold)] font-bold text-black shadow-lg hover:bg-yellow-400 transition-all"
+              className="px-6 py-2 rounded-full bg-[color:var(--gold)] font-bold text-black shadow-lg hover:bg-yellow-400 transition-all"
             >
               Send Message
             </button>
-            <div className="text-sm text-white/80">
+            <div className="text-sm text-gray-700">
               {status === "sending" && "Sending..."}
               {status === "sent" && ""}
               {status === "error" && "Error — please try again later."}
