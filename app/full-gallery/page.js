@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+'use client';
 
-// Example gallery data (replace with your actual data source)
+import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ for going back
+import { ArrowLeft } from "lucide-react";    // ✅ nice icon (install lucide-react if not already)
+
 const EVENTS = [
   {
     title: "Annual Leadership Summit",
@@ -40,31 +43,43 @@ const EVENTS = [
   }
 ];
 
-// For demo, duplicate events to fill multiple pages
+// Duplicate for demo
 while (EVENTS.length < 24) {
   EVENTS.push({ ...EVENTS[EVENTS.length % 6], title: EVENTS[EVENTS.length % 6].title + " " + EVENTS.length });
 }
 
-const PAGE_SIZE = 12; // 4 columns x 3 rows
+const PAGE_SIZE = 12;
 
 export default function FullGallery() {
   const [page, setPage] = useState(1);
   const [openEvent, setOpenEvent] = useState(null);
   const [openImageIdx, setOpenImageIdx] = useState(0);
+  const router = useRouter(); // ✅ initialize router
 
   const totalPages = Math.ceil(EVENTS.length / PAGE_SIZE);
   const pageEvents = EVENTS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <section
-      className="min-h-screen px-6 py-12 flex flex-col items-center"
+      className="min-h-screen px-6 py-12 flex flex-col items-center relative"
       style={{
         background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)"
       }}
     >
+      {/* ✅ Back Arrow Button */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-white text-[#7B294E] rounded-full shadow-lg hover:bg-[color:var(--gold)] hover:text-black transition-all font-bold"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        Back
+      </button>
+
       <h2 className="text-5xl text-center font-extrabold text-[color:var(--gold)] mb-8 drop-shadow-lg">
         Full Gallery
       </h2>
+
+      {/* Gallery Grid */}
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {pageEvents.map((event, i) => (
           <div
@@ -113,7 +128,7 @@ export default function FullGallery() {
         </button>
       </div>
 
-      {/* Modal for Event Images */}
+      {/* Modal */}
       {openEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-2">
           <div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row items-center p-8">
