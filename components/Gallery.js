@@ -32,35 +32,46 @@ const EVENTS = [
 	{
 		title: "Client Workshop",
 		description: "Snapshots from our interactive client workshop.",
-		cover: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+		cover: "/collage1.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80"
+			"/collage2.jpg",
+			"/collage3.jpg",
+			"/collage4.jpg",
 		]
 	},
 	{
 		title: "Strategy Session",
 		description: "Moments from our strategic planning session.",
-		cover: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+		cover: "collagethird1.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1400&q=80",
-			"https://images.unsplash.com/photo-1465101178521-c1a0725c397b?auto=format&fit=crop&w=1400&q=80"
+			"collagethird2.jpg",
+			"collagethird3.jpg",
+			"collagethird4.jpg"
 		]
 	},
 	{
 		title: "Innovation Workshop",
 		description: "Creative ideas and teamwork in action.",
-		cover: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+		cover: "collagesecond1.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80",
-			"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80"
+			"collagesecond2.jpg",
+			"collagesecond3.jpg",
+			"collagesecond4.jpg",
+			"collagesecond5.jpg",
+			"collagesecond6.jpg"
 		]
 	},
 	{
 		title: "Awards Night",
 		description: "Celebrating achievements and milestones.",
-		cover: "https://images.unsplash.com/photo-1515165562835-cf7747b6c9df?auto=format&fit=crop&w=800&q=80",
+		cover: "trainingphoto1.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1515165562835-cf7747b6c9df?auto=format&fit=crop&w=1400&q=80"
+			"trainingphoto2.jpg",
+			"trainingphoto3.jpg",
+			"trainingphoto4.jpg",
+			"trainingphoto5.jpg",
+			"trainingphoto6.jpg",
+			"trainingphoto7.jpg"
 		]
 	}
 ];
