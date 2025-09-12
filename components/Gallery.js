@@ -1,61 +1,135 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const GALLERY = [
-  "https://images.unsplash.com/photo-1555992336-03a23c2c6f60?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1581092795361-1b5fa4b7f42d?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80"
+// Example event gallery data
+const EVENTS = [
+	{
+		title: "Annual Leadership Summit",
+		description: "Highlights from our annual summit with industry leaders.",
+		cover: "https://images.unsplash.com/photo-1555992336-03a23c2c6f60?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1555992336-03a23c2c6f60?auto=format&fit=crop&w=1400&q=80",
+			"https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80",
+			"https://images.unsplash.com/photo-1581092795361-1b5fa4b7f42d?auto=format&fit=crop&w=1400&q=80"
+		]
+	},
+	{
+		title: "Team Building Retreat",
+		description: "A glimpse into our fun and productive team retreat.",
+		cover: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=80",
+			"https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1400&q=80"
+		]
+	},
+	{
+		title: "Client Workshop",
+		description: "Snapshots from our interactive client workshop.",
+		cover: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80"
+		]
+	},
+	{
+		title: "Strategy Session",
+		description: "Moments from our strategic planning session.",
+		cover: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1400&q=80",
+			"https://images.unsplash.com/photo-1465101178521-c1a0725c397b?auto=format&fit=crop&w=1400&q=80"
+		]
+	},
+	{
+		title: "Innovation Workshop",
+		description: "Creative ideas and teamwork in action.",
+		cover: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80",
+			"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80"
+		]
+	},
+	{
+		title: "Awards Night",
+		description: "Celebrating achievements and milestones.",
+		cover: "https://images.unsplash.com/photo-1515165562835-cf7747b6c9df?auto=format&fit=crop&w=800&q=80",
+		images: [
+			"https://images.unsplash.com/photo-1515165562835-cf7747b6c9df?auto=format&fit=crop&w=1400&q=80"
+		]
+	}
 ];
 
 export default function Gallery() {
-  const [openIndex, setOpenIndex] = useState(null);
+	const [openEvent, setOpenEvent] = useState(null);
+	const [openImageIdx, setOpenImageIdx] = useState(0);
+	const router = useRouter();
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (openIndex === null) return;
-      if (e.key === "ArrowRight") setOpenIndex(i => Math.min(i + 1, GALLERY.length - 1));
-      if (e.key === "ArrowLeft") setOpenIndex(i => Math.max(i - 1, 0));
-      if (e.key === "Escape") setOpenIndex(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [openIndex]);
+	return (
+		<section id="gallery" className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#f7f7fa]">
+			<div className="max-w-6xl mx-auto w-full">
+				<h2 className="text-4xl text-center font-extrabold text-[color:var(--gold)] mb-2 drop-shadow-lg">Event Gallery</h2>
+				<p className="text-center text-gray-700 mb-8 text-lg">Browse our events and explore memorable moments from each occasion.</p>
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+					{EVENTS.slice(0, 6).map((event, i) => (
+						<div
+							key={i}
+							className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 border border-gray-200 flex flex-col"
+							onClick={() => { setOpenEvent(event); setOpenImageIdx(0); }}
+						>
+							<img src={event.cover} alt={event.title} className="w-full h-64 object-cover" />
+							<div className="p-5 flex-1 flex flex-col">
+								<h3 className="text-xl font-bold text-[color:var(--gold)] mb-2">{event.title}</h3>
+								<p className="text-gray-700 text-base flex-1">{event.description}</p>
+							</div>
+						</div>
+					))}
+				</div>
+				<div className="flex justify-center mt-10">
+					<button
+						className="px-8 py-3 rounded-full bg-[color:var(--gold)] text-black font-bold shadow-lg hover:bg-yellow-400 transition-all text-lg"
+						onClick={() => router.push("/gallery")}
+					>
+						View More
+					</button>
+				</div>
+			</div>
 
-  return (
-    <section id="gallery" className="h-screen flex items-center justify-center px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl text-center font-bold text-[color:var(--gold)]">Gallery</h2>
-        <div className="mt-8 grid md:grid-cols-3 gap-6">
-          {GALLERY.map((src, i) => (
-            <div key={i} className="rounded-lg overflow-hidden cursor-pointer" onClick={() => setOpenIndex(i)}>
-              <img src={src} alt={`gallery-${i}`} className="w-full h-64 object-cover" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Modal */}
-      {openIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-6">
-          <div className="max-w-5xl w-full">
-            <button onClick={() => setOpenIndex(null)} className="mb-4 px-3 py-2 rounded-md btn-outline">Close</button>
-            <div className="bg-black/60 rounded-lg overflow-hidden">
-              <img src={GALLERY[openIndex]} alt="large" className="w-full h-[60vh] object-contain bg-black" />
-            </div>
-
-            <div className="mt-3 flex gap-3 overflow-x-auto py-2">
-              {GALLERY.map((s, idx) => (
-                <div key={idx} className={`min-w-[120px] h-20 rounded overflow-hidden cursor-pointer ${idx === openIndex ? "ring-2 ring-[color:var(--gold)]" : ""}`} onClick={() => setOpenIndex(idx)}>
-                  <img src={s} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
-  );
+			{/* Modal for Event Images */}
+			{openEvent && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-2">
+					<div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row items-center p-8">
+						<button
+							onClick={() => setOpenEvent(null)}
+							className="absolute top-6 right-6 px-4 py-2 bg-[color:var(--gold)] text-black rounded-full font-bold shadow hover:bg-yellow-400 transition-all"
+						>
+							Close
+						</button>
+						<div className="flex-1 flex flex-col items-center justify-center">
+							<img
+								src={openEvent.images[openImageIdx]}
+								alt={`event-img-${openImageIdx}`}
+								className="rounded-2xl object-contain bg-gray-100 max-h-[70vh] w-full mb-4"
+								style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}
+							/>
+							<div className="flex gap-3 overflow-x-auto py-2 justify-center">
+								{openEvent.images.map((img, idx) => (
+									<div
+										key={idx}
+										className={`min-w-[90px] h-20 rounded-xl overflow-hidden cursor-pointer border-2 ${idx === openImageIdx ? "border-[color:var(--gold)]" : "border-gray-200"}`}
+										onClick={() => setOpenImageIdx(idx)}
+									>
+										<img src={img} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
+									</div>
+								))}
+							</div>
+						</div>
+						<div className="flex-1 px-6">
+							<h3 className="text-3xl font-bold text-[color:var(--gold)] mb-3">{openEvent.title}</h3>
+							<p className="text-gray-700 mb-4 text-lg">{openEvent.description}</p>
+						</div>
+					</div>
+				</div>
+			)}
+		</section>
+	);
 }
