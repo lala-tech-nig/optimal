@@ -115,7 +115,7 @@ export default function Gallery() {
 				<div className="flex justify-center mt-8 mb-8">
 					<button
 						className="px-8 py-3 rounded-full bg-[color:var(--gold)] text-black font-bold shadow-lg hover:bg-yellow-400 transition-all text-lg"
-						onClick={() => router.push("/gallery")}
+						onClick={() => router.push("../FullGallery")}
 					>
 						View More
 					</button>
