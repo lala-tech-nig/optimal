@@ -24,17 +24,17 @@ const SLIDES = [
   {
     title: "Professional & Technical Trainings",
     subtitle: "ISO, NEBOSH, IOSH, PMP and tailored in-house programs.",
-    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1800&q=80"
+    image: "https://i.imghippo.com/files/rLg1482IVo.jpg"
   },
   {
     title: "Business Continuity & Info Security",
     subtitle: "ISO 22301 and ISO/IEC 27001 aligned services.",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=80"
+    image: "https://i.imghippo.com/files/rUr4483gsY.jpg"
   },
   {
     title: "Tailored Implementation & Documentation",
     subtitle: "Arabic & English support for documentation and implementation.",
-    image: "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?auto=format&fit=crop&w=1800&q=80"
+    image: "https://i.imghippo.com/files/wnI2283kdo.jpg"
   }
 ];
 
