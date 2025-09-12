@@ -28,7 +28,7 @@ export default function About() {
       <div className="max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-10 items-center">
         {/* Left: Video */}
         <div className="flex justify-center items-center">
-          <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#7B294E] bg-black/70">
+          <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[color:var(--gold)] bg-black/70">
             <video
               src="https://www.w3schools.com/html/mov_bbb.mp4"
               autoPlay
