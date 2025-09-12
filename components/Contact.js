@@ -53,7 +53,7 @@ export default function Contact() {
       }}
     >
       {/* Section Header */}
-      <h2 className="text-5xl text-center font-extrabold text-[color:var(--gold)] mb-6 drop-shadow-lg tracking-wide">
+      <h2 className="text-5xl mt-10 text-center font-extrabold text-[color:var(--gold)] mb-6 drop-shadow-lg tracking-wide">
         Contact Us
       </h2>
 
@@ -67,7 +67,7 @@ export default function Contact() {
         </div>
       )}
 
-      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center z-10">
+      <div className="max-w-5xl mb-10 w-full grid md:grid-cols-2 gap-12 items-center z-10">
         {/* Left: Video */}
         <div className="flex justify-center items-center">
           <div
