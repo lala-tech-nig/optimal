@@ -6,7 +6,7 @@ export default function About() {
       id="about"
       className="min-h-screen flex flex-col justify-center px-6"
       style={{
-        background: "linear-gradient(135deg, #4B183B 0%, #7B294E 100%)", // Elegant wine gradient
+        background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)", // Elegant gradient gray
       }}
     >
       {/* Top: Centered Heading and Paragraph */}
@@ -14,7 +14,7 @@ export default function About() {
         <h2 className="text-5xl font-extrabold text-[color:var(--gold)] mb-6 drop-shadow-lg">
           About Optimal Management Consultancy
         </h2>
-        <p className="mb-4 text-lg text-white/90">
+        <p className="mb-4 text-lg text-[#7B294E]">
           Optimal Management Consultancy (OMC) helps organisations uplift
           operational standards to comply with international standards,
           enabling competitiveness and accreditation in their sectors. We
@@ -59,12 +59,12 @@ export default function About() {
               </thead>
               <tbody>
                 <tr>
-                  <td className="px-4 py-4 text-white/80 border-r border-white/10 align-top">
+                  <td className="px-4 py-4 text-[#7B294E] border-r border-white/10 align-top">
                     We enhance our clients’ success by improving corporate value,
                     caring for people and delivering measurable results through
                     innovation.
                   </td>
-                  <td className="px-4 py-4 text-white/80 align-top">
+                  <td className="px-4 py-4 text-[#7B294E] align-top">
                     To gain client confidence through unmatched consulting
                     services — Qatari in origin, global in scope.
                   </td>
@@ -77,7 +77,7 @@ export default function About() {
               <h3 className="font-semibold text-[color:var(--gold)] text-lg mb-2">
                 Approach
               </h3>
-              <p className="text-white/80 text-base">
+              <p className="text-[#7B294E] text-base">
                 Practical, tailored solutions with compliance to local (Qatar
                 Civil Defence) and international standards.
               </p>

@@ -5,7 +5,7 @@ const SLIDES = [
   {
     title: "Management Systems Consultancy",
     subtitle: "Establishment, documentation, training, implementation and monitoring of management systems.",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1800&q=80"
+    image: "https://i.postimg.cc/LXkg2mjq/Whats-App-Image-2025-09-08-at-2-40-18-PM.jpg"
   },
   {
     title: "Fire & Life Safety Consultancy",
