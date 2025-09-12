@@ -17,14 +17,14 @@ export default function Footer() {
         {/* Center: Contact Info */}
         <div className="text-center md:text-left flex-1">
           <div className="mb-2 text-[color:var(--gold)] font-semibold">Office Address:</div>
-          <div className="mb-1 text-white/90">West Bay, Doha, Qatar</div>
+          <div className="mb-1 text-white/90">No 3, Church Street Opposite First Baptist Church Olowu Ikeja, Lagos Nigeria</div>
           <div className="mb-1">
             <span className="text-[color:var(--gold)] font-semibold">Phone:</span>{" "}
-            <a href="tel:+97400000000" className="text-white/90 hover:text-[color:var(--gold)] transition">+974 0000 0000</a>
+            <a href="tel:+2348037316413" className="text-white/90 hover:text-[color:var(--gold)] transition">+2348037316413</a>
           </div>
           <div>
             <span className="text-[color:var(--gold)] font-semibold">Email:</span>{" "}
-            <a href="mailto:info@optimalqatar.com" className="text-white/90 hover:text-[color:var(--gold)] transition">info@optimalqatar.com</a>
+            <a href="mailto:info@optimalqatar.com" className="text-white/90 hover:text-[color:var(--gold)] transition">info@optimalconsultancy.com</a>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
             </a>
           </div>
           <div className="text-sm text-white/80">
-            © {new Date().getFullYear()} Optimal Management Consultancy — Doha, Qatar
+            © {new Date().getFullYear()} Optimal Management Consultancy — Lagos, Nigeria
           </div>
           <div className="text-sm mt-1">
             Design by{" "}

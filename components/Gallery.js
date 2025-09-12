@@ -7,20 +7,26 @@ const EVENTS = [
 	{
 		title: "Annual Leadership Summit",
 		description: "Highlights from our annual summit with industry leaders.",
-		cover: "https://images.unsplash.com/photo-1555992336-03a23c2c6f60?auto=format&fit=crop&w=800&q=80",
+		cover: "/training1.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1555992336-03a23c2c6f60?auto=format&fit=crop&w=1400&q=80",
-			"https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80",
-			"https://images.unsplash.com/photo-1581092795361-1b5fa4b7f42d?auto=format&fit=crop&w=1400&q=80"
+			"/training2.jpg",
+			"/training3.jpg",
+			"/training4.jpg",
+			"/training5.jpg",
 		]
 	},
 	{
 		title: "Team Building Retreat",
 		description: "A glimpse into our fun and productive team retreat.",
-		cover: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+		cover: "/training6.jpg",
 		images: [
-			"https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=80",
-			"https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1400&q=80"
+			"/training7.jpg",
+			"/training8.jpg",
+			"/training9.jpg",
+			"/training10.jpg",
+			"/training11.jpg",
+			"/training12.jpg",
+			"/training13.jpg",
 		]
 	},
 	{

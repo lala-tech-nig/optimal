@@ -35,7 +35,7 @@ export default function Services() {
 				{/* Service 1: Video Left, Content Right */}
 				<div className="mt-12 grid md:grid-cols-2 gap-10 items-center bg-white/70 rounded-2xl shadow-lg p-6">
 					<div className="flex justify-center items-center">
-						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[color:var(--gold)] bg-black/70">
+						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[#7B294E] bg-black/70">
 							<video
 								src={SERVICES[0].video}
 								autoPlay
@@ -60,7 +60,7 @@ export default function Services() {
 							href={SERVICES[0].link}
 							target="_blank"
 							rel="noreferrer"
-							className="px-6 py-2 rounded-full bg-[color:var(--gold)] text-black font-bold shadow hover:bg-yellow-400 transition-all"
+							className="px-6 py-2 rounded-full bg-[color:var(--gold)] text-black font-bold shadow hover:bg-[#7B294E] transition-all"
 						>
 							Know More
 						</a>
@@ -86,7 +86,7 @@ export default function Services() {
 						</a>
 					</div>
 					<div className="flex justify-center items-center order-1 md:order-2">
-						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[color:var(--gold)] bg-black/70">
+						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[#7B294E] bg-black/70">
 							<video
 								src={SERVICES[1].video}
 								autoPlay

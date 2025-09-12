@@ -71,7 +71,7 @@ export default function Contact() {
         {/* Left: Video */}
         <div className="flex justify-center items-center">
           <div
-            className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[color:var(--gold)] bg-black/70 flex items-center"
+            className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#7B294E] bg-black/70 flex items-center"
             style={{ height: formHeight }}
           >
             <video
@@ -103,7 +103,7 @@ export default function Contact() {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Name"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <input
             required
@@ -111,13 +111,13 @@ export default function Contact() {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="Email"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <input
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             placeholder="Phone"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <textarea
             required
@@ -125,12 +125,12 @@ export default function Contact() {
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             rows="3"
             placeholder="Message"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[color:var(--gold)] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
           />
           <div className="flex items-center gap-4 mt-2">
             <button
               type="submit"
-              className="px-6 py-2 rounded-full bg-[color:var(--gold)] font-bold text-black shadow-lg hover:bg-yellow-400 transition-all"
+              className="px-6 py-2 rounded-full bg-yellow-500 font-bold text-black shadow-lg hover:bg-[#7B294E] transition-all"
             >
               Send Message
             </button>
