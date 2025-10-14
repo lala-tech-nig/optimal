@@ -16,11 +16,11 @@ const SLIDES = [
     subtitle: "Establishment, documentation, training, implementation and monitoring of management systems.",
     image: "https://i.postimg.cc/LXkg2mjq/Whats-App-Image-2025-09-08-at-2-40-18-PM.jpg"
   },
-  {
-    title: "Fire & Life Safety Consultancy",
-    subtitle: "Fire risk assessments, audits, design and Qatar Civil Defence approvals.",
-    image: "https://api.imghippo.com/files/slf6951Mv.jpeg"
-  },
+  // {
+  //   title: "Fire & Life Safety Consultancy",
+  //   subtitle: "Fire risk assessments, audits, design and Qatar Civil Defence approvals.",
+  //   image: "https://api.imghippo.com/files/slf6951Mv.jpeg"
+  // },
   {
     title: "Professional & Technical Trainings",
     subtitle: "ISO, NEBOSH, IOSH, PMP and tailored in-house programs.",
