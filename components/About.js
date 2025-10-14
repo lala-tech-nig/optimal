@@ -30,7 +30,7 @@ export default function About() {
         <div className="flex justify-center items-center">
           <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#7B294E] bg-black/70">
             <video
-              src="https://www.w3schools.com/html/mov_bbb.mp4"
+              src="/mission.mp4"
               autoPlay
               loop
               muted
