@@ -78,11 +78,11 @@ export default function Navbar() {
                 src="/logo.png"
                 alt="OMC Logo"
                 className="h-12 w-auto"
-                style={{ filter: "drop-shadow(0 2px 8px gold)" }}
+                // style={{ filter: "drop-shadow(0 2px 8px gold)" }}
               />
             </div>
             <span className="hidden sm:block font-semibold text-white text-lg">
-              OMC Qatar
+              Optimal Management Consultants
             </span>
           </div>
         </Link>
@@ -142,10 +142,17 @@ export default function Navbar() {
             >
               {/* Close */}
               <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <img src="/logo.png" className="h-8" />
-                  <span className="font-semibold text-white">OMC</span>
-                </div>
+                <div className="bg-white p-1 rounded-lg">
+              <img
+                src="/logo.png"
+                alt="OMC Logo"
+                className="h-12 w-auto"
+                style={{ filter: "drop-shadow(0 2px 8px gold)" }}
+              />
+            </div>
+            <span className="hidden sm:block font-semibold text-white text-lg">
+              Optimal Management Consultants
+            </span>
                 <button onClick={() => setMenuOpen(false)}>
                   <X size={26} color="#FFD700" />
                 </button>
