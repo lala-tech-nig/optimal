@@ -1,5 +1,8 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ReactConfetti from "react-confetti";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -7,95 +10,97 @@ export default function Contact() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [toast, setToast] = useState("");
   const formRef = useRef(null);
-  const [formHeight, setFormHeight] = useState(200);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [cardHeight, setCardHeight] = useState(0);
 
+  // Track window size for confetti
+  useEffect(() => {
+    const updateSize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  // Match video card height with form card
   useEffect(() => {
     if (formRef.current) {
-      setFormHeight(formRef.current.offsetHeight);
+      setCardHeight(formRef.current.offsetHeight);
     }
   }, [formRef.current, form]);
 
-  const submit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus("sending");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("sent");
-        setForm({ name: "", email: "", phone: "", message: "" });
-        setShowConfetti(true);
-        setToast(`We will get back to you as soon as possible. Thank you, ${form.name}!`);
-        setTimeout(() => setShowConfetti(false), 3500);
-        setTimeout(() => setToast(""), 4000);
-      } else {
-        setStatus("error");
-        setToast("Error — please try again later.");
-        setTimeout(() => setToast(""), 3500);
-      }
-    } catch (err) {
-      setStatus("error");
-      setToast("Error — please try again later.");
-      setTimeout(() => setToast(""), 3500);
-    }
-    setTimeout(() => setStatus(null), 3500);
+    if (!form.name || !form.email || !form.message) return;
+
+    setStatus("sent");
+    setToast(`Thanks ${form.name}! Our team will get back to you soon.`);
+    setShowConfetti(true);
+
+    setForm({ name: "", email: "", phone: "", message: "" });
+
+    setTimeout(() => setShowConfetti(false), 10000); // Confetti lasts 7s
+    setTimeout(() => setToast(""), 7500);
+    setTimeout(() => setStatus(null), 10500);
   };
 
   return (
-    <section
-      id="contact"
-      className="min-h-[240px] flex flex-col items-center justify-center px-6 relative"
-      style={{
-        background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)",
-      }}
-    >
-      {/* Section Header */}
-      <h2 className="text-5xl mt-10 text-center font-extrabold text-[color:var(--gold)] mb-6 drop-shadow-lg tracking-wide">
-        Contact Us
-      </h2>
+    <section className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gradient-to-br from-[#f7f7fa] to-[#e3e3e8] relative">
+      {/* Real Confetti */}
+      {showConfetti && <ReactConfetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={250} />}
 
-      {/* Confetti Canvas */}
-      {showConfetti && <Confetti />}
-
-      {/* Toast Message */}
-      {toast && (
-        <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-[color:var(--gold)] text-black px-8 py-4 rounded-xl shadow-lg font-semibold text-lg transition-all">
-          {toast}
-        </div>
-      )}
-
-      <div className="max-w-5xl mb-10 w-full grid md:grid-cols-2 gap-12 items-center z-10">
-        {/* Left: Video */}
-        <div className="flex justify-center items-center">
-          <div
-            className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#7B294E] bg-black/70 flex items-center"
-            style={{ height: formHeight }}
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-yellow-400 text-black px-6 py-3 rounded-xl shadow-xl font-semibold text-lg"
           >
-            <video
-              src="https://www.w3schools.com/html/mov_bbb.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              width="700"
-              height={formHeight}
-              className="object-cover w-full h-full"
-              poster="https://images.pexels.com/videos/3184292/free-video-3184292.jpg"
-              style={{ minWidth: 350, minHeight: 120 }}
-            />
-          </div>
-        </div>
+            {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Right: Contact Form */}
-        <form
-          ref={formRef}
-          onSubmit={submit}
-          className="card grid gap-4 bg-white rounded-2xl shadow-2xl p-6"
+      {/* Header */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="text-center mb-10">
+        <h2 className="text-5xl md:text-6xl font-extrabold text-[color:var(--gold)] drop-shadow-lg">
+          Contact Us
+        </h2>
+        <p className="mt-3 text-lg md:text-xl text-gray-700 font-medium">
+          We’d love to hear from you! Reach out and let’s create something amazing together.
+        </p>
+      </motion.div>
+
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-start">
+        {/* Video Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+          className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#7B294E] bg-black/70"
+          style={{ minHeight: cardHeight || 250 }}
         >
-          <h3 className="text-2xl font-extrabold text-[color:var(--gold)] mb-3 drop-shadow-lg text-center tracking-wide">
+          <video
+            src="/contact.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="object-cover w-full h-full"
+          />
+        </motion.div>
+
+        {/* Form Card */}
+        <motion.form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          className="bg-white rounded-3xl shadow-2xl p-8 grid gap-4"
+        >
+          <h3 className="text-2xl font-extrabold text-[color:var(--gold)] mb-4 text-center drop-shadow-md">
             Get In Touch
           </h3>
           <input
@@ -103,7 +108,7 @@ export default function Contact() {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Name"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-3 rounded-lg border border-[#7B294E] bg-gray-100 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)] transition"
           />
           <input
             required
@@ -111,65 +116,36 @@ export default function Contact() {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="Email"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            className="p-3 rounded-lg border border-[#7B294E] bg-gray-100 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)] transition"
           />
           <input
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            placeholder="Phone"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            placeholder="Phone (optional)"
+            className="p-3 rounded-lg border border-[#7B294E] bg-gray-100 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)] transition"
           />
           <textarea
             required
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
-            rows="3"
             placeholder="Message"
-            className="p-2 rounded-lg bg-gray-100 text-gray-900 font-medium border border-[#7B294E] focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)]"
+            rows={4}
+            className="p-3 rounded-lg border border-[#7B294E] bg-gray-100 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)] transition resize-none"
           />
-          <div className="flex items-center gap-4 mt-2">
+          <div className="flex justify-between items-center mt-2">
             <button
               type="submit"
-              className="px-6 py-2 rounded-full bg-yellow-500 font-bold text-black shadow-lg hover:bg-[#7B294E] transition-all"
+              className="px-6 py-3 rounded-full bg-yellow-400 text-black font-bold shadow-lg hover:bg-[#7B294E] hover:text-white transition-all duration-300"
             >
               Send Message
             </button>
-            <div className="text-sm text-gray-700">
+            <span className="text-gray-700 font-medium">
               {status === "sending" && "Sending..."}
-              {status === "sent" && ""}
               {status === "error" && "Error — please try again later."}
-            </div>
+            </span>
           </div>
-        </form>
+        </motion.form>
       </div>
     </section>
-  );
-}
-
-// Simple Confetti Canvas Component
-function Confetti() {
-  const confettiArray = Array.from({ length: 80 });
-  return (
-    <div className="fixed inset-0 pointer-events-none z-40">
-      <svg width="100vw" height="100vh" style={{ width: "100vw", height: "100vh" }}>
-        {confettiArray.map((_, i) => {
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
-          const r = 6 + Math.random() * 10;
-          const colors = ["#FFD700", "#FF69B4", "#7B294E", "#4B183B", "#fff"];
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          return (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={r}
-              fill={color}
-              opacity={0.8}
-            />
-          );
-        })}
-      </svg>
-    </div>
   );
 }

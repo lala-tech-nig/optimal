@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
           <div>
             <span className="text-[color:var(--gold)] font-semibold">Email:</span>{" "}
-            <a href="mailto:info@optimalqatar.com" className="text-white/90 hover:text-[color:var(--gold)] transition">info@optimalconsultancy.com</a>
+            <a href="mailto:info@optimalqatar.com" className="text-white/90 hover:text-[color:var(--gold)] transition">info@optimalconsult.com.ng</a>
           </div>
         </div>
 
