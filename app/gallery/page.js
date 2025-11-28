@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";    // ✅ nice icon (install lucide-re
 
 const EVENTS = [
   {
-    title: "Annual Leadership Summit",
+    title: "Annual Leadership Summit jjjjjjj",
     description: "Highlights from our annual summit with industry leaders.",
     cover: "/training1.jpg",
     images: ["/training2.jpg", "/training3.jpg", "/training4.jpg", "/training5.jpg"]

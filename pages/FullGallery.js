@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Example gallery data (replace with your actual data source)
 const EVENTS = [
   {
-    title: "Annual Leadership Summit",
+    title: "Annual Leadership Summit rrrrrrrrr",
     description: "Highlights from our annual summit with industry leaders.",
     cover: "/training1.jpg",
     images: ["/training2.jpg", "/training3.jpg", "/training4.jpg", "/training5.jpg"]
