@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <div className="bg-[var(--wine)] text-white">
       {/* Fixed navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Main content */}
       <main className="overflow-x-hidden">
@@ -25,10 +25,10 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
 
       {/* Floating WhatsApp button */}
-      <WhatsAppButton />
+      {/* <WhatsAppButton /> */}
     </div>
   );
 }

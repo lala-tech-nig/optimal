@@ -1,5 +1,8 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import Footer from "@/components/Footer";
 
 // Google font
 const inter = Inter({ subsets: ["latin"] });
@@ -97,7 +100,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.className} bg-[var(--wine)] text-white`}>
+        <Navbar />
         {children}
+        <WhatsAppButton />
+        <Footer />
       </body>
     </html>
   );
