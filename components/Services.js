@@ -1,107 +1,102 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+
 const SERVICES = [
-	{
-		title: "Management Systems Consultancy",
-		desc: "Establishment, documentation, implementation and monitoring of ISO management systems (9001, 14001, 27001, 22301, etc.).",
-		link: "https://www.iso.org",
-		video: "https://www.w3schools.com/html/mov_bbb.mp4",
-	},
-	{
-		title: "Fire & Life Safety Consultancy",
-		desc: "Fire risk assessments, fire safety audits, civil defence approvals, fire engineering and emergency preparedness.",
-		link: "https://www.qatarcivildefence.gov.qa",
-		video: "https://www.w3schools.com/html/movie.mp4",
-	},
+  {
+    id: 1,
+    title: "Management Consultancy",
+    desc: "We help organisations engineer excellence, achieve international compliance, and optimize operations. Our tailored solutions boost efficiency, strengthen teams, and ensure lasting measurable impact across industries.",
+    video: "/management.mp4",
+  },
+  {
+    id: 2,
+    title: "Professional Trainings",
+    desc: "Upskill your workforce with high-impact, certified trainings delivered by industry experts. Our programs empower teams, unlock potential, and drive transformative results that align with global best practices.",
+    video: "/training.mp4",
+  },
 ];
 
 export default function Services() {
-	return (
-		<section
-			id="services"
-			className="min-h-screen flex flex-col justify-center px-6 py-12"
-			style={{
-				background: "linear-gradient(135deg, #f7f7fa 0%, #e3e3e8 100%)",
-			}}
-		>
-			<div className="max-w-5xl mx-auto w-full">
-				<h2 className="text-5xl text-center font-extrabold text-[color:var(--gold)] mb-4 drop-shadow-lg tracking-wide">
-					Our Core Services
-				</h2>
-				<p className="text-center mt-3 text-[color:#7B294E] text-lg max-w-2xl mx-auto font-medium">
-					We provide consultancy and training services tailored to industry needs,
-					with local knowledge and international standards alignment.
-				</p>
+  const router = useRouter();
 
-				{/* Service 1: Video Left, Content Right */}
-				<div className="mt-12 grid md:grid-cols-2 gap-10 items-center bg-white/70 rounded-2xl shadow-lg p-6">
-					<div className="flex justify-center items-center">
-						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[#7B294E] bg-black/70">
-							<video
-								src={SERVICES[0].video}
-								autoPlay
-								loop
-								muted
-								playsInline
-								width="500"
-								height="350"
-								className="object-cover w-[400px] h-[260px] md:w-[500px] md:h-[350px]"
-								poster="https://images.pexels.com/videos/3184292/free-video-3184292.jpg"
-							/>
-						</div>
-					</div>
-					<div className="flex flex-col justify-center items-start px-2">
-						<h3 className="text-2xl font-bold text-[color:#7B294E] mb-3">
-							{SERVICES[0].title}
-						</h3>
-						<p className="text-gray-700 text-base mb-6">
-							{SERVICES[0].desc}
-						</p>
-						<a
-							href={SERVICES[0].link}
-							target="_blank"
-							rel="noreferrer"
-							className="px-6 py-2 rounded-full bg-[color:var(--gold)] text-black font-bold shadow hover:bg-[#7B294E] transition-all"
-						>
-							Know More
-						</a>
-					</div>
-				</div>
+  const handleLearnMore = (id) => {
+    if (id === 1) {
+      router.push("/services/management");
+    } else if (id === 2) {
+      router.push("/services/training");
+    }
+  };
 
-				{/* Service 2: Content Left, Video Right */}
-				<div className="mt-12 grid md:grid-cols-2 gap-10 items-center bg-white/70 rounded-2xl shadow-lg p-6">
-					<div className="flex flex-col justify-center items-start px-2 order-2 md:order-1">
-						<h3 className="text-2xl font-bold text-[color:#7B294E] mb-3">
-							{SERVICES[1].title}
-						</h3>
-						<p className="text-gray-700 text-base mb-6">
-							{SERVICES[1].desc}
-						</p>
-						<a
-							href={SERVICES[1].link}
-							target="_blank"
-							rel="noreferrer"
-							className="px-6 py-2 rounded-full bg-[color:var(--gold)] text-black font-bold shadow hover:bg-yellow-400 transition-all"
-						>
-							Know More
-						</a>
-					</div>
-					<div className="flex justify-center items-center order-1 md:order-2">
-						<div className="rounded-2xl overflow-hidden shadow-xl border-4 border-[#7B294E] bg-black/70">
-							<video
-								src={SERVICES[1].video}
-								autoPlay
-								loop
-								muted
-								playsInline
-								width="500"
-								height="350"
-								className="object-cover w-[400px] h-[260px] md:w-[500px] md:h-[350px]"
-								poster="https://images.pexels.com/videos/3184292/free-video-3184292.jpg"
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+  return (
+    <section
+      id="services"
+      className="min-h-screen py-24 px-6 bg-gradient-to-br from-[#f8f8fb] to-[#e3e3ea]"
+    >
+      {/* HEADER */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto text-center mb-20"
+      >
+        <h2 className="text-5xl md:text-6xl font-extrabold text-[color:var(--gold)] drop-shadow-xl tracking-tight">
+          Our Core Services
+        </h2>
+        <p className="mt-6 text-lg md:text-xl text-[#7B294E] leading-relaxed font-medium">
+          We deliver world-class consulting and training solutions that empower
+          organisations and individuals to excel in a competitive global
+          landscape. Only the best, tailored for your success.
+        </p>
+      </motion.div>
+
+      {/* SERVICES */}
+      <div className="max-w-6xl mx-auto flex flex-col gap-20">
+        {SERVICES.map((service, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: idx * 0.2 }}
+            viewport={{ once: true }}
+            className={`grid md:grid-cols-2 gap-10 items-center bg-white/80 rounded-3xl shadow-2xl p-6 border border-[color:var(--gold)]/20 ${
+              idx % 2 === 1 ? "md:flex-row-reverse" : ""
+            }`}
+          >
+            {/* VIDEO */}
+            <div className="flex justify-center items-center">
+              <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-[color:var(--gold)] bg-black/70">
+                <video
+                  src={service.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="object-cover w-[400px] h-[260px] md:w-[500px] md:h-[350px]"
+                />
+              </div>
+            </div>
+
+            {/* TEXT */}
+            <div className="flex flex-col justify-center items-start px-2">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[color:#7B294E] mb-4">
+                {service.title}
+              </h3>
+              <p className="text-[#7B294E] text-lg md:text-xl leading-relaxed font-medium mb-6">
+                {service.desc}
+              </p>
+              <button
+                onClick={() => handleLearnMore(service.id)}
+                className="px-6 py-3 rounded-full bg-[color:var(--gold)] text-black font-bold shadow-lg hover:bg-[#7B294E] hover:text-white transition-all duration-300"
+              >
+                Learn More
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
 }
