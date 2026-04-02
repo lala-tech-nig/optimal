@@ -1,7 +1,15 @@
 'use client';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Linkedin, Twitter, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const footerLinks = {
   Services: [
@@ -25,8 +33,23 @@ const socials = [
 ];
 
 export default function Footer() {
+  const footerRef = useRef(null);
+
+  useGSAP(() => {
+    // Stagger footer columns
+    gsap.from('.footer-col', {
+      scrollTrigger: { trigger: footerRef.current, start: 'top 90%' },
+      y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+    });
+    // Bottom bar fade in
+    gsap.from('.footer-bottom', {
+      scrollTrigger: { trigger: footerRef.current, start: 'top 85%' },
+      opacity: 0, duration: 1, delay: 0.4, ease: 'power2.out'
+    });
+  }, { scope: footerRef });
+
   return (
-    <footer style={{ background: 'linear-gradient(180deg, var(--wine-dark) 0%, var(--wine-deep) 100%)', borderTop: '1px solid rgba(201,168,76,0.15)', position: 'relative', overflow: 'hidden' }}>
+    <footer ref={footerRef} style={{ background: 'linear-gradient(180deg, var(--wine-dark) 0%, var(--wine-deep) 100%)', borderTop: '1px solid rgba(201,168,76,0.15)', position: 'relative', overflow: 'hidden' }}>
       
       {/* Background premium glow */}
       <div style={{
@@ -37,7 +60,7 @@ export default function Footer() {
       <div className="container" style={{ padding: '5rem 1.5rem 2rem', position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr)', gap: '4rem', marginBottom: '4rem' }} className="footer-grid">
           {/* Brand */}
-          <div>
+          <div className="footer-col">
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.5rem', textDecoration: 'none' }}>
               <div style={{ padding: '0.2rem', background: 'linear-gradient(135deg, var(--gold-light), var(--gold-dark))', borderRadius: '50%' }}>
                 <Image src="/logo.png" alt="Optimal Logo" width={48} height={48} style={{ borderRadius: '50%', background: 'white' }} />
@@ -48,7 +71,7 @@ export default function Footer() {
               </div>
             </Link>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.8, maxWidth: 380, marginBottom: '2rem' }}>
-              Expert ISO Certification Consulting in Nigeria & Qatar. We help organisations achieve compliance faster, smarter, and completely stress-free.
+              Expert ISO Certification Consulting in Nigeria &amp; Qatar. We help organisations achieve compliance faster, smarter, and completely stress-free.
             </p>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '2.5rem' }}>
@@ -81,7 +104,7 @@ export default function Footer() {
 
           {/* Link Groups */}
           {Object.entries(footerLinks).map(([group, links]) => (
-            <div key={group}>
+            <div key={group} className="footer-col">
               <h4 style={{ color: 'var(--gold-light)', fontWeight: 800, fontSize: '0.95rem', marginBottom: '1.5rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 {group}
               </h4>
@@ -100,7 +123,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div style={{
+        <div className="footer-bottom" style={{
           borderTop: '1px solid rgba(201,168,76,0.12)',
           paddingTop: '2rem',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem'

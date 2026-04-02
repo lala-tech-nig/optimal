@@ -15,8 +15,10 @@ export default function Navbar() {
   }, []);
 
   const links = [
+    { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'ISO Programs', href: '/iso-programs' },
+    { label: 'Gallery', href: '/gallery' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ];

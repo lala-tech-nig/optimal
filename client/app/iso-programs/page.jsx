@@ -4,6 +4,14 @@ import Footer from '../components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Leaf, HardHat, Lock, Coffee, Zap, ArrowRight, CheckCircle } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useRef } from 'react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const primaryIsos = [
   { 
@@ -39,8 +47,47 @@ const secondaryIsos = [
 ];
 
 export default function IsoProgramsPage() {
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    // Hero Entrance
+    const tl = gsap.timeline();
+    tl.from('.hero-badge', { y: -20, opacity: 0, duration: 0.6, ease: 'power2.out' })
+      .from('.hero-title', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+      .from('.hero-desc', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5');
+
+    // Primary ISO rows
+    gsap.utils.toArray('.iso-anim-row').forEach((row, i) => {
+      const isReverse = row.classList.contains('reverse');
+      const imgCol = row.querySelector('.img-col');
+      const textCol = row.querySelector('.text-col');
+      
+      gsap.from(imgCol, {
+        scrollTrigger: { trigger: row, start: 'top 80%' },
+        x: isReverse ? 50 : -50, opacity: 0, duration: 1, ease: 'power3.out'
+      });
+      
+      gsap.from(textCol, {
+        scrollTrigger: { trigger: row, start: 'top 80%' },
+        x: isReverse ? -50 : 50, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.2
+      });
+    });
+
+    // Secondary ISO Header
+    gsap.from('.secondary-header', {
+      scrollTrigger: { trigger: '.secondary-header', start: 'top 85%' },
+      y: 40, opacity: 0, duration: 0.8, ease: 'power3.out'
+    });
+
+    // Secondary cards Stagger
+    gsap.from('.secondary-card', {
+      scrollTrigger: { trigger: '.secondary-grid', start: 'top 85%' },
+      y: 50, opacity: 0, scale: 0.95, duration: 0.8, stagger: 0.15, ease: 'back.out(1.2)'
+    });
+  }, { scope: containerRef });
+
   return (
-    <>
+    <div ref={containerRef}>
       <Navbar />
       <main>
         {/* Hero */}
@@ -57,12 +104,12 @@ export default function IsoProgramsPage() {
             position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
             background: 'linear-gradient(to bottom, rgba(58, 10, 31, 0.7), rgba(58, 10, 31, 0.95))', zIndex: 1
           }} />
-          <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center', animation: 'fadeUp 1s ease forwards' }}>
-            <div className="badge-gold" style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)' }}>ISO Certifications</div>
-            <h1 className="font-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--white)', fontWeight: 700, marginBottom: '1rem' }}>
+          <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+            <div className="badge-gold hero-badge" style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)' }}>ISO Certifications</div>
+            <h1 className="font-display hero-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--white)', fontWeight: 700, marginBottom: '1rem' }}>
               International <span style={{ background: 'linear-gradient(135deg, var(--gold-light), var(--gold))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Standards</span>
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', maxWidth: 650, margin: '0 auto', lineHeight: 1.8 }}>
+            <p className="hero-desc" style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', maxWidth: 650, margin: '0 auto', lineHeight: 1.8 }}>
               Explore our comprehensive suite of ISO certification programs designed to elevate your operational efficiency, safety, and global market positioning.
             </p>
           </div>
@@ -72,13 +119,13 @@ export default function IsoProgramsPage() {
         <section className="section-pad" style={{ background: 'var(--white)' }}>
           <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
             {primaryIsos.map((iso, idx) => (
-              <div key={iso.code} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4rem', alignItems: 'center' }} className={`iso-row ${idx % 2 !== 0 ? 'reverse' : ''}`}>
+              <div key={iso.code} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4rem', alignItems: 'center' }} className={`iso-row iso-anim-row ${idx % 2 !== 0 ? 'reverse' : ''}`}>
                 <div style={{ order: idx % 2 !== 0 ? 2 : 1 }} className="img-col">
-                  <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', animation: 'fadeIn 1.5s ease forwards' }}>
+                  <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.1)' }}>
                     <Image src={iso.img} alt={iso.title} width={600} height={500} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
                   </div>
                 </div>
-                <div style={{ order: idx % 2 !== 0 ? 1 : 2, animation: 'fadeUp 1s ease forwards' }}>
+                <div style={{ order: idx % 2 !== 0 ? 1 : 2 }} className="text-col">
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem'
                   }}>
@@ -113,7 +160,7 @@ export default function IsoProgramsPage() {
         {/* Secondary Standards Grid */}
         <section className="section-pad" style={{ background: 'var(--grey-light)' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <div className="secondary-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
               <div className="gold-line" style={{ margin: '0 auto 1.5rem' }} />
               <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.5rem)', color: 'var(--wine-deep)', fontWeight: 700, marginBottom: '1rem' }}>
                 Additional Supported Standards
@@ -124,10 +171,9 @@ export default function IsoProgramsPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }} className="secondary-grid">
               {secondaryIsos.map((s, i) => (
-                <div key={s.code} style={{
+                <div key={s.code} className="secondary-card" style={{
                   background: 'var(--white)', borderRadius: 16, padding: '2rem',
                   border: '1px solid rgba(201,168,76,0.15)', transition: 'all 0.4s',
-                  animation: `fadeUp 0.8s ease forwards ${i * 0.15}s`
                 }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.borderColor = 'var(--gold)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.05)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; e.currentTarget.style.boxShadow = 'none'; }}
@@ -154,6 +200,6 @@ export default function IsoProgramsPage() {
           .secondary-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </>
+    </div>
   );
 }

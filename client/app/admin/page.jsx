@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { BarChart, ClipboardList, TrendingUp, Loader2, RefreshCw, LogOut, FileText, PlusCircle, Eye, ChevronLeft, ChevronRight, Mail, Phone, Factory, Target, Calendar, Tag, MessageCircle } from 'lucide-react';
+import { BarChart, ClipboardList, TrendingUp, Loader2, RefreshCw, LogOut, FileText, PlusCircle, Eye, ChevronLeft, ChevronRight, Mail, Phone, Factory, Target, Calendar, Tag, MessageCircle, ImagePlus, Upload, Trash2 } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
@@ -43,6 +43,11 @@ export default function AdminDashboard() {
   const [selectedLead, setSelectedLead] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  const [galleries, setGalleries] = useState([]);
+  const [galleryName, setGalleryName] = useState('');
+  const [galleryFiles, setGalleryFiles] = useState([]);
+  const [galleryUploading, setGalleryUploading] = useState(false);
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('optimal_token') : null;
 
@@ -50,15 +55,18 @@ export default function AdminDashboard() {
 
   const fetchData = useCallback(async () => {
     try {
-      const [leadsRes, statsRes] = await Promise.all([
+      const [leadsRes, statsRes, galleriesRes] = await Promise.all([
         fetch(`${API}/api/leads`, { headers: authHeaders }),
         fetch(`${API}/api/stats`, { headers: authHeaders }),
+        fetch(`${API}/api/gallery`)
       ]);
       if (leadsRes.status === 401) { router.push('/login'); return; }
       const leadsData = await leadsRes.json();
       const statsData = await statsRes.json();
+      const galleriesData = await galleriesRes.json();
       if (leadsData.success) setLeads(leadsData.leads);
       if (statsData.success) setStats(statsData.stats);
+      if (galleriesData.success) setGalleries(galleriesData.galleries);
     } catch { }
     setLoading(false);
   }, []);
@@ -93,9 +101,55 @@ export default function AdminDashboard() {
     return matchSearch && matchStatus;
   });
 
+  const handleGalleryUpload = async (e) => {
+    e.preventDefault();
+    if (!galleryName || galleryFiles.length === 0) return alert('Please provide a name and select images.');
+    
+    setGalleryUploading(true);
+    const formData = new FormData();
+    formData.append('name', galleryName);
+    for (let i = 0; i < galleryFiles.length; i++) {
+       formData.append('images', galleryFiles[i]);
+    }
+
+    try {
+      const res = await fetch(`${API}/api/gallery`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` }, // FormData doesn't need content-type, browser sets it with boundary
+        body: formData
+      });
+      const data = await res.json();
+      if (data.success) {
+        setGalleryName('');
+        setGalleryFiles([]);
+        fetchData(); // refresh galleries
+      } else {
+        alert(data.message || 'Upload failed');
+      }
+    } catch (err) {
+      alert('Error uploading gallery');
+    }
+    setGalleryUploading(false);
+  };
+
+  const handleDeleteGallery = async (id) => {
+    if(!confirm('Are you sure you want to delete this gallery?')) return;
+    try {
+      const res = await fetch(`${API}/api/gallery/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders
+      });
+      const data = await res.json();
+      if(data.success) {
+        setGalleries(p => p.filter(g => g._id !== id));
+      }
+    } catch(err){}
+  };
+
   const navItems = [
     { id: 'overview', icon: <BarChart size={20} />, label: 'Overview' },
     { id: 'leads', icon: <ClipboardList size={20} />, label: 'Lead Management' },
+    { id: 'gallery', icon: <ImagePlus size={20} />, label: 'Gallery Manager' },
     { id: 'analytics', icon: <TrendingUp size={20} />, label: 'Analytics' },
   ];
 
@@ -417,6 +471,93 @@ export default function AdminDashboard() {
                   })()}
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* GALLERY TAB */}
+          {activeTab === 'gallery' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              
+              {/* Upload Form */}
+              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,168,76,0.15)', borderRadius: 12, padding: '2rem' }}>
+                 <h3 style={{ color: 'var(--white)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <ImagePlus size={18} color="var(--gold)" /> Create New Gallery
+                 </h3>
+                 <form onSubmit={handleGalleryUpload} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    <div>
+                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Gallery Name</label>
+                      <input 
+                        className="form-input" 
+                        value={galleryName} onChange={e => setGalleryName(e.target.value)} 
+                        placeholder="e.g. ISO 9001 Training Seminar" 
+                        required 
+                        style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Images (Multiple selecting allowed)</label>
+                      <div style={{ 
+                        border: '1px dashed rgba(201,168,76,0.5)', borderRadius: 8, padding: '2rem', 
+                        textAlign: 'center', background: 'rgba(201,168,76,0.05)', position: 'relative'
+                      }}>
+                         <input 
+                           type="file" 
+                           multiple 
+                           accept="image/*"
+                           onChange={e => setGalleryFiles(e.target.files)}
+                           style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }}
+                         />
+                         <Upload size={32} color="var(--gold)" style={{ margin: '0 auto 1rem' }} />
+                         <p style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.9rem' }}>
+                           {galleryFiles.length > 0 ? `${galleryFiles.length} files selected` : 'Click or Drag Images Here'}
+                         </p>
+                      </div>
+                    </div>
+                    <button type="submit" disabled={galleryUploading} className="btn-gold" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem' }}>
+                      {galleryUploading ? <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> : <Upload size={18} />} 
+                      {galleryUploading ? 'Uploading to Cloudinary...' : 'Upload & Create Gallery'}
+                    </button>
+                 </form>
+              </div>
+
+              {/* Active Galleries */}
+              <div>
+                <h3 style={{ color: 'var(--white)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '1.5rem' }}>Manage Galleries</h3>
+                {galleries.length === 0 ? (
+                  <div style={{ padding: '3rem', textAlign: 'center', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.02)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.05)' }}>
+                    No galleries created yet.
+                  </div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                    {galleries.map(g => (
+                      <div key={g._id} style={{ 
+                        background: 'rgba(255,255,255,0.04)', borderRadius: 12, overflow: 'hidden',
+                        border: '1px solid rgba(201,168,76,0.1)', position: 'relative'
+                      }}>
+                        <div style={{ width: '100%', height: 180, position: 'relative', background: '#000' }}>
+                           <img src={g.coverImage} alt={g.name} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                           <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.6)', padding: '0.2rem 0.6rem', borderRadius: 50, color: 'white', fontSize: '0.7rem', fontWeight: 600 }}>
+                             {g.images?.length || 0} Images
+                           </div>
+                        </div>
+                        <div style={{ padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <div style={{ color: 'white', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.2rem' }}>{g.name}</div>
+                            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem' }}>Created: {new Date(g.createdAt).toLocaleDateString()}</div>
+                          </div>
+                          <button onClick={() => handleDeleteGallery(g._id)} style={{
+                            background: 'rgba(255,107,107,0.1)', border: 'none', width: 36, height: 36, borderRadius: '50%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ff6b6b', cursor: 'pointer', transition: 'background 0.2s'
+                          }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,107,107,0.2)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,107,107,0.1)'}>
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
             </div>
           )}
         </main>

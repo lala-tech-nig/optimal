@@ -1,4 +1,5 @@
 import './globals.css';
+import SmoothScroll from './SmoothScroll';
 
 export const metadata = {
   title: 'Optimal Management Consultancy | ISO Certification Experts in Nigeria & Qatar',
@@ -20,7 +21,11 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   );
 }

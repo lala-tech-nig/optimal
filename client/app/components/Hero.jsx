@@ -1,63 +1,78 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { Award, CheckCircle } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function Hero() {
-  const ref = useRef(null);
+  const container = useRef(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(40px)';
-    setTimeout(() => {
-      el.style.transition = 'all 0.9s ease';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }, 100);
-  }, []);
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    
+    // Animate left side content
+    tl.from('.hero-badge', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' })
+      .from('.hero-title', { y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+      .from('.hero-desc', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+      .from('.hero-btn', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'back.out(1.5)' }, '-=0.6')
+      .from('.hero-stat', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }, '-=0.4');
+
+    // Animate visual card
+    tl.from('.hero-card', { x: 50, opacity: 0, duration: 1, ease: 'power3.out' }, 0.2);
+
+    // Add parallax effect to video background
+    gsap.to('.hero-video', {
+      yPercent: 20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+  }, { scope: container });
 
   return (
-    <section style={{
+    <section ref={container} style={{
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden',
       padding: '7rem 1.5rem 4rem'
     }}>
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: 0
-        }}
-      >
-        <source src="/management.mp4" type="video/mp4" />
-      </video>
+      {/* Parallax Video Container */}
+      <div className="hero-video" style={{
+        position: 'absolute', top: '-10%', left: 0, width: '100%', height: '120%', zIndex: 0
+      }}>
+        <video
+          autoPlay loop muted playsInline
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        >
+          <source src="/management.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-      {/* Overlay */}
+      {/* Much lighter overlay to allow video visibility */}
       <div style={{
         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-        background: 'linear-gradient(135deg, rgba(58, 10, 31, 0.9) 0%, rgba(107, 29, 59, 0.8) 100%)',
+        background: 'linear-gradient(135deg, rgba(58, 10, 31, 0.45) 0%, rgba(30, 5, 15, 0.6) 100%)',
         zIndex: 1
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '4rem', alignItems: 'center' }} className="hero-grid">
           {/* Left Content */}
-          <div ref={ref}>
-            <div className="badge-gold" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem', width: 'fit-content' }}>
+          <div>
+            <div className="badge-gold hero-badge" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem', width: 'fit-content' }}>
               <Award size={16} /> ISO Certification Experts — Nigeria &amp; Qatar
             </div>
-            <h1 className="font-display" style={{
+            <h1 className="font-display hero-title" style={{
               fontSize: 'clamp(2.5rem, 5vw, 4rem)',
               color: 'var(--white)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1.5rem'
             }}>
@@ -68,19 +83,19 @@ export default function Hero() {
               }}>Faster, Smarter</span>{' '}
               &amp; Without Stress
             </h1>
-            <p style={{
-              color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', lineHeight: 1.8,
-              marginBottom: '2.5rem', maxWidth: 540
+            <p className="hero-desc" style={{
+              color: 'rgba(255,255,255,0.9)', fontSize: '1.15rem', lineHeight: 1.8,
+              marginBottom: '2.5rem', maxWidth: 540, textShadow: '0 2px 4px rgba(0,0,0,0.5)'
             }}>
               We help organizations in Nigeria &amp; Qatar achieve ISO 9001, ISO 14001, ISO 45001 and more — guaranteed structured success from gap analysis to certification.
             </p>
 
             {/* CTA Buttons */}
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/contact" className="btn-gold" style={{ textDecoration: 'none', fontSize: '1rem' }}>
+              <Link href="/contact" className="btn-gold hero-btn" style={{ textDecoration: 'none', fontSize: '1rem', boxShadow: '0 4px 15px rgba(201,168,76,0.3)' }}>
                 Book Free Consultation
               </Link>
-              <Link href="/services" className="btn-outline-gold" style={{ textDecoration: 'none', fontSize: '1rem' }}>
+              <Link href="/services" className="btn-outline-gold hero-btn" style={{ textDecoration: 'none', fontSize: '1rem', backdropFilter: 'blur(5px)' }}>
                 Explore Services
               </Link>
             </div>
@@ -92,21 +107,21 @@ export default function Hero() {
                 { num: '10+', label: 'Industries Covered' },
                 { num: '2', label: 'Countries — NG & QA' },
               ].map(s => (
-                <div key={s.label}>
-                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--gold-light)', lineHeight: 1 }}>{s.num}</div>
-                  <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.4rem', fontWeight: 500 }}>{s.label}</div>
+                <div key={s.label} className="hero-stat">
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--gold-light)', lineHeight: 1, textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>{s.num}</div>
+                  <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', marginTop: '0.4rem', fontWeight: 500 }}>{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right – Visual Card */}
-          <div style={{ display: 'flex', justifyContent: 'center', animation: 'fadeUp 1.2s ease forwards' }}>
-            <div style={{
-              background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)',
-              border: '1px solid rgba(201,168,76,0.3)', borderRadius: 20,
-              padding: '2.5rem', maxWidth: 420, width: '100%', animation: 'float 5s ease-in-out infinite',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="hero-card" style={{
+              background: 'rgba(25, 0, 10, 0.25)', backdropFilter: 'blur(24px)',
+              border: '1px solid rgba(201,168,76,0.5)', borderRadius: 20,
+              padding: '2.5rem', maxWidth: 420, width: '100%',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
             }}>
               {/* ISO Badges */}
               <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
@@ -119,7 +134,7 @@ export default function Hero() {
                   <Award size={40} />
                 </div>
                 <div style={{ color: 'var(--gold-light)', fontWeight: 700, fontSize: '1.2rem' }}>ISO Certification</div>
-                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.2rem' }}>Excellence & Compliance</div>
+                <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', marginTop: '0.2rem' }}>Excellence & Compliance</div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 {['ISO 9001', 'ISO 14001', 'ISO 45001', 'ISO 27001', 'ISO 22000', 'ISO 50001'].map(iso => (
@@ -134,11 +149,11 @@ export default function Hero() {
               </div>
               <div style={{
                 marginTop: '1.75rem', padding: '1.2rem',
-                background: 'linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05))',
-                borderRadius: 10, border: '1px solid rgba(201,168,76,0.3)', textAlign: 'center'
+                background: 'linear-gradient(135deg, rgba(201,168,76,0.3), rgba(201,168,76,0.05))',
+                borderRadius: 10, border: '1px solid rgba(201,168,76,0.4)', textAlign: 'center'
               }}>
                 <div style={{ color: 'var(--gold)', fontWeight: 700, fontSize: '0.95rem' }}>Nigeria & Qatar</div>
-                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', marginTop: '0.3rem' }}>International Consulting Experience</div>
+                <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.8rem', marginTop: '0.3rem' }}>International Consulting Experience</div>
               </div>
             </div>
           </div>
@@ -150,11 +165,10 @@ export default function Hero() {
         position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', zIndex: 2
       }}>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Scroll</div>
+        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Scroll</div>
         <div style={{
           width: 2, height: 50, borderRadius: 2,
-          background: 'linear-gradient(to bottom, var(--gold), transparent)',
-          animation: 'float 2s ease-in-out infinite'
+          background: 'linear-gradient(to bottom, var(--gold), transparent)'
         }} />
       </div>
 

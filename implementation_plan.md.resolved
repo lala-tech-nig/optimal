@@ -1,0 +1,73 @@
+# Gallery Implementation & GSAP Animation Overhaul
+
+The objective is to implement a dynamic Gallery system with Cloudinary for image hosting, redesign the Hero section, add advanced GSAP animations and smooth scrolling across the website, and update the site navigation. 
+
+## User Review Required
+
+> [!WARNING]
+> **Cloudinary Credentials Needed:** To implement the image uploading logic on the backend, you will need to add Cloudinary API keys to your `server/.env` file. Do you have an existing Cloudinary account you want to use, or should I write the code assuming you will add credentials later?
+> 
+> **GSAP & Smooth Scrolling:** We will be installing `gsap` and `@studio-freight/lenis` (for buttery smooth scrolling). This will replace the simple CSS fade-up animations currently used. Does this approach align with the "advance" effects you envisioned?
+
+## Proposed Changes
+
+### Backend (Server)
+
+#### [NEW] server/models/Gallery.js
+- Create a Mongoose schema containing the `name` of the gallery, a `coverImage` (the single image shown initially), and an array of `images` (URLs).
+
+#### [NEW] server/routes/gallery.js
+- Implement endpoints: `POST /api/gallery` for creating and uploading multiple images via `multer` and `multer-storage-cloudinary`.
+- `GET /api/gallery` to fetch galleries.
+
+#### [MODIFY] server/server.js
+- Register the new `/api/gallery` route.
+
+---
+
+### Frontend (Client Admin)
+
+#### [MODIFY] client/app/admin/page.jsx
+- Add a new "Gallery Management" tab.
+- Build a form to input a Gallery Name.
+- Build a multi-file upload input to select multiple images.
+- Handle submission to the new backend endpoint.
+
+---
+
+### Frontend (Client Public)
+
+#### [NEW] client/app/SmoothScroll.jsx
+- Setup `lenis` smooth scrolling provider to wrap the application, enabling high-end "snap scroll" and fluid scroll physics.
+
+#### [MODIFY] client/app/layout.jsx
+- Wrap the children in the `SmoothScroll` component.
+
+#### [MODIFY] client/app/components/Hero.jsx
+- Redesign the layout to make the background video the main focal point, reducing the dark overlay and perhaps utilizing GSAP to make elements slide in cleanly.
+
+#### [MODIFY] client/app/components/Navbar.jsx
+- Add "Home" and "Gallery" navigation links.
+
+#### [NEW] client/app/gallery/page.jsx
+- Create a dedicated Gallery page displaying the uploaded galleries.
+- Clicking a gallery thumbnail will launch a full-screen lightbox or expand to show all images within that gallery.
+
+#### [MODIFY] client/app/page.jsx
+- Introduce a preview `GallerySection` showcasing recent galleries.
+- Re-wire all sections (`Services`, `Testimonials`, `About`) to leverage `gsap` and `ScrollTrigger` for advanced scroll-to-follow and parallax effects.
+
+## Open Questions
+
+1. **Gallery Zoom/Lightbox:** When a user clicks the single thumbnail on the landing page, should the full images open in a popup (lightbox) over the current page, or should it navigate them to the dedicated `/gallery` page?
+2. **GSAP Animations:** Should we add "parallax" scrolling (where background elements move at different speeds than the foreground) to amplify the high-end feel?
+
+## Verification Plan
+
+### Automated Tests
+- Build client successfully to verify new GSAP dependencies aren't causing build errors.
+
+### Manual Verification
+- Test creating a Gallery via the Admin UI, confirming files upload to Cloudinary and save to MongoDB.
+- Scroll through the landing page to ensure Lenis smooth scrolling and GSAP ScrollTriggers fire precisely.
+- Click the Gallery thumbnail to verify the expanded image view loads correctly.

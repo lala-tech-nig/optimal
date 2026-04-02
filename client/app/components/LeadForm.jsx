@@ -1,6 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CheckCircle, Clock, Save, PartyPopper, CheckSquare } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const inquiryOptions = [
   'ISO 9001 – Quality Management',
@@ -16,8 +23,38 @@ const inquiryOptions = [
 ];
 
 export default function LeadForm() {
+  const sectionRef = useRef(null);
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', industry: '', inquiryType: '', message: '' });
   const [status, setStatus] = useState(null); // null | 'loading' | 'success' | 'error'
+
+  useGSAP(() => {
+    // Pitch side slides in from left
+    gsap.from('.leadform-pitch', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+      x: -60, opacity: 0, duration: 1.2, ease: 'power3.out'
+    });
+    // Checklist items stagger
+    gsap.from('.leadform-check', {
+      scrollTrigger: { trigger: '.leadform-pitch', start: 'top 80%' },
+      x: -30, opacity: 0, duration: 0.6, stagger: 0.12, delay: 0.4, ease: 'power2.out'
+    });
+    // Form card slides in from right
+    gsap.from('.leadform-card', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+      x: 60, opacity: 0, duration: 1.2, ease: 'power3.out'
+    });
+    // Parallax video layer
+    gsap.to('.leadform-video', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  }, { scope: sectionRef });
 
   const handleChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
@@ -41,14 +78,16 @@ export default function LeadForm() {
   };
 
   return (
-    <section id="consultation" style={{ position: 'relative', overflow: 'hidden', padding: '6rem 1.5rem' }}>
+    <section ref={sectionRef} id="consultation" style={{ position: 'relative', overflow: 'hidden', padding: '6rem 1.5rem' }}>
       
-      {/* Background Video with heavy overlay to match the premium dark theme */}
-      <video autoPlay loop muted playsInline style={{
-        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0, opacity: 0.8
-      }}>
-        <source src="/management.mp4" type="video/mp4" />
-      </video>
+      {/* Parallax Video */}
+      <div className="leadform-video" style={{ position: 'absolute', top: '-10%', left: 0, width: '100%', height: '120%', zIndex: 0 }}>
+        <video autoPlay loop muted playsInline style={{
+          width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8
+        }}>
+          <source src="/management.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
         background: 'linear-gradient(135deg, rgba(58, 10, 31, 0.9) 0%, rgba(107, 29, 59, 0.95) 100%)'
@@ -62,7 +101,7 @@ export default function LeadForm() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }} className="form-grid">
 
           {/* Left — Pitch */}
-          <div style={{ animation: 'fadeUp 1s ease forwards' }}>
+          <div className="leadform-pitch">
             <div className="badge-gold" style={{ marginBottom: '1.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem', width: 'fit-content', background: 'rgba(201,168,76,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(201,168,76,0.3)', color: 'var(--gold-light)' }}>
               <CheckCircle size={16} /> Free ISO Readiness Assessment
             </div>
@@ -79,7 +118,7 @@ export default function LeadForm() {
                 { text: 'Get a clear, custom implementation roadmap' },
                 { text: 'Receive your Free ISO Readiness Checklist' },
               ].map((i, idx) => (
-                <div key={idx} style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', animation: `fadeUp 0.8s ease forwards ${0.2 + (idx * 0.15)}s` }}>
+                <div key={idx} className="leadform-check" style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start' }}>
                   <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(201,168,76,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--gold)' }}>
                     <CheckSquare size={14} />
                   </div>
@@ -106,7 +145,7 @@ export default function LeadForm() {
           </div>
 
           {/* Right — Form */}
-          <div style={{
+          <div className="leadform-card" style={{
             background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(30px)',
             border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '3rem 2.5rem',
             boxShadow: '0 20px 50px rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden',

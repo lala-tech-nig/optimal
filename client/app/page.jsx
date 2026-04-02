@@ -2,6 +2,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ClientLogos from './components/ClientLogos';
 import Services from './components/Services';
+import GallerySection from './components/GallerySection';
 import Testimonials from './components/Testimonials';
 import LeadForm from './components/LeadForm';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ export default function HomePage() {
         <Hero />
         <ClientLogos />
         <Services />
+        <GallerySection />
         <Testimonials />
         <LeadForm />
       </main>

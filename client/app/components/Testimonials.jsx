@@ -1,5 +1,13 @@
 'use client';
+import { useRef } from 'react';
 import { Star, Quote } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const testimonials = [
   {
@@ -40,28 +48,64 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    // Header fade-up
+    gsap.from('.testim-header', {
+      scrollTrigger: { trigger: '.testim-header', start: 'top 85%' },
+      y: 50, opacity: 0, duration: 1, ease: 'power3.out'
+    });
+
+    // Cards stagger with scale effect
+    gsap.from('.testim-card', {
+      scrollTrigger: { trigger: '.testim-grid', start: 'top 80%' },
+      y: 70, opacity: 0, scale: 0.95, duration: 0.9, stagger: 0.15, ease: 'power3.out'
+    });
+
+    // Parallax on background blobs
+    gsap.to('.testim-blob-1', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
+      y: -100, x: 40, ease: 'none'
+    });
+    gsap.to('.testim-blob-2', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.2 },
+      y: -60, x: -30, ease: 'none'
+    });
+
+    // Subtle continuous float on the grid dots
+    gsap.to('.testim-dots', {
+      backgroundPositionX: '80px',
+      duration: 20,
+      ease: 'none',
+      repeat: -1
+    });
+
+  }, { scope: sectionRef });
+
   return (
-    <section id="testimonials" className="section-pad" style={{
+    <section ref={sectionRef} id="testimonials" className="section-pad" style={{
       background: 'linear-gradient(160deg, var(--wine-deep), var(--wine-dark))', position: 'relative', overflow: 'hidden'
     }}>
-      {/* Premium Background Elements */}
-      <div style={{
+      {/* Animated dot grid overlay */}
+      <div className="testim-dots" style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(201,168,76,0.06) 1px, transparent 0)',
         backgroundSize: '40px 40px', pointerEvents: 'none'
       }} />
-      <div style={{
+      {/* Parallax blobs */}
+      <div className="testim-blob-1" style={{
         position: 'absolute', top: '-10%', left: '-10%', width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 60%)', pointerEvents: 'none'
+        background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 60%)', pointerEvents: 'none'
       }} />
-      <div style={{
+      <div className="testim-blob-2" style={{
         position: 'absolute', bottom: '-15%', right: '-15%', width: 600, height: 600, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 60%)', pointerEvents: 'none'
+        background: 'radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 60%)', pointerEvents: 'none'
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '5rem', animation: 'fadeIn 1s ease forwards' }}>
+        <div className="testim-header" style={{ textAlign: 'center', marginBottom: '5rem' }}>
           <div className="gold-line" style={{ margin: '0 auto 1.25rem' }} />
           <div className="badge-gold" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.25)', color: 'var(--gold-light)', marginBottom: '1.25rem' }}>
             Client Success Stories
@@ -75,16 +119,15 @@ export default function Testimonials() {
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '2rem' }} className="testimonials-grid">
+        <div className="testim-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '2rem' }}>
           {testimonials.map((t, i) => (
             <div key={i} className="testim-card" style={{
               background: 'rgba(255,255,255,0.03)', borderRadius: 20, padding: '2.5rem 2rem',
               border: '1px solid rgba(201,168,76,0.15)', backdropFilter: 'blur(12px)',
               position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column',
               boxShadow: '0 8px 32px rgba(0,0,0,0.2)', transition: 'all 0.4s',
-              animation: `fadeUp 0.8s ease forwards ${i * 0.15}s`
             }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; e.currentTarget.style.boxShadow = '0 15px 40px rgba(0,0,0,0.4)'; }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.2)'; }}
             >
               {/* Background Quote Icon */}
@@ -100,7 +143,7 @@ export default function Testimonials() {
                 
                 {/* Quote Text */}
                 <p style={{ color: 'rgba(255,255,255,0.85)', lineHeight: 1.8, fontSize: '0.95rem', marginBottom: '2rem', fontStyle: 'italic', flex: 1 }}>
-                  "{t.quote}"
+                  &ldquo;{t.quote}&rdquo;
                 </p>
                 
                 {/* Author Info */}
@@ -124,8 +167,8 @@ export default function Testimonials() {
         </div>
       </div>
       <style>{`
-        @media(max-width:1024px){ .testimonials-grid{grid-template-columns:repeat(2,1fr)!important} }
-        @media(max-width:640px){ .testimonials-grid{grid-template-columns:1fr!important} }
+        @media(max-width:1024px){ .testim-grid{grid-template-columns:repeat(2,1fr)!important} }
+        @media(max-width:640px){ .testim-grid{grid-template-columns:1fr!important} }
       `}</style>
     </section>
   );

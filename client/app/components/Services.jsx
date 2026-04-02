@@ -1,6 +1,14 @@
 'use client';
-import { ShieldCheck, Leaf, HardHat, Lock, Coffee, Zap, BarChart, FileText, Settings, Search, GraduationCap, Award, CheckCircle } from 'lucide-react';
+import { useRef } from 'react';
+import { ShieldCheck, Leaf, HardHat, Lock, Coffee, Zap, BarChart, FileText, Settings, Search, GraduationCap, Award } from 'lucide-react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const isoServices = [
   { code: 'ISO 9001', title: 'Quality Management', icon: <ShieldCheck size={28} />, desc: 'Build a robust quality management system that drives customer satisfaction and operational excellence.' },
@@ -21,28 +29,60 @@ const supportServices = [
 ];
 
 export default function Services() {
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    // Section header reveal
+    gsap.from('.services-header', {
+      scrollTrigger: { trigger: '.services-header', start: 'top 85%' },
+      y: 50, opacity: 0, duration: 1, ease: 'power3.out'
+    });
+
+    // ISO cards stagger
+    gsap.from('.iso-card', {
+      scrollTrigger: { trigger: '.iso-cards-grid', start: 'top 80%' },
+      y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+    });
+
+    // Support cards stagger from a different angle
+    gsap.from('.support-card', {
+      scrollTrigger: { trigger: '.support-cards-grid', start: 'top 80%' },
+      x: -40, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power2.out'
+    });
+
+    // Section header parallax decorative blobs
+    gsap.to('.services-blob-1', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1 },
+      y: -80, ease: 'none'
+    });
+    gsap.to('.services-blob-2', {
+      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+      y: -120, ease: 'none'
+    });
+  }, { scope: sectionRef });
+
   return (
-    <section id="services" className="section-pad" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--grey-light) 100%)', position: 'relative' }}>
+    <section ref={sectionRef} id="services" className="section-pad" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--grey-light) 100%)', position: 'relative', overflow: 'hidden' }}>
       
-      {/* Background elements */}
-      <div style={{
+      {/* Parallax Background blobs */}
+      <div className="services-blob-1" style={{
         position: 'absolute', top: '10%', right: '-5%', width: 400, height: 400, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%)', pointerEvents: 'none'
+        background: 'radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%)', pointerEvents: 'none'
       }} />
-      <div style={{
+      <div className="services-blob-2" style={{
         position: 'absolute', bottom: '10%', left: '-5%', width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(107,29,59,0.03) 0%, transparent 70%)', pointerEvents: 'none'
+        background: 'radial-gradient(circle, rgba(107,29,59,0.05) 0%, transparent 70%)', pointerEvents: 'none'
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '5rem', animation: 'fadeUp 1s ease forwards' }}>
+        <div className="services-header" style={{ textAlign: 'center', marginBottom: '5rem' }}>
           <div className="gold-line" style={{ margin: '0 auto 1.25rem' }} />
           <div className="badge-gold" style={{ background: 'rgba(107,29,59,0.06)', border: '1px solid rgba(107,29,59,0.15)', color: 'var(--wine)', marginBottom: '1.25rem' }}>
             Our Services
           </div>
           <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--wine-deep)', fontWeight: 800, marginBottom: '1.25rem' }}>
-            ISO Certification & Consulting
+            ISO Certification &amp; Consulting
           </h2>
           <p style={{ color: 'var(--grey-mid)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8, fontSize: '1.05rem' }}>
             We provide end-to-end consulting services that guarantee your organisation achieves certification — practically, not theoretically.
@@ -59,14 +99,13 @@ export default function Services() {
           </h3>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem', marginBottom: '5rem' }} className="services-grid">
+        <div className="iso-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem', marginBottom: '5rem' }}>
           {isoServices.map((s, i) => (
-            <div key={s.code} style={{
+            <div key={s.code} className="iso-card" style={{
               background: 'var(--white)', borderRadius: 16, padding: '2rem',
               border: '1px solid rgba(201,168,76,0.15)', transition: 'all 0.4s',
               boxShadow: '0 4px 20px rgba(0,0,0,0.03)', position: 'relative', overflow: 'hidden',
-              animation: `fadeUp 0.8s ease forwards ${i * 0.1}s`
-            }} className="service-card"
+            }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 20px 40px rgba(107,29,59,0.08)'; e.currentTarget.style.borderColor = 'var(--gold)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; }}
             >
@@ -105,18 +144,17 @@ export default function Services() {
             <Settings size={20} />
           </div>
           <h3 style={{ color: 'var(--wine-deep)', fontWeight: 800, fontSize: '1.4rem' }}>
-            Implementation & Support
+            Implementation &amp; Support
           </h3>
         </div>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem' }} className="services-grid">
+        <div className="support-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem' }}>
           {supportServices.map((s, i) => (
-            <div key={s.title} style={{
+            <div key={s.title} className="support-card" style={{
               background: 'var(--white)', borderRadius: 14, padding: '1.75rem',
               border: '1px solid rgba(107,29,59,0.08)', transition: 'all 0.3s',
               display: 'flex', gap: '1.25rem', alignItems: 'flex-start',
               boxShadow: '0 4px 15px rgba(0,0,0,0.02)',
-              animation: `fadeUp 0.8s ease forwards ${i * 0.1}s`
             }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--gold-light)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(107,29,59,0.06)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(107,29,59,0.08)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.02)'; }}
@@ -143,8 +181,8 @@ export default function Services() {
 
       </div>
       <style>{`
-        @media(max-width:1024px){ .services-grid{grid-template-columns:repeat(2,1fr)!important} }
-        @media(max-width:640px){ .services-grid{grid-template-columns:1fr!important} }
+        @media(max-width:1024px){ .iso-cards-grid,.support-cards-grid{grid-template-columns:repeat(2,1fr)!important} }
+        @media(max-width:640px){ .iso-cards-grid,.support-cards-grid{grid-template-columns:1fr!important} }
       `}</style>
     </section>
   );
