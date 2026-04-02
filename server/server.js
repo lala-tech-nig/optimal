@@ -28,7 +28,7 @@ const connectDB = async () => {
     const adminExists = await Admin.findOne();
     if (!adminExists) {
       const defaultAdmin = new Admin({
-        email: 'admin@optimal.com',
+        email: 'admin@optimalconsult.com.ng',
         password: 'password123',
         name: 'Optimal Admin'
       });

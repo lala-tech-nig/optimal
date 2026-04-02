@@ -52,9 +52,9 @@ export default function ClientLogos() {
         {/* Row 1 - Moving Left */}
         <div className="logos-track" style={{ display: 'flex', width: '300%', animation: 'marquee-left 40s linear infinite' }}>
           {marquee1.map((src, i) => (
-            <div key={i} style={{ padding: '0 2rem', filter: 'grayscale(100%) opacity(0.7)', transition: 'all 0.3s', flex: '0 0 auto', width: '250px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            <div key={i} style={{ padding: '0 2rem', filter: 'grayscale(0%)', transition: 'all 0.3s', flex: '0 0 auto', width: '250px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onMouseEnter={(e) => { e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(100%) opacity(0.7)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(0%) opacity(0.7)'; }}
             >
               <Image src={src} alt={`Client ${i}`} width={180} height={70} style={{ objectFit: 'contain' }} />
             </div>
@@ -64,9 +64,9 @@ export default function ClientLogos() {
         {/* Row 2 - Moving Right */}
         <div className="logos-track" style={{ display: 'flex', width: '300%', animation: 'marquee-right 40s linear infinite', marginLeft: '-150%' }}>
           {marquee2.map((src, i) => (
-            <div key={i} style={{ padding: '0 2rem', filter: 'grayscale(100%) opacity(0.7)', transition: 'all 0.3s', flex: '0 0 auto', width: '250px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            <div key={i} style={{ padding: '0 2rem', filter: 'grayscale(0%)', transition: 'all 0.3s', flex: '0 0 auto', width: '250px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onMouseEnter={(e) => { e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(100%) opacity(0.7)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(0%) opacity(0.7)'; }}
             >
               <Image src={src} alt={`Client ${i}`} width={180} height={70} style={{ objectFit: 'contain' }} />
             </div>

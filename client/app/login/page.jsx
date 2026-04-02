@@ -110,9 +110,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem', marginTop: '2rem' }}>
-          Default: admin@optimal.com / password123
-        </p>
+
 
         <a href="/" style={{
           display: 'block', textAlign: 'center', marginTop: '1.5rem',
