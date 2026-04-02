@@ -1,9 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { Loader2, X, Maximize2, Image as ImageIcon } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
@@ -24,21 +21,6 @@ export default function GallerySection({ limit }) {
       .catch(() => setLoading(false));
   }, []);
 
-  useGSAP(() => {
-    if (loading || galleries.length === 0) return;
-    
-    gsap.from('.gallery-card', {
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-      },
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out'
-    });
-  }, [loading, galleries]);
 
   // Prevent background scroll when lightbox open
   useEffect(() => {

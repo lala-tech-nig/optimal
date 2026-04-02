@@ -4,14 +4,6 @@ import Footer from '../components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Leaf, HardHat, Lock, Coffee, Zap, ArrowRight, CheckCircle } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useRef } from 'react';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const primaryIsos = [
   { 
@@ -47,47 +39,8 @@ const secondaryIsos = [
 ];
 
 export default function IsoProgramsPage() {
-  const containerRef = useRef(null);
-
-  useGSAP(() => {
-    // Hero Entrance
-    const tl = gsap.timeline();
-    tl.from('.hero-badge', { y: -20, opacity: 0, duration: 0.6, ease: 'power2.out' })
-      .from('.hero-title', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-      .from('.hero-desc', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5');
-
-    // Primary ISO rows
-    gsap.utils.toArray('.iso-anim-row').forEach((row, i) => {
-      const isReverse = row.classList.contains('reverse');
-      const imgCol = row.querySelector('.img-col');
-      const textCol = row.querySelector('.text-col');
-      
-      gsap.from(imgCol, {
-        scrollTrigger: { trigger: row, start: 'top 80%' },
-        x: isReverse ? 50 : -50, opacity: 0, duration: 1, ease: 'power3.out'
-      });
-      
-      gsap.from(textCol, {
-        scrollTrigger: { trigger: row, start: 'top 80%' },
-        x: isReverse ? -50 : 50, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.2
-      });
-    });
-
-    // Secondary ISO Header
-    gsap.from('.secondary-header', {
-      scrollTrigger: { trigger: '.secondary-header', start: 'top 85%' },
-      y: 40, opacity: 0, duration: 0.8, ease: 'power3.out'
-    });
-
-    // Secondary cards Stagger
-    gsap.from('.secondary-card', {
-      scrollTrigger: { trigger: '.secondary-grid', start: 'top 85%' },
-      y: 50, opacity: 0, scale: 0.95, duration: 0.8, stagger: 0.15, ease: 'back.out(1.2)'
-    });
-  }, { scope: containerRef });
-
   return (
-    <div ref={containerRef}>
+    <div>
       <Navbar />
       <main>
         {/* Hero */}

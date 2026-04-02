@@ -1,47 +1,10 @@
 'use client';
-import { useRef } from 'react';
 import Link from 'next/link';
 import { Award, CheckCircle } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 export default function Hero() {
-  const container = useRef(null);
-
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    
-    // Animate left side content
-    tl.from('.hero-badge', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' })
-      .from('.hero-title', { y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
-      .from('.hero-desc', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-      .from('.hero-btn', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'back.out(1.5)' }, '-=0.6')
-      .from('.hero-stat', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }, '-=0.4');
-
-    // Animate visual card
-    tl.from('.hero-card', { x: 50, opacity: 0, duration: 1, ease: 'power3.out' }, 0.2);
-
-    // Add parallax effect to video background
-    gsap.to('.hero-video', {
-      yPercent: 20,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-
-  }, { scope: container });
-
   return (
-    <section ref={container} style={{
+    <section style={{
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden',
       padding: '7rem 1.5rem 4rem'

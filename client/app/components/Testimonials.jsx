@@ -1,13 +1,5 @@
 'use client';
-import { useRef } from 'react';
 import { Star, Quote } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const testimonials = [
   {
@@ -48,43 +40,8 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  const sectionRef = useRef(null);
-
-  useGSAP(() => {
-    // Header fade-up
-    gsap.from('.testim-header', {
-      scrollTrigger: { trigger: '.testim-header', start: 'top 85%' },
-      y: 50, opacity: 0, duration: 1, ease: 'power3.out'
-    });
-
-    // Cards stagger with scale effect
-    gsap.from('.testim-card', {
-      scrollTrigger: { trigger: '.testim-grid', start: 'top 80%' },
-      y: 70, opacity: 0, scale: 0.95, duration: 0.9, stagger: 0.15, ease: 'power3.out'
-    });
-
-    // Parallax on background blobs
-    gsap.to('.testim-blob-1', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
-      y: -100, x: 40, ease: 'none'
-    });
-    gsap.to('.testim-blob-2', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.2 },
-      y: -60, x: -30, ease: 'none'
-    });
-
-    // Subtle continuous float on the grid dots
-    gsap.to('.testim-dots', {
-      backgroundPositionX: '80px',
-      duration: 20,
-      ease: 'none',
-      repeat: -1
-    });
-
-  }, { scope: sectionRef });
-
   return (
-    <section ref={sectionRef} id="testimonials" className="section-pad" style={{
+    <section id="testimonials" className="section-pad" style={{
       background: 'linear-gradient(160deg, var(--wine-deep), var(--wine-dark))', position: 'relative', overflow: 'hidden'
     }}>
       {/* Animated dot grid overlay */}

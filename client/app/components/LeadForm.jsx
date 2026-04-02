@@ -1,13 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
 import { CheckCircle, Clock, Save, PartyPopper, CheckSquare } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const inquiryOptions = [
   'ISO 9001 – Quality Management',
@@ -27,34 +20,6 @@ export default function LeadForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', industry: '', inquiryType: '', message: '' });
   const [status, setStatus] = useState(null); // null | 'loading' | 'success' | 'error'
 
-  useGSAP(() => {
-    // Pitch side slides in from left
-    gsap.from('.leadform-pitch', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      x: -60, opacity: 0, duration: 1.2, ease: 'power3.out'
-    });
-    // Checklist items stagger
-    gsap.from('.leadform-check', {
-      scrollTrigger: { trigger: '.leadform-pitch', start: 'top 80%' },
-      x: -30, opacity: 0, duration: 0.6, stagger: 0.12, delay: 0.4, ease: 'power2.out'
-    });
-    // Form card slides in from right
-    gsap.from('.leadform-card', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      x: 60, opacity: 0, duration: 1.2, ease: 'power3.out'
-    });
-    // Parallax video layer
-    gsap.to('.leadform-video', {
-      yPercent: 15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-  }, { scope: sectionRef });
 
   const handleChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 

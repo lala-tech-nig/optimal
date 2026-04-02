@@ -1,15 +1,7 @@
 'use client';
-import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Linkedin, Twitter, Facebook, Mail, Phone, MapPin } from 'lucide-react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const footerLinks = {
   Services: [
@@ -33,23 +25,8 @@ const socials = [
 ];
 
 export default function Footer() {
-  const footerRef = useRef(null);
-
-  useGSAP(() => {
-    // Stagger footer columns
-    gsap.from('.footer-col', {
-      scrollTrigger: { trigger: footerRef.current, start: 'top 90%' },
-      y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
-    });
-    // Bottom bar fade in
-    gsap.from('.footer-bottom', {
-      scrollTrigger: { trigger: footerRef.current, start: 'top 85%' },
-      opacity: 0, duration: 1, delay: 0.4, ease: 'power2.out'
-    });
-  }, { scope: footerRef });
-
   return (
-    <footer ref={footerRef} style={{ background: 'linear-gradient(180deg, var(--wine-dark) 0%, var(--wine-deep) 100%)', borderTop: '1px solid rgba(201,168,76,0.15)', position: 'relative', overflow: 'hidden' }}>
+    <footer style={{ background: 'linear-gradient(180deg, var(--wine-dark) 0%, var(--wine-deep) 100%)', borderTop: '1px solid rgba(201,168,76,0.15)', position: 'relative', overflow: 'hidden' }}>
       
       {/* Background premium glow */}
       <div style={{

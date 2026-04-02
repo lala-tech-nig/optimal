@@ -1,14 +1,6 @@
 'use client';
-import { useRef } from 'react';
 import { ShieldCheck, Leaf, HardHat, Lock, Coffee, Zap, BarChart, FileText, Settings, Search, GraduationCap, Award } from 'lucide-react';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 const isoServices = [
   { code: 'ISO 9001', title: 'Quality Management', icon: <ShieldCheck size={28} />, desc: 'Build a robust quality management system that drives customer satisfaction and operational excellence.' },
@@ -29,40 +21,8 @@ const supportServices = [
 ];
 
 export default function Services() {
-  const sectionRef = useRef(null);
-
-  useGSAP(() => {
-    // Section header reveal
-    gsap.from('.services-header', {
-      scrollTrigger: { trigger: '.services-header', start: 'top 85%' },
-      y: 50, opacity: 0, duration: 1, ease: 'power3.out'
-    });
-
-    // ISO cards stagger
-    gsap.from('.iso-card', {
-      scrollTrigger: { trigger: '.iso-cards-grid', start: 'top 80%' },
-      y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out'
-    });
-
-    // Support cards stagger from a different angle
-    gsap.from('.support-card', {
-      scrollTrigger: { trigger: '.support-cards-grid', start: 'top 80%' },
-      x: -40, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power2.out'
-    });
-
-    // Section header parallax decorative blobs
-    gsap.to('.services-blob-1', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1 },
-      y: -80, ease: 'none'
-    });
-    gsap.to('.services-blob-2', {
-      scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.5 },
-      y: -120, ease: 'none'
-    });
-  }, { scope: sectionRef });
-
   return (
-    <section ref={sectionRef} id="services" className="section-pad" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--grey-light) 100%)', position: 'relative', overflow: 'hidden' }}>
+    <section id="services" className="section-pad" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--grey-light) 100%)', position: 'relative', overflow: 'hidden' }}>
       
       {/* Parallax Background blobs */}
       <div className="services-blob-1" style={{
