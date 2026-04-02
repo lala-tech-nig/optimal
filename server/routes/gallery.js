@@ -26,7 +26,7 @@ const upload = multer({ storage: storage });
 // POST upload gallery (Admin Only)
 router.post('/', authMiddleware, upload.array('images', 20), async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, description } = req.body;
     
     if (!name) return res.status(400).json({ success: false, message: 'Gallery name is required' });
     if (!req.files || req.files.length === 0) return res.status(400).json({ success: false, message: 'At least one image is required' });
@@ -39,6 +39,7 @@ router.post('/', authMiddleware, upload.array('images', 20), async (req, res) =>
 
     const gallery = new Gallery({
       name,
+      description: description || '',
       coverImage,
       images: imageUrls
     });

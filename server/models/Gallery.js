@@ -6,6 +6,11 @@ const gallerySchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  description: {
+    type: String,
+    default: '',
+    trim: true
+  },
   coverImage: {
     type: String,
     required: true,

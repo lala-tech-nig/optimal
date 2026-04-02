@@ -46,7 +46,9 @@ export default function AdminDashboard() {
   
   const [galleries, setGalleries] = useState([]);
   const [galleryName, setGalleryName] = useState('');
+  const [galleryDescription, setGalleryDescription] = useState('');
   const [galleryFiles, setGalleryFiles] = useState([]);
+  const [galleryPreviews, setGalleryPreviews] = useState([]);
   const [galleryUploading, setGalleryUploading] = useState(false);
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('optimal_token') : null;
@@ -101,6 +103,14 @@ export default function AdminDashboard() {
     return matchSearch && matchStatus;
   });
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    // Revoke old previews
+    galleryPreviews.forEach(url => URL.revokeObjectURL(url));
+    setGalleryFiles(files);
+    setGalleryPreviews(files.map(f => URL.createObjectURL(f)));
+  };
+
   const handleGalleryUpload = async (e) => {
     e.preventDefault();
     if (!galleryName || galleryFiles.length === 0) return alert('Please provide a name and select images.');
@@ -108,21 +118,24 @@ export default function AdminDashboard() {
     setGalleryUploading(true);
     const formData = new FormData();
     formData.append('name', galleryName);
-    for (let i = 0; i < galleryFiles.length; i++) {
-       formData.append('images', galleryFiles[i]);
-    }
+    formData.append('description', galleryDescription);
+    galleryFiles.forEach(file => formData.append('images', file));
 
     try {
       const res = await fetch(`${API}/api/gallery`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` }, // FormData doesn't need content-type, browser sets it with boundary
+        headers: { Authorization: `Bearer ${token}` },
         body: formData
       });
       const data = await res.json();
       if (data.success) {
+        // Clean up
+        galleryPreviews.forEach(url => URL.revokeObjectURL(url));
         setGalleryName('');
+        setGalleryDescription('');
         setGalleryFiles([]);
-        fetchData(); // refresh galleries
+        setGalleryPreviews([]);
+        fetchData();
       } else {
         alert(data.message || 'Upload failed');
       }
@@ -485,7 +498,7 @@ export default function AdminDashboard() {
                  </h3>
                  <form onSubmit={handleGalleryUpload} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div>
-                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Gallery Name</label>
+                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Gallery Name *</label>
                       <input 
                         className="form-input" 
                         value={galleryName} onChange={e => setGalleryName(e.target.value)} 
@@ -495,7 +508,18 @@ export default function AdminDashboard() {
                       />
                     </div>
                     <div>
-                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Images (Multiple selecting allowed)</label>
+                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Description / Narration</label>
+                      <textarea
+                        className="form-input"
+                        value={galleryDescription}
+                        onChange={e => setGalleryDescription(e.target.value)}
+                        placeholder="Describe this gallery collection — what event, location, date, achievements..."
+                        rows={3}
+                        style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', resize: 'vertical', paddingTop: '0.75rem' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'block', marginBottom: '0.5rem' }}>Images (multiple selection allowed)</label>
                       <div style={{ 
                         border: '1px dashed rgba(201,168,76,0.5)', borderRadius: 8, padding: '2rem', 
                         textAlign: 'center', background: 'rgba(201,168,76,0.05)', position: 'relative'
@@ -504,14 +528,28 @@ export default function AdminDashboard() {
                            type="file" 
                            multiple 
                            accept="image/*"
-                           onChange={e => setGalleryFiles(e.target.files)}
-                           style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }}
+                           onChange={handleFileChange}
+                           style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }}
                          />
                          <Upload size={32} color="var(--gold)" style={{ margin: '0 auto 1rem' }} />
                          <p style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.9rem' }}>
-                           {galleryFiles.length > 0 ? `${galleryFiles.length} files selected` : 'Click or Drag Images Here'}
+                           {galleryFiles.length > 0 ? `${galleryFiles.length} file${galleryFiles.length > 1 ? 's' : ''} selected` : 'Click or Drag Images Here'}
                          </p>
+                         <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', marginTop: '0.25rem' }}>JPG, PNG, WEBP up to 20 images</p>
                       </div>
+                      {/* Image Previews */}
+                      {galleryPreviews.length > 0 && (
+                        <div style={{ marginTop: '1rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))', gap: '0.6rem' }}>
+                          {galleryPreviews.map((src, i) => (
+                            <div key={i} style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', aspectRatio: '1', border: '1px solid rgba(201,168,76,0.2)' }}>
+                              <img src={src} alt={`preview-${i}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              {i === 0 && (
+                                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(201,168,76,0.85)', fontSize: '0.6rem', textAlign: 'center', color: '#000', fontWeight: 700, padding: '0.15rem' }}>COVER</div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <button type="submit" disabled={galleryUploading} className="btn-gold" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem' }}>
                       {galleryUploading ? <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> : <Upload size={18} />} 
