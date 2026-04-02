@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CheckCircle, Clock, Save, PartyPopper } from 'lucide-react';
+import { CheckCircle, Clock, Save, PartyPopper, CheckSquare } from 'lucide-react';
 
 const inquiryOptions = [
   'ISO 9001 – Quality Management',
@@ -41,114 +41,146 @@ export default function LeadForm() {
   };
 
   return (
-    <section id="consultation" style={{
-      background: 'linear-gradient(135deg, var(--wine-deep) 0%, var(--wine) 100%)',
-      padding: '5rem 1.5rem', position: 'relative', overflow: 'hidden'
-    }}>
+    <section id="consultation" style={{ position: 'relative', overflow: 'hidden', padding: '6rem 1.5rem' }}>
+      
+      {/* Background Video with heavy overlay to match the premium dark theme */}
+      <video autoPlay loop muted playsInline style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0, opacity: 0.8
+      }}>
+        <source src="/management.mp4" type="video/mp4" />
+      </video>
       <div style={{
-        position: 'absolute', top: '-20%', right: '-10%', width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%)', pointerEvents: 'none'
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(135deg, rgba(58, 10, 31, 0.9) 0%, rgba(107, 29, 59, 0.95) 100%)'
       }} />
+      <div style={{
+        position: 'absolute', top: 0, right: 0, width: '50vw', height: '100%', pointerEvents: 'none', zIndex: 1,
+        background: 'radial-gradient(circle at center, rgba(201,168,76,0.1) 0%, transparent 70%)'
+      }} />
+
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }} className="form-grid">
 
           {/* Left — Pitch */}
-          <div>
-            <div className="badge-gold" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem', width: 'fit-content' }}><CheckCircle size={16} /> Free ISO Readiness Assessment</div>
-            <h2 className="font-display" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', color: 'var(--white)', fontWeight: 700, lineHeight: 1.2, marginBottom: '1.5rem' }}>
+          <div style={{ animation: 'fadeUp 1s ease forwards' }}>
+            <div className="badge-gold" style={{ marginBottom: '1.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem', width: 'fit-content', background: 'rgba(201,168,76,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(201,168,76,0.3)', color: 'var(--gold-light)' }}>
+              <CheckCircle size={16} /> Free ISO Readiness Assessment
+            </div>
+            <h2 className="font-display" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: 'var(--white)', fontWeight: 800, lineHeight: 1.15, marginBottom: '1.5rem' }}>
               Book Your Free 30-Minute Consultation
             </h2>
-            <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '2rem' }}>
+            <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '2.5rem', fontSize: '1.05rem', maxWidth: 500 }}>
               In just 30 minutes, our experts will give you a clear picture of where you stand, what's needed, and a realistic timeline to get your ISO certification — at no cost.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {[
                 { text: 'Understand your current ISO readiness level' },
-                { text: 'Identify the gaps holding you back' },
-                { text: 'Get a clear implementation roadmap' },
+                { text: 'Identify the exact gaps holding you back' },
+                { text: 'Get a clear, custom implementation roadmap' },
                 { text: 'Receive your Free ISO Readiness Checklist' },
-              ].map(i => (
-                <div key={i.text} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <span style={{ color: 'var(--gold-light)', fontSize: '1rem', flexShrink: 0 }}><CheckCircle size={18} /></span>
-                  <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.95rem' }}>{i.text}</span>
+              ].map((i, idx) => (
+                <div key={idx} style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', animation: `fadeUp 0.8s ease forwards ${0.2 + (idx * 0.15)}s` }}>
+                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(201,168,76,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--gold)' }}>
+                    <CheckSquare size={14} />
+                  </div>
+                  <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.98rem', paddingTop: '0.1rem' }}>{i.text}</span>
                 </div>
               ))}
             </div>
+            
             <div style={{
-              marginTop: '2.5rem', padding: '1.25rem 1.5rem',
-              background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)',
-              borderRadius: 8
+              marginTop: '3rem', padding: '1.5rem',
+              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(201,168,76,0.15)',
+              borderRadius: 12, backdropFilter: 'blur(10px)', display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center'
             }}>
-              <div style={{ color: 'var(--gold-light)', fontWeight: 700, marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Clock size={16} /> Limited Monthly Slots</div>
-              <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
-                We only take a limited number of new clients each month to ensure quality delivery. Secure your slot today.
+              <div style={{ width: 44, height: 44, background: 'rgba(201,168,76,0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold-light)' }}>
+                <Clock size={20} />
+              </div>
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <div style={{ color: 'var(--gold-light)', fontWeight: 800, marginBottom: '0.25rem', fontSize: '1.05rem' }}>Limited Monthly Slots</div>
+                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', lineHeight: 1.5 }}>
+                  We only take a limited number of new clients each month to ensure quality. Secure your slot today.
+                </div>
               </div>
             </div>
           </div>
 
           {/* Right — Form */}
           <div style={{
-            background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(201,168,76,0.25)', borderRadius: 16, padding: '2.5rem'
+            background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(30px)',
+            border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '3rem 2.5rem',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden',
+            animation: 'fadeIn 1.2s ease forwards'
           }}>
-            <h3 style={{ color: 'var(--gold-light)', fontWeight: 700, marginBottom: '1.75rem', fontSize: '1.15rem' }}>
-              Start Your ISO Journey — It's Free
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 4, background: 'linear-gradient(90deg, var(--gold-dark), var(--gold-light))' }} />
+            
+            <h3 style={{ color: 'var(--white)', fontWeight: 800, marginBottom: '2rem', fontSize: '1.3rem', textAlign: 'center' }}>
+              Start Your ISO Journey
             </h3>
 
             {status === 'success' ? (
               <div style={{
-                textAlign: 'center', padding: '3rem 1.5rem',
-                background: 'rgba(201,168,76,0.1)', borderRadius: 10, border: '1px solid rgba(201,168,76,0.3)'
+                textAlign: 'center', padding: '4rem 1.5rem',
+                background: 'rgba(201,168,76,0.1)', borderRadius: 16, border: '1px dashed rgba(201,168,76,0.4)',
+                animation: 'fadeUp 0.5s ease forwards'
               }}>
-                <div style={{ color: 'var(--gold)', marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}><PartyPopper size={48} /></div>
-                <div style={{ color: 'var(--gold-light)', fontWeight: 700, fontSize: '1.15rem', marginBottom: '0.5rem' }}>Consultation Requested!</div>
-                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem' }}>We'll be in touch within 24 hours to confirm your free 30-minute session.</div>
+                <div style={{ color: 'var(--gold)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                  <PartyPopper size={64} strokeWidth={1} />
+                </div>
+                <div style={{ color: 'var(--gold-light)', fontWeight: 800, fontSize: '1.4rem', marginBottom: '0.75rem' }}>Consultation Requested!</div>
+                <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.6 }}>We've received your details. One of our lead consultants will contact you within 24 hours to confirm your session.</div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div>
-                    <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Full Name *</label>
-                    <input className="form-input" name="name" value={form.name} onChange={handleChange} placeholder="John Doe" required />
+                    <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Full Name *</label>
+                    <input className="form-input" name="name" value={form.name} onChange={handleChange} placeholder="John Doe" required style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', height: 46 }} />
                   </div>
                   <div>
-                    <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Phone *</label>
-                    <input className="form-input" name="phone" value={form.phone} onChange={handleChange} placeholder="+234 800 000 0000" required />
+                    <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone *</label>
+                    <input className="form-input" name="phone" value={form.phone} onChange={handleChange} placeholder="+234 800 000 0000" required style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', height: 46 }} />
                   </div>
                 </div>
+                
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Email Address *</label>
-                  <input className="form-input" type="email" name="email" value={form.email} onChange={handleChange} placeholder="john@company.com" required />
+                  <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email Address *</label>
+                  <input className="form-input" type="email" name="email" value={form.email} onChange={handleChange} placeholder="john@company.com" required style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', height: 46 }} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div>
-                    <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Company Name</label>
-                    <input className="form-input" name="company" value={form.company} onChange={handleChange} placeholder="Your Company" />
+                    <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Company Name</label>
+                    <input className="form-input" name="company" value={form.company} onChange={handleChange} placeholder="Your Company" style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', height: 46 }} />
                   </div>
                   <div>
-                    <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Industry</label>
-                    <input className="form-input" name="industry" value={form.industry} onChange={handleChange} placeholder="e.g. Manufacturing" />
+                    <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Industry</label>
+                    <input className="form-input" name="industry" value={form.industry} onChange={handleChange} placeholder="e.g. Manufacturing" style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', height: 46 }} />
                   </div>
                 </div>
+                
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Service Interested In</label>
-                  <select className="form-input" name="inquiryType" value={form.inquiryType} onChange={handleChange} style={{ cursor: 'pointer' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Service Interested In</label>
+                  <select className="form-input" name="inquiryType" value={form.inquiryType} onChange={handleChange} style={{ cursor: 'pointer', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.9)', height: 46 }}>
                     <option value="" style={{ background: 'var(--wine-dark)' }}>Select a service...</option>
                     {inquiryOptions.map(o => <option key={o} value={o} style={{ background: 'var(--wine-dark)' }}>{o}</option>)}
                   </select>
                 </div>
+                
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>Brief Message</label>
+                  <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Brief Message</label>
                   <textarea className="form-input" name="message" value={form.message} onChange={handleChange}
-                    placeholder="Tell us about your organisation and goals..." rows={3}
-                    style={{ resize: 'vertical' }} />
+                    placeholder="Tell us about your organisation and goals..." rows={4}
+                    style={{ resize: 'vertical', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--white)', paddingTop: '0.75rem' }} />
                 </div>
+                
                 <button type="submit" className="btn-gold" disabled={status === 'loading'}
-                  style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center', fontSize: '1rem', padding: '1rem', marginTop: '0.5rem' }}>
+                  style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', fontSize: '1.05rem', padding: '1.25rem', marginTop: '1rem', boxShadow: '0 8px 25px rgba(201,168,76,0.3)' }}>
                   {status === 'loading' ? 'Submitting...' : <><Save size={18} /> Book My Free Consultation</>}
                 </button>
+                
                 {status === 'error' && (
-                  <p style={{ color: '#ff6b6b', fontSize: '0.82rem', textAlign: 'center' }}>Something went wrong. Please try again or WhatsApp us directly.</p>
+                  <p style={{ color: '#ff6b6b', fontSize: '0.85rem', textAlign: 'center', fontWeight: 600, marginTop: '0.5rem' }}>Something went wrong. Please try again or contact us via WhatsApp.</p>
                 )}
               </form>
             )}
@@ -156,7 +188,7 @@ export default function LeadForm() {
         </div>
       </div>
       <style>{`
-        @media(max-width:900px){ .form-grid{grid-template-columns:1fr!important;gap:2.5rem!important} }
+        @media(max-width:900px){ .form-grid{grid-template-columns:1fr!important;gap:3.5rem!important} }
       `}</style>
     </section>
   );

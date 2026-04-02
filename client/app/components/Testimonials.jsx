@@ -1,5 +1,5 @@
 'use client';
-import { Star } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
@@ -44,45 +44,79 @@ export default function Testimonials() {
     <section id="testimonials" className="section-pad" style={{
       background: 'linear-gradient(160deg, var(--wine-deep), var(--wine-dark))', position: 'relative', overflow: 'hidden'
     }}>
+      {/* Premium Background Elements */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(201,168,76,0.05) 1px, transparent 0)',
-        backgroundSize: '36px 36px', pointerEvents: 'none'
+        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(201,168,76,0.06) 1px, transparent 0)',
+        backgroundSize: '40px 40px', pointerEvents: 'none'
       }} />
+      <div style={{
+        position: 'absolute', top: '-10%', left: '-10%', width: 500, height: 500, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 60%)', pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '-15%', right: '-15%', width: 600, height: 600, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 60%)', pointerEvents: 'none'
+      }} />
+
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div className="gold-line" style={{ margin: '0 auto 1rem' }} />
-          <div className="badge-gold" style={{ marginBottom: '1rem' }}>Client Success Stories</div>
-          <h2 className="font-display" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: 'var(--white)', fontWeight: 700 }}>
+        <div style={{ textAlign: 'center', marginBottom: '5rem', animation: 'fadeIn 1s ease forwards' }}>
+          <div className="gold-line" style={{ margin: '0 auto 1.25rem' }} />
+          <div className="badge-gold" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.25)', color: 'var(--gold-light)', marginBottom: '1.25rem' }}>
+            Client Success Stories
+          </div>
+          <h2 className="font-display" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: 'var(--white)', fontWeight: 800, marginBottom: '1.25rem' }}>
             What Our Clients Say
           </h2>
+          <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8, fontSize: '1.05rem' }}>
+            Don't just take our word for it. Discover how we've helped organisations across Nigeria and Qatar streamline operations and achieve global standards.
+          </p>
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem' }} className="testimonials-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '2rem' }} className="testimonials-grid">
           {testimonials.map((t, i) => (
-            <div key={i} className="card-glass" style={{ padding: '2rem' }}>
-              {/* Stars */}
-              <div style={{ color: 'var(--gold)', marginBottom: '1rem', display: 'flex', gap: '0.2rem' }}>
-                {[1, 2, 3, 4, 5].map((_, index) => <Star key={index} size={16} fill="currentColor" />)}
+            <div key={i} className="testim-card" style={{
+              background: 'rgba(255,255,255,0.03)', borderRadius: 20, padding: '2.5rem 2rem',
+              border: '1px solid rgba(201,168,76,0.15)', backdropFilter: 'blur(12px)',
+              position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.2)', transition: 'all 0.4s',
+              animation: `fadeUp 0.8s ease forwards ${i * 0.15}s`
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; e.currentTarget.style.boxShadow = '0 15px 40px rgba(0,0,0,0.4)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.2)'; }}
+            >
+              {/* Background Quote Icon */}
+              <div style={{ position: 'absolute', top: '10%', right: '5%', color: 'rgba(201,168,76,0.06)', zIndex: 0 }}>
+                <Quote size={120} fill="currentColor" />
               </div>
-              {/* Quote */}
-              <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.75, fontSize: '0.9rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                "{t.quote}"
-              </p>
-              {/* Author */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', borderTop: '1px solid rgba(201,168,76,0.15)', paddingTop: '1rem' }}>
-                <div style={{
-                  width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
-                  background: 'linear-gradient(135deg, var(--gold-dark), var(--gold-light))',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 800, color: 'var(--wine-deep)', fontSize: '0.85rem'
-                }}>{t.initials}</div>
-                <div>
-                  <div style={{ color: 'var(--white)', fontWeight: 700, fontSize: '0.9rem' }}>{t.name}</div>
-                  <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.75rem' }}>{t.title}</div>
-                  <div style={{ color: 'var(--gold)', fontSize: '0.7rem', marginTop: '0.15rem' }}>{t.industry}</div>
+              
+              <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {/* Stars */}
+                <div style={{ color: 'var(--gold)', marginBottom: '1.5rem', display: 'flex', gap: '0.2rem' }}>
+                  {[1, 2, 3, 4, 5].map((_, index) => <Star key={index} size={18} fill="currentColor" />)}
+                </div>
+                
+                {/* Quote Text */}
+                <p style={{ color: 'rgba(255,255,255,0.85)', lineHeight: 1.8, fontSize: '0.95rem', marginBottom: '2rem', fontStyle: 'italic', flex: 1 }}>
+                  "{t.quote}"
+                </p>
+                
+                {/* Author Info */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px solid rgba(201,168,76,0.15)', paddingTop: '1.25rem' }}>
+                  <div style={{
+                    width: 50, height: 50, borderRadius: '50%', flexShrink: 0,
+                    background: 'linear-gradient(135deg, var(--gold-dark), var(--gold-light))',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontWeight: 800, color: 'var(--wine-deep)', fontSize: '1rem',
+                    boxShadow: '0 4px 10px rgba(201,168,76,0.3)'
+                  }}>{t.initials}</div>
+                  <div>
+                    <div style={{ color: 'var(--white)', fontWeight: 800, fontSize: '0.95rem', marginBottom: '0.2rem' }}>{t.name}</div>
+                    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', marginBottom: '0.25rem' }}>{t.title}</div>
+                    <div style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.02em' }}>{t.industry}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,8 +124,8 @@ export default function Testimonials() {
         </div>
       </div>
       <style>{`
-        @media(max-width:900px){ .testimonials-grid{grid-template-columns:repeat(2,1fr)!important} }
-        @media(max-width:580px){ .testimonials-grid{grid-template-columns:1fr!important} }
+        @media(max-width:1024px){ .testimonials-grid{grid-template-columns:repeat(2,1fr)!important} }
+        @media(max-width:640px){ .testimonials-grid{grid-template-columns:1fr!important} }
       `}</style>
     </section>
   );
