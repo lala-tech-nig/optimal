@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Award, CheckCircle } from 'lucide-react';
+import { Award, CheckCircle, GraduationCap } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -87,15 +87,28 @@ export default function Hero() {
               boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
             }}>
               {/* ISO Badges */}
-              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                <div style={{
-                  width: 80, height: 80, borderRadius: '50%', margin: '0 auto 1.2rem',
-                  background: 'linear-gradient(135deg, var(--gold-dark), var(--gold-light))',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--wine-deep)', boxShadow: '0 8px 30px rgba(201,168,76,0.4)'
-                }}>
-                  <Award size={40} />
+              {/* Logo / Icons Header */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
+                <div style={{ color: 'var(--gold-light)', filter: 'drop-shadow(0 0 8px rgba(201,168,76,0.3))' }}>
+                  <GraduationCap size={24} />
                 </div>
+                <div style={{
+                  width: '180px', height: '180px', borderRadius: '50%', background: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.2)', border: '1px solid rgba(201,168,76,0.2)',
+                  position: 'relative', overflow: 'hidden'
+                }}>
+                  <img 
+                    src="/logo.png" 
+                    alt="Optimal Logo" 
+                    style={{ maxHeight: '150%', maxWidth: '150%', objectFit: 'contain', filter: 'brightness(1)' }} 
+                  />
+                </div>
+                <div style={{ color: 'var(--gold-light)', filter: 'drop-shadow(0 0 8px rgba(201,168,76,0.3))' }}>
+                  <Award size={24} />
+                </div>
+              </div>
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
                 <div style={{ color: 'var(--gold-light)', fontWeight: 700, fontSize: '1.2rem' }}>ISO Certification</div>
                 <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', marginTop: '0.2rem' }}>Excellence & Compliance</div>
               </div>
