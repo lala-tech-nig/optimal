@@ -74,8 +74,8 @@ export default function ContactPage() {
                   <h3 style={{ color: 'var(--gold-light)', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <MapPin size={20} /> Nigeria Office
                   </h3>
-                  <a href="tel:+2348000000000" style={{ display: 'block', color: 'var(--white)', textDecoration: 'none', marginBottom: '0.5rem', fontSize: '0.9rem' }}>+234 800 000 0000</a>
-                  <a href="mailto:info@optimalmc.ng" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimalmc.ng</a>
+                  <a href="tel:+2348037316413" style={{ display: 'block', color: 'var(--white)', textDecoration: 'none', marginBottom: '0.5rem', fontSize: '0.9rem' }}>+234 803 731 6413</a>
+                  <a href="mailto:info@optimalconsult.com.ng" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimalconsult.com.ng</a>
                 </div>
 
                 {/* Qatar Office */}
@@ -84,12 +84,12 @@ export default function ContactPage() {
                     <MapPin size={20} /> Qatar Office
                   </h3>
                   <a href="tel:+97400000000" style={{ display: 'block', color: 'var(--white)', textDecoration: 'none', marginBottom: '0.5rem', fontSize: '0.9rem' }}>+974 0000 0000</a>
-                  <a href="mailto:info@optimalmc.qa" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimalmc.qa</a>
+                  <a href="mailto:info@optimal.com.ng" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimal.com.ng</a>
                 </div>
               </div>
 
               <div style={{ marginTop: '2.5rem' }}>
-                <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" style={{
+                <a href="https://wa.me/2348037316413" target="_blank" rel="noopener noreferrer" style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                   background: '#25D366', color: 'white', textDecoration: 'none', padding: '0.8rem 1.5rem',
                   borderRadius: 8, fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.3s'
