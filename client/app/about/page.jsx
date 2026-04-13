@@ -122,6 +122,74 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Meet the Founder */}
+        <section className="section-pad">
+          <div className="container">
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 0.8fr) 1.2fr', gap: '4rem', alignItems: 'flex-start' }} className="responsive-grid">
+              
+              {/* Image & Quick Info */}
+              <div style={{ animation: 'fadeIn 1s ease forwards' }}>
+                <div style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.15)', marginBottom: '1.5rem' }}>
+                  <Image src="/founder.jpeg" alt="Nasiru Mohammed Basheer Owolabi" width={500} height={600} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+                </div>
+                <div style={{ background: 'var(--grey-light)', padding: '1.5rem', borderRadius: 12, border: '1px solid rgba(107,29,59,0.08)' }}>
+                  <h4 style={{ color: 'var(--wine-deep)', fontWeight: 700, marginBottom: '1rem', fontSize: '1.1rem' }}>Profile Summary</h4>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: 'var(--grey-dark)', fontSize: '0.95rem' }}>
+                    <li style={{ padding: '0.6rem 0', borderBottom: '1px solid rgba(0,0,0,0.05)' }}><strong>Nationality:</strong> Nigerian</li>
+                    <li style={{ padding: '0.6rem 0', borderBottom: '1px solid rgba(0,0,0,0.05)' }}><strong>Languages:</strong> English, Arabic, French</li>
+                    <li style={{ padding: '0.6rem 0' }}><strong>Designations:</strong> CQMSAI, LEEA, MMIM, Grad-IOSH, CPCSRM</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Founder Details */}
+              <div style={{ animation: 'fadeUp 1.2s ease forwards' }}>
+                <div className="gold-line" />
+                <div className="badge-gold" style={{ marginBottom: '1rem', background: 'rgba(201,168,76,0.1)', color: 'var(--gold-dark)' }}>Meet Our Founder</div>
+                <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: 'var(--wine-deep)', fontWeight: 700, lineHeight: 1.2, marginBottom: '0.5rem' }}>
+                  Nasiru Mohammed Basheer Owolabi
+                </h2>
+                <h3 style={{ color: 'var(--gold)', fontSize: '1.2rem', fontWeight: 600, marginBottom: '2rem' }}>Lead Consultant & Visionary</h3>
+
+                <p style={{ color: 'var(--grey-mid)', lineHeight: 1.8, fontSize: '1.05rem', marginBottom: '2.5rem' }}>
+                  A seasoned expert with a prolific track record in occupational health, safety, and integrated management systems, Nasiru brings decades of cross-regional experience spanning Nigeria and the Middle East. He is dedicated to embedding sustainable quality models within organizations, fostering corporate resilience, and elevating standards across global industries.
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                  {/* Competencies */}
+                  <div>
+                    <h4 style={{ color: 'var(--wine-deep)', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <BrainCircuit size={20} color="var(--gold)" /> Core Competencies
+                    </h4>
+                    <ul style={{ color: 'var(--grey-mid)', fontSize: '0.95rem', lineHeight: 1.7, paddingLeft: '1.2rem', margin: 0 }}>
+                      <li style={{ marginBottom: '0.5rem' }}>Certified IRCA Lead Auditor (ISO 9001, OHSAS 18001)</li>
+                      <li style={{ marginBottom: '0.5rem' }}>Certified IEMA Lead Auditor (ISO 14001)</li>
+                      <li style={{ marginBottom: '0.5rem' }}>Expert in Corporate Social Responsibility (MIM-CPCSRM) & Strategic Planning</li>
+                      <li style={{ marginBottom: '0.5rem' }}>Specialist in Process Mapping & System Integration (PAS 99)</li>
+                      <li>Certified Lifting Equipments Inspector (LEEA) & Pro Risk Assessor</li>
+                    </ul>
+                  </div>
+
+                  {/* Education & Memberships */}
+                  <div>
+                    <h4 style={{ color: 'var(--wine-deep)', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <Award size={20} color="var(--gold)" /> Education & Memberships
+                    </h4>
+                    <ul style={{ color: 'var(--grey-mid)', fontSize: '0.95rem', lineHeight: 1.7, paddingLeft: '1.2rem', margin: 0 }}>
+                      <li style={{ marginBottom: '0.5rem' }}>MSc. Occupational Health & Safety Management (American Gulf University)</li>
+                      <li style={{ marginBottom: '0.5rem' }}>PGD Occupational Health & Safety (Loughborough University, UK)</li>
+                      <li style={{ marginBottom: '0.5rem' }}>BSc. Animal Science (University of Ibadan)</li>
+                      <li style={{ marginBottom: '0.5rem' }}>Graduate Member (GradIOSH), Associate Member (ASQ)</li>
+                      <li>Project Management Professional (PMI Member)</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* How It Works */}
         <section className="section-pad" style={{
           background: 'linear-gradient(135deg, var(--wine-deep) 0%, var(--wine-dark) 100%)', position: 'relative', overflow: 'hidden'

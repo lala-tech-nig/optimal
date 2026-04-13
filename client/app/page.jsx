@@ -24,7 +24,7 @@ export default function HomePage() {
 
       {/* WhatsApp Floating Button */}
       <a
-        href="https://wa.me/2348000000000?text=Hello%20Optimal%20Management%20Consultancy%2C%20I%20am%20interested%20in%20ISO%20certification%20consulting."
+        href="https://wa.me/2348037316413?text=Hello%20Optimal%20Management%20Consultancy%2C%20I%20am%20interested%20in%20ISO%20certification%20consulting."
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float"
