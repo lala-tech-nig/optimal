@@ -52,14 +52,14 @@ export default function Footer() {
             </p>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '2.5rem' }}>
-              <a href="mailto:info@optimalmc.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'color 0.3s' }} onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"} onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.8)"}>
-                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Mail size={14} color="var(--gold)" /></div> info@optimalmc.com
+              <a href="mailto:info@optimal.com.ng" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'color 0.3s' }} onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"} onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.8)"}>
+                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Mail size={14} color="var(--gold)" /></div> info@optimalconsult.com.ng
               </a>
               <a href="tel:+2348037316413" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'color 0.3s' }} onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"} onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.8)"}>
-                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Phone size={14} color="var(--gold)" /></div> +234 800 000 0000
+                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Phone size={14} color="var(--gold)" /></div> +234 803 731 6413
               </a>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem', fontWeight: 500 }}>
-                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><MapPin size={14} color="var(--gold)" /></div> Lagos, Nigeria | Doha, Qatar
+                <div style={{ width: 28, height: 28, background: 'rgba(201,168,76,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><MapPin size={14} color="var(--gold)" /></div> No:3 Church Street Opposite First Baptist Church Olowu, Ikeja, Lagos, Nigeria | Doha, Qatar
               </span>
             </div>
 
