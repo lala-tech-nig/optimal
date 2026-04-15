@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { BarChart, FileText, Settings, Search, GraduationCap, Award, ArrowRight } from 'lucide-react';
 
 const supportServices = [
-  { title: 'Gap Analysis', icon: <BarChart size={24} />, desc: 'Identify exactly where your organization stands vs. ISO requirements.' },
-  { title: 'Documentation', icon: <FileText size={24} />, desc: 'Develop compliant policies, procedures and quality manuals.' },
-  { title: 'Implementation', icon: <Settings size={24} />, desc: 'Hands-on support to implement ISO-compliant systems across your operations.' },
-  { title: 'Internal Audit', icon: <Search size={24} />, desc: 'Rigorous audits to identify and close gaps before the certification body arrives.' },
-  { title: 'Staff Training', icon: <GraduationCap size={24} />, desc: 'Practical training workshops to embed ISO culture in your team.' },
-  { title: 'Certification Support', icon: <Award size={24} />, desc: 'Full readiness check and accompaniment through the certification audit.' },
+  { title: 'ISO Certification', slug: 'iso-certification', icon: <BarChart size={24} />, desc: 'Identify exactly where your organization stands vs. ISO requirements.' },
+  { title: 'Management Systems', slug: 'management-systems', icon: <FileText size={24} />, desc: 'Develop compliant policies, procedures and quality manuals.' },
+  { title: 'Professional Training', slug: 'professional-training', icon: <Settings size={24} />, desc: 'Hands-on support to implement ISO-compliant systems across your operations.' },
+  { title: 'Fire Safety Training', slug: 'fire-safety-training', icon: <Search size={24} />, desc: 'Rigorous audits to identify and close gaps before the certification body arrives.' },
+  { title: 'Staff Training', slug: 'staff-training', icon: <GraduationCap size={24} />, desc: 'Practical training workshops to embed ISO culture in your team.' },
+  { title: 'Accident and Road Safety Training', slug: 'accident-and-road-safety-training', icon: <Award size={24} />, desc: 'Full readiness check and accompaniment through the certification audit.' },
 ];
 
 export default function ServicesPage() {
@@ -58,11 +58,11 @@ export default function ServicesPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }} className="services-grid">
               {supportServices.map((s, i) => (
-                <div key={s.title} style={{
+                <Link href={`/services/${s.slug}`} key={s.title} style={{
                   background: 'var(--grey-light)', borderRadius: 16, padding: '2rem',
                   border: '1px solid rgba(201,168,76,0.1)', transition: 'all 0.4s',
-                  display: 'flex', flexDirection: 'column', gap: '1rem',
-                  animation: `fadeUp 0.8s ease forwards ${i * 0.1}s`
+                  display: 'flex', flexDirection: 'column', gap: '1rem', textDecoration: 'none',
+                  animation: `fadeUp 0.8s ease forwards ${i * 0.1}s`, cursor: 'pointer'
                 }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.borderColor = 'var(--gold)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.06)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.1)'; e.currentTarget.style.boxShadow = 'none'; }}
@@ -75,10 +75,10 @@ export default function ServicesPage() {
                   </div>
                   <h4 style={{ color: 'var(--wine-deep)', fontWeight: 800, fontSize: '1.2rem', marginTop: '0.5rem' }}>{s.title}</h4>
                   <p style={{ color: 'var(--grey-mid)', fontSize: '0.95rem', lineHeight: 1.6, flex: 1 }}>{s.desc}</p>
-                  <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--gold-dark)', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', marginTop: '1rem' }}>
-                    Request Service <ArrowRight size={16} />
-                  </Link>
-                </div>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--gold-dark)', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', marginTop: '1rem' }}>
+                    Learn More <ArrowRight size={16} />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
