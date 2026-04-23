@@ -63,7 +63,7 @@ export const serviceDetails = {
         heading: 'Key Management Systems We Implement',
         items: [
           {
-            name: 'Quality Management Planning (QMP)',
+            name: 'Quality Management Systems (QMS)',
             meaning: 'A structured blueprint that dictates exactly how quality checks are executed throughout the lifecycle of a product or service.',
             importance: 'Eradicates variability in output. It ensures that standard operating procedures are built directly into the workflow of your staff.',
             details: 'We write bespoke operational manuals, implement key performance indicators (KPIs), and establish internal audit processes.'
@@ -269,7 +269,7 @@ export default function ServiceDetail() {
                     <p key={idx}>{paragraph}</p>
                   ))}
                 </div>
-                
+
                 <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1.2rem', flexDirection: 'column', padding: '1.5rem', background: 'var(--white)', borderRadius: 16, border: '1px solid rgba(201,168,76,0.1)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                     <CheckCircle2 color="var(--gold)" size={20} />
@@ -293,11 +293,11 @@ export default function ServiceDetail() {
               </div>
 
               <div style={{ position: 'relative', width: '100%', minHeight: 400, height: '100%', borderRadius: 24, overflow: 'hidden', animation: 'fadeInRight 1s ease forwards', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <Image 
-                  src={service.image} 
-                  alt={service.title} 
-                  fill 
-                  style={{ objectFit: 'cover' }} 
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
             </div>
@@ -311,11 +311,11 @@ export default function ServiceDetail() {
                   </h3>
                   <div className="gold-line" style={{ margin: '0 auto' }} />
                 </div>
-                
+
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                   {section.items.map((item, itemIdx) => (
-                    <div key={itemIdx} style={{ 
-                      background: 'var(--white)', padding: '2.5rem', borderRadius: 20, 
+                    <div key={itemIdx} style={{
+                      background: 'var(--white)', padding: '2.5rem', borderRadius: 20,
                       border: '1px solid rgba(201,168,76,0.15)', boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
                       display: 'flex', flexDirection: 'column', transition: 'all 0.3s'
                     }}

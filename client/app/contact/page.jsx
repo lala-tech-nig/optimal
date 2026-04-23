@@ -83,8 +83,8 @@ export default function ContactPage() {
                   <h3 style={{ color: 'var(--gold-light)', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <MapPin size={20} /> Qatar Office
                   </h3>
-                  <a href="tel:+97400000000" style={{ display: 'block', color: 'var(--white)', textDecoration: 'none', marginBottom: '0.5rem', fontSize: '0.9rem' }}>+974 0000 0000</a>
-                  <a href="mailto:info@optimal.com.ng" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimal.com.ng</a>
+                  <a href="tel:+97466892303" style={{ display: 'block', color: 'var(--white)', textDecoration: 'none', marginBottom: '0.5rem', fontSize: '0.9rem' }}>+974 6689 2303</a>
+                  <a href="mailto:info@optimalconsult.com.ng" style={{ display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '0.9rem' }}>info@optimalconsult.com.ng</a>
                 </div>
               </div>
 
@@ -131,12 +131,12 @@ export default function ContactPage() {
                       <input className="form-input" style={{ background: 'var(--grey-light)', color: 'var(--wine-deep)', borderColor: 'rgba(0,0,0,0.1)' }} name="phone" value={form.phone} onChange={handleChange} placeholder="+234 800 000 0000" required />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label style={{ color: 'var(--grey-dark)', fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Email Address *</label>
                     <input className="form-input" type="email" style={{ background: 'var(--grey-light)', color: 'var(--wine-deep)', borderColor: 'rgba(0,0,0,0.1)' }} name="email" value={form.email} onChange={handleChange} placeholder="john@company.com" required />
                   </div>
-                  
+
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                     <div>
                       <label style={{ color: 'var(--grey-dark)', fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Company Name</label>
@@ -147,7 +147,7 @@ export default function ContactPage() {
                       <input className="form-input" style={{ background: 'var(--grey-light)', color: 'var(--wine-deep)', borderColor: 'rgba(0,0,0,0.1)' }} name="industry" value={form.industry} onChange={handleChange} placeholder="e.g. Manufacturing" />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label style={{ color: 'var(--grey-dark)', fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Service Interested In</label>
                     <select className="form-input" style={{ background: 'var(--grey-light)', color: 'var(--wine-deep)', borderColor: 'rgba(0,0,0,0.1)', cursor: 'pointer' }} name="inquiryType" value={form.inquiryType} onChange={handleChange}>
@@ -155,18 +155,18 @@ export default function ContactPage() {
                       {inquiryOptions.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
                   </div>
-                  
+
                   <div>
                     <label style={{ color: 'var(--grey-dark)', fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Brief Message</label>
                     <textarea className="form-input" style={{ background: 'var(--grey-light)', color: 'var(--wine-deep)', borderColor: 'rgba(0,0,0,0.1)', resize: 'vertical' }} name="message" value={form.message} onChange={handleChange}
                       placeholder="Tell us about your organisation and goals..." rows={4} />
                   </div>
-                  
+
                   <button type="submit" className="btn-gold" disabled={status === 'loading'}
                     style={{ width: '100%', justifyContent: 'center', fontSize: '1.05rem', padding: '1.1rem', marginTop: '1rem', boxShadow: '0 8px 25px rgba(201,168,76,0.3)' }}>
                     {status === 'loading' ? '⏳ Submitting...' : 'Send Request'}
                   </button>
-                  
+
                   {status === 'error' && (
                     <p style={{ color: '#e74c3c', fontSize: '0.85rem', textAlign: 'center', fontWeight: 500 }}>Something went wrong. Please try again or WhatsApp us.</p>
                   )}
