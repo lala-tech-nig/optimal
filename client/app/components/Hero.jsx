@@ -93,15 +93,15 @@ export default function Hero() {
                   <GraduationCap size={24} />
                 </div>
                 <div style={{
-                  width: '180px', height: '180px', borderRadius: '50%', background: '#fff',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem',
+                  width: '120px', height: '120px', borderRadius: '50%', background: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.75rem',
                   boxShadow: '0 15px 40px rgba(0,0,0,0.2)', border: '1px solid rgba(201,168,76,0.2)',
                   position: 'relative', overflow: 'hidden'
                 }}>
                   <img 
                     src="/logo.png" 
                     alt="Optimal Logo" 
-                    style={{ maxHeight: '150%', maxWidth: '150%', objectFit: 'contain', filter: 'brightness(1)' }} 
+                    style={{ maxHeight: '130%', maxWidth: '130%', objectFit: 'contain', filter: 'brightness(1)' }} 
                   />
                 </div>
                 <div style={{ color: 'var(--gold-light)', filter: 'drop-shadow(0 0 8px rgba(201,168,76,0.3))' }}>

@@ -19,9 +19,9 @@ const footerLinks = {
 };
 
 const socials = [
-  { name: 'LinkedIn', icon: <Linkedin size={18} /> },
-  { name: 'Twitter', icon: <Twitter size={18} /> },
-  { name: 'Facebook', icon: <Facebook size={18} /> },
+  { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/mohammed-basheer-nasiru-18082a64/' },
+  { name: 'Twitter', icon: <Twitter size={18} />, url: '#' },
+  { name: 'Facebook', icon: <Facebook size={18} />, url: '#' },
 ];
 
 export default function Footer() {
@@ -65,7 +65,7 @@ export default function Footer() {
 
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {socials.map(s => (
-                <a key={s.name} href="#" style={{
+                <a key={s.name} href={s.url || '#'} target={s.url && s.url !== '#' ? '_blank' : undefined} rel={s.url && s.url !== '#' ? 'noopener noreferrer' : undefined} style={{
                   width: 42, height: 42, background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(201,168,76,0.15)', borderRadius: 8,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',

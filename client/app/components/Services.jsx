@@ -61,10 +61,11 @@ export default function Services() {
 
         <div className="iso-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem', marginBottom: '5rem' }}>
           {isoServices.map((s, i) => (
-            <div key={s.code} className="iso-card" style={{
+            <Link href="/iso-programs" key={s.code} className="iso-card" style={{
               background: 'var(--white)', borderRadius: 16, padding: '2rem',
               border: '1px solid rgba(201,168,76,0.15)', transition: 'all 0.4s',
               boxShadow: '0 4px 20px rgba(0,0,0,0.03)', position: 'relative', overflow: 'hidden',
+              textDecoration: 'none', display: 'block'
             }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 20px 40px rgba(107,29,59,0.08)'; e.currentTarget.style.borderColor = 'var(--gold)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'; }}
@@ -89,12 +90,12 @@ export default function Services() {
               </div>
               <h4 style={{ color: 'var(--wine-deep)', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.8rem' }}>{s.title}</h4>
               <p style={{ color: 'var(--grey-mid)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>{s.desc}</p>
-              <Link href="/iso-programs" style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--gold-dark)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none'
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--gold-dark)', fontWeight: 700, fontSize: '0.85rem'
               }}>
                 Learn More <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>→</span>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
 
@@ -104,7 +105,7 @@ export default function Services() {
             <Settings size={20} />
           </div>
           <h3 style={{ color: 'var(--wine-deep)', fontWeight: 800, fontSize: '1.4rem' }}>
-            Implementation &amp; Support
+            How We Do Business
           </h3>
         </div>
         
