@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Optimal Management Consultancy</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header">
+      <div class="admin-logo-circle">O</div>
+      <div class="sidebar-text">
+        <div style="color: var(--white); font-weight: 700; font-size: 0.92rem; white-space: nowrap;">Optimal Admin</div>
+        <div style="color: var(--gold); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Control Panel</div>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-tab="overview">
+        <span class="admin-nav-icon">📊</span>
+        <span class="sidebar-text tab-label">Overview</span>
+      </button>
+
+      <button class="admin-nav-item" data-tab="leads">
+        <span class="admin-nav-icon">📋</span>
+        <span class="sidebar-text tab-label">Lead Management</span>
+      </button>
+
+      <button class="admin-nav-item" data-tab="gallery">
+        <span class="admin-nav-icon">🖼️</span>
+        <span class="sidebar-text tab-label">Gallery Manager</span>
+      </button>
+
+      <button class="admin-nav-item" data-tab="analytics">
+        <span class="admin-nav-icon">📈</span>
+        <span class="sidebar-text tab-label">Analytics</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar Collapse Toggle -->
+    <div style="padding: 1rem 0.75rem; border-top: 1px solid rgba(201,168,76,0.12);">
+      <button id="sidebar-collapse-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; cursor: pointer; width: 100%; color: rgba(255,255,255,0.5); font-size: 0.8rem; font-family: 'Outfit', sans-serif;">
+        <span>⇄</span>
+        <span class="sidebar-text collapse-label">Collapse</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div>
+        <h1 id="topbar-tab-title" style="color: var(--white); font-weight: 700; font-size: 1.15rem;">Overview</h1>
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">Optimal Management Consultancy Portal</p>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <button id="admin-refresh-btn" class="btn-outline-gold" style="padding: 0.45rem 0.85rem; font-size: 0.82rem; border-radius: 6px;">
+          🔄 Refresh
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--wine-deep); font-size: 0.85rem;">
+            A
+          </div>
+          <div>
+            <div id="admin-display-name" style="color: var(--white); font-size: 0.85rem; font-weight: 600;">Optimal Admin</div>
+            <div id="admin-display-email" style="color: rgba(255,255,255,0.35); font-size: 0.72rem;">admin@optimalconsult.com.ng</div>
+          </div>
+        </div>
+
+        <button id="admin-logout-btn" style="background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 6px; padding: 0.45rem 0.85rem; color: #ff6b6b; cursor: pointer; font-size: 0.82rem; font-family: 'Outfit', sans-serif;">
+          🚪 Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="admin-content">
+
+      <!-- TAB 1: OVERVIEW -->
+      <section id="tab-view-overview" class="tab-view" style="display: block;">
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase; margin-bottom: 0.4rem;">Total Leads</p>
+                <p id="overview-total-leads" style="font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1;">0</p>
+                <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 0.4rem;">All time submissions</p>
+              </div>
+              <div class="stat-icon-wrap">📋</div>
+            </div>
+
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase; margin-bottom: 0.4rem;">New Leads</p>
+                <p id="overview-new-leads" style="font-size: 2.2rem; font-weight: 900; color: #4ade80; line-height: 1;">0</p>
+                <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 0.4rem;">Awaiting follow-up</p>
+              </div>
+              <div class="stat-icon-wrap">✨</div>
+            </div>
+
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase; margin-bottom: 0.4rem;">Page Views</p>
+                <p id="overview-page-views" style="font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1;">0</p>
+                <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 0.4rem;">Estimated visits</p>
+              </div>
+              <div class="stat-icon-wrap">👁️</div>
+            </div>
+
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase; margin-bottom: 0.4rem;">Conversion</p>
+                <p id="overview-conv-rate" style="font-size: 2.2rem; font-weight: 900; color: var(--gold-light); line-height: 1;">0%</p>
+                <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 0.4rem;">Leads / views</p>
+              </div>
+              <div class="stat-icon-wrap">📈</div>
+            </div>
+          </div>
+
+          <!-- Recent Leads Card -->
+          <div class="admin-card-table">
+            <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(201,168,76,0.12); display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="color: var(--white); font-weight: 700; font-size: 0.95rem;">Recent Inquiries</h3>
+              <button onclick="document.querySelector('[data-tab=\'leads\']').click()" style="color: var(--gold); background: none; border: none; cursor: pointer; font-size: 0.82rem; font-family: 'Outfit', sans-serif;">
+                View All Leads →
+              </button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Contact</th>
+                    <th>Company</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-recent-leads">
+                  <tr><td colspan="5" style="text-align: center; color: rgba(255,255,255,0.3); padding: 2.5rem;">Loading leads...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: LEADS MANAGEMENT -->
+      <section id="tab-view-leads" class="tab-view" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- Controls Bar -->
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+            <input id="leads-search-input" class="form-input" placeholder="🔍 Search name, email, phone, company..." style="max-width: 320px; font-size: 0.85rem;" />
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="lead-filter-btn" data-status="All" style="padding: 0.5rem 1rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; background: var(--gold); color: var(--wine-deep);">All</button>
+              <button class="lead-filter-btn" data-status="New" style="padding: 0.5rem 1rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5);">New</button>
+              <button class="lead-filter-btn" data-status="Contacted" style="padding: 0.5rem 1rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5);">Contacted</button>
+              <button class="lead-filter-btn" data-status="Closed" style="padding: 0.5rem 1rem; border-radius: 50px; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5);">Closed</button>
+            </div>
+            <span id="leads-count-label" style="color: rgba(255,255,255,0.35); font-size: 0.82rem; margin-left: auto;">0 leads</span>
+          </div>
+
+          <!-- Full Table -->
+          <div class="admin-card-table">
+            <div style="overflow-x: auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Contact</th>
+                    <th>Company / Industry</th>
+                    <th>Service Requested</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="full-leads-table">
+                  <tr><td colspan="7" style="text-align: center; color: rgba(255,255,255,0.3); padding: 3rem;">Loading leads...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: GALLERY MANAGER -->
+      <section id="tab-view-gallery" class="tab-view" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+          <!-- Upload Box -->
+          <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.18); border-radius: 14px; padding: 2rem;">
+            <h3 style="color: var(--white); font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+              📸 Create New Gallery Album
+            </h3>
+            <form id="create-gallery-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div>
+                <label style="color: rgba(255,255,255,0.6); font-size: 0.8rem; display: block; margin-bottom: 0.4rem;">Gallery Name *</label>
+                <input id="gallery-name-input" class="form-input" placeholder="e.g. ISO 9001 Training Seminar" required />
+              </div>
+              <div>
+                <label style="color: rgba(255,255,255,0.6); font-size: 0.8rem; display: block; margin-bottom: 0.4rem;">Description / Narration</label>
+                <textarea id="gallery-desc-input" class="form-input" placeholder="Describe this album: event context, location, achievements..." rows="3" style="resize: vertical;"></textarea>
+              </div>
+              <div>
+                <label style="color: rgba(255,255,255,0.6); font-size: 0.8rem; display: block; margin-bottom: 0.4rem;">Select Photographs</label>
+                <div class="dropzone-box">
+                  <input id="gallery-file-input" type="file" multiple accept="image/*" />
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">📁</div>
+                  <p id="dropzone-file-count" style="color: var(--gold-light); font-weight: 700; font-size: 0.95rem;">
+                    Click or Drag Images Here
+                  </p>
+                  <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 0.25rem;">JPG, PNG, WEBP up to 20 images</p>
+                </div>
+                <div id="gallery-upload-previews" class="preview-grid"></div>
+              </div>
+
+              <button id="gallery-submit-btn" type="submit" class="btn-gold" style="padding: 1rem; justify-content: center;">
+                Upload &amp; Create Gallery
+              </button>
+            </form>
+          </div>
+
+          <!-- Existing Galleries List -->
+          <div>
+            <h3 style="color: var(--white); font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem;">
+              Active Gallery Albums
+            </h3>
+            <div id="admin-galleries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: ANALYTICS -->
+      <section id="tab-view-analytics" class="tab-view" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          <!-- Top Counters -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase;">Total Leads</p>
+                <p id="analytics-total-leads" style="font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1;">0</p>
+              </div>
+              <div class="stat-icon-wrap">📊</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase;">New Leads</p>
+                <p id="analytics-new-leads" style="font-size: 2.2rem; font-weight: 900; color: #4ade80; line-height: 1;">0</p>
+              </div>
+              <div class="stat-icon-wrap">✨</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase;">Est. Page Views</p>
+                <p id="analytics-page-views" style="font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1;">0</p>
+              </div>
+              <div class="stat-icon-wrap">👁️</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <p style="color: rgba(255,255,255,0.45); font-size: 0.78rem; text-transform: uppercase;">Conversion Rate</p>
+                <p id="analytics-conv-rate" style="font-size: 2.2rem; font-weight: 900; color: var(--gold-light); line-height: 1;">0%</p>
+              </div>
+              <div class="stat-icon-wrap">📈</div>
+            </div>
+          </div>
+
+          <!-- Breakdown Charts -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hero-grid">
+            <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; padding: 1.75rem;">
+              <h3 style="color: var(--white); font-weight: 700; font-size: 1rem; margin-bottom: 1.5rem;">Leads by Status</h3>
+              <div id="analytics-status-breakdown"></div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; padding: 1.75rem;">
+              <h3 style="color: var(--white); font-weight: 700; font-size: 1rem; margin-bottom: 1.5rem;">Top Services Requested</h3>
+              <div id="analytics-services-breakdown"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Lead Detail Modal -->
+  <div id="lead-detail-modal" class="modal-overlay" style="display: none;" onclick="closeLeadModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div id="lead-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

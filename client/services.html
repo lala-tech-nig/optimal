@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulting Services | Optimal Management Consultancy</title>
+  <meta name="description" content="Explore our ISO certification, management systems, and specialized corporate training services." />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Optimal Logo" width="44" height="44" />
+        <div>
+          <div class="brand-name">Optimal</div>
+          <div class="brand-sub">Management Consultancy</div>
+        </div>
+      </a>
+
+      <ul class="desktop-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="iso-programs.html">ISO Programs</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li>
+          <a href="contact.html" class="btn-gold" style="padding: 0.6rem 1.4rem; font-size: 0.85rem; border-radius: 4px;">
+            Book Free Consultation
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger-btn" aria-label="Toggle navigation menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+
+    <div class="mobile-nav-drawer">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="iso-programs.html">ISO Programs</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn-gold" style="display: block; text-align: center; margin-top: 1rem;">
+        Book Free Consultation
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Services Hero -->
+    <section style="position: relative; min-height: 55vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8rem 1.5rem 4rem;">
+      <video autoPlay loop muted playsInline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <source src="assets/training.mp4" type="video/mp4" />
+      </video>
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(58, 10, 31, 0.72), rgba(58, 10, 31, 0.95)); z-index: 1;"></div>
+      
+      <div class="container" style="position: relative; z-index: 2; text-align: center;">
+        <h1 class="font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--white); font-weight: 700; margin-bottom: 1rem;">
+          Our <span style="color: var(--gold-light);">Services</span>
+        </h1>
+        <p style="color: rgba(255,255,255,0.85); font-size: 1.15rem; max-width: 600px; margin: 0 auto; line-height: 1.8;">
+          Comprehensive consulting, training, and auditing services to completely transform your organizational operations.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6 Solutions Grid -->
+    <section class="section-pad" style="background: var(--white);">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 4rem;">
+          <div class="gold-line" style="margin: 0 auto 1.5rem;"></div>
+          <h2 class="font-display" style="font-size: clamp(2rem, 3.5vw, 2.5rem); color: var(--wine-deep); font-weight: 700; margin-bottom: 1rem;">
+            End-to-End Consulting Solutions
+          </h2>
+          <p style="color: var(--grey-mid); max-width: 640px; margin: 0 auto; line-height: 1.7; font-size: 1.05rem;">
+            We don't just hand you a manual; we roll up our sleeves and work alongside your team to implement systems that drive real improvements.
+          </p>
+        </div>
+
+        <div class="iso-cards-grid">
+          <!-- 1. ISO Certification -->
+          <a href="services/iso-certification.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="bar-chart" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">ISO Certification</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Identify exactly where your organization stands vs. ISO requirements and achieve global certification.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+
+          <!-- 2. Management Systems -->
+          <a href="services/management-systems.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="file-text" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">Management Systems</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Develop compliant policies, standard operating procedures, and integrated quality manuals.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+
+          <!-- 3. Professional Training -->
+          <a href="services/professional-training.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="settings" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">Professional Training</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Hands-on support to implement ISO-compliant systems and executive leadership courses.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+
+          <!-- 4. Fire Safety Training -->
+          <a href="services/fire-safety-training.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="search" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">Fire Safety Training</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Rigorous audits, fire drills, and warden certifications to protect workforce life and facility assets.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+
+          <!-- 5. Staff Training -->
+          <a href="services/staff-training.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="graduation-cap" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">Staff Training</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Practical workshops to embed an active quality and safety culture across all departmental tiers.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+
+          <!-- 6. Accident and Road Safety Training -->
+          <a href="services/accident-and-road-safety-training.html" class="iso-card" style="background: var(--grey-light);">
+            <div style="width: 54px; height: 54px; background: rgba(201,168,76,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--wine-deep); margin-bottom: 1.25rem;">
+              <i data-lucide="award" style="width: 26px; height: 26px; color: var(--wine);"></i>
+            </div>
+            <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.2rem; margin-bottom: 0.6rem;">Accident &amp; Road Safety</h4>
+            <p style="color: var(--grey-mid); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Fleet safety, defensive driving certification, journey management, and hazard reduction.</p>
+            <span style="color: var(--gold-dark); font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              Learn More →
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Training That Transforms (Collage) -->
+    <section style="padding: 6rem 0; background: var(--wine-deep);">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;" class="hero-grid">
+          <div style="padding-right: 1.5rem;">
+            <h2 class="font-display" style="font-size: clamp(2rem, 3.5vw, 2.5rem); color: var(--white); font-weight: 700; margin-bottom: 1.5rem;">
+              Training That <span style="color: var(--gold);">Transforms</span>
+            </h2>
+            <p style="color: rgba(255,255,255,0.7); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
+              Our staff training programs cover everything from introductory ISO awareness to lead auditor training. We empower your team with the skills and knowledge to independently manage and improve your management systems.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+              <img src="assets/trainingphoto1.jpg" alt="Training Photo 1" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px;" />
+              <img src="assets/trainingphoto2.jpg" alt="Training Photo 2" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px;" />
+            </div>
+            <a href="contact.html" class="btn-gold">
+              Book Corporate Training
+            </a>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <img src="assets/collagesecond1.jpg" alt="Consulting" style="width: 100%; height: 380px; object-fit: cover; border-radius: 16px;" />
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <img src="assets/collage2.jpg" alt="Consulting 2" style="width: 100%; height: 185px; object-fit: cover; border-radius: 16px;" />
+              <img src="assets/collage3.jpg" alt="Consulting 3" style="width: 100%; height: 185px; object-fit: cover; border-radius: 16px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="background: linear-gradient(180deg, var(--wine-dark) 0%, var(--wine-deep) 100%); border-top: 1px solid rgba(201,168,76,0.15);">
+    <div class="container" style="padding: 5rem 1.5rem 2rem;">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem; text-decoration: none;">
+            <div style="padding: 0.2rem; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); border-radius: 50%;">
+              <img src="assets/logo.png" alt="Optimal Logo" width="48" height="48" style="border-radius: 50%; background: white;" />
+            </div>
+            <div>
+              <div style="color: var(--white); font-weight: 800; font-size: 1.2rem;">Optimal</div>
+              <div style="color: var(--gold); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">Management Consultancy</div>
+            </div>
+          </a>
+          <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.8; max-width: 380px;">
+            Expert ISO Certification Consulting in Nigeria &amp; Qatar. We help organisations achieve compliance faster, smarter, and completely stress-free.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: var(--gold-light); font-weight: 800; font-size: 0.95rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Quick Links</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.9rem;">
+            <li><a href="services.html" style="color: rgba(255,255,255,0.65); text-decoration: none;">› Services Catalog</a></li>
+            <li><a href="iso-programs.html" style="color: rgba(255,255,255,0.65); text-decoration: none;">› ISO Programs</a></li>
+            <li><a href="about.html" style="color: rgba(255,255,255,0.65); text-decoration: none;">› About Optimal</a></li>
+            <li><a href="contact.html" style="color: rgba(255,255,255,0.65); text-decoration: none;">› Contact Offices</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: var(--gold-light); font-weight: 800; font-size: 0.95rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Contact</h4>
+          <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem;">
+            ✉️ info@optimalconsult.com.ng<br />
+            📞 +234 803 731 6413<br />
+            📍 Ikeja, Lagos, Nigeria | Doha, Qatar
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(201,168,76,0.12); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.85rem;">
+          &copy; <span id="current-year">2026</span> Optimal Management Consultancy. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

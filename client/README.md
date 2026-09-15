@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Optimal Management Consultancy - Client Application
 
-## Getting Started
+A modern, standalone website built using standard **HTML5**, **Vanilla CSS3**, and **JavaScript (ES6+)**.
 
-First, run the development server:
+## Project Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+client/
+├── index.html                           # Home page (Hero video, Marquee, Standards, Testimonials, Form)
+├── about.html                           # About Us (Mission video, Founder profile, 5-step roadmap)
+├── services.html                        # Services catalog (6 solutions, training photo collage)
+├── iso-programs.html                    # ISO certification programs (ISO 9001, 14001, 45001, etc.)
+├── gallery.html                         # Full interactive photo gallery with lightbox modal
+├── contact.html                         # Contact page with split video layout & consultation form
+├── login.html                           # Admin portal login screen
+├── admin.html                           # Admin dashboard (Overview, Leads, Gallery CRUD, Analytics)
+├── services/                            # Dedicated Service Detail Pages
+│   ├── iso-certification.html
+│   ├── management-systems.html
+│   ├── professional-training.html
+│   ├── fire-safety-training.html
+│   ├── staff-training.html
+│   └── accident-and-road-safety-training.html
+├── css/
+│   ├── style.css                        # Main design system, typography, animations, responsive layout
+│   └── admin.css                        # Admin dashboard & portal styling
+├── js/
+│   ├── config.js                        # Global API endpoint configuration
+│   ├── main.js                          # Navigation, sticky CTA, mobile drawer, scroll animations
+│   ├── leads.js                         # Consultation form AJAX submission handler
+│   ├── gallery.js                       # Dynamic album loader and interactive lightbox
+│   ├── auth.js                          # Admin login, token storage, and logout
+│   └── admin.js                         # Admin dashboard tab switching, search, filters, gallery upload
+└── assets/                              # High-definition images, brand logos, and background videos
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running Locally
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+You can open `index.html` directly in any web browser or serve it using any static HTTP server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Using npx serve
+npx serve -p 3000 .
 
-## Learn More
+# Or using Python 3
+python -m http.server 3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Backend Integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The client communicates asynchronously via `fetch()` with the Express / MongoDB backend (running on `http://localhost:5000` by default):
+- **Leads**: `POST /api/leads`
+- **Gallery**: `GET /api/gallery`, `POST /api/gallery`, `DELETE /api/gallery/:id`
+- **Admin Auth & Stats**: `POST /api/auth/login`, `GET /api/stats`, `GET /api/leads`, `PATCH /api/leads/:id`
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To customize the backend URL for staging or production, edit `js/config.js`.
