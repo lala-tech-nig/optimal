@@ -56,7 +56,7 @@
 
   <main>
     <!-- About Hero with Video -->
-    <section style="position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8rem 1.5rem 4rem;">
+    <section class="cinematic-section" style="position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8rem 1.5rem 4rem;">
       <video autoPlay loop muted playsInline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
         <source src="assets/mission.mp4" type="video/mp4" />
       </video>
@@ -73,18 +73,18 @@
     </section>
 
     <!-- Why Choose Us -->
-    <section class="section-pad" style="background: var(--grey-light);">
+    <section class="section-pad cinematic-section" style="background: linear-gradient(180deg, var(--wine-base) 0%, var(--wine-dark) 100%);">
       <div class="container">
         <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5rem; align-items: center;" class="hero-grid">
           <div>
             <div class="gold-line"></div>
-            <div class="badge-gold" style="background: rgba(107,29,59,0.08); border: 1px solid rgba(107,29,59,0.2); color: var(--wine); margin-bottom: 1rem;">
+            <div class="badge-gold" style="margin-bottom: 1rem;">
               Why Choose Us
             </div>
-            <h2 class="font-display" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--wine-deep); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem;">
+            <h2 class="font-display" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--white); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem;">
               Strategic. Practical. <span style="color: var(--gold);">Proven.</span>
             </h2>
-            <p style="color: var(--grey-mid); line-height: 1.8; font-size: 1.05rem; margin-bottom: 2rem;">
+            <p style="color: rgba(255,255,255,0.78); line-height: 1.8; font-size: 1.05rem; margin-bottom: 2rem;">
               Your clients and stakeholders are asking: <em>"Can we trust their processes? Are they compliant with global standards?"</em>
               <br /><br />
               We have spent years ensuring our clients can answer with a resounding "Yes", backed by solid results and successful ISO certifications.
@@ -95,7 +95,7 @@
                 <div style="width: 24px; height: 24px; background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--wine-deep);">
                   ✓
                 </div>
-                <span style="color: var(--grey-dark); font-weight: 600; font-size: 1rem;">Pass rigorous ISO audits on first attempt</span>
+                <span style="color: rgba(255,255,255,0.92); font-weight: 600; font-size: 1rem;">Pass rigorous ISO audits on first attempt</span>
               </div>
               <div style="display: flex; align-items: center; gap: 1rem;">
                 <div style="width: 24px; height: 24px; background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--wine-deep);">
@@ -121,13 +121,13 @@
           <!-- Right Image -->
           <div style="position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
             <img src="assets/about-team.png" alt="Optimal Team" style="width: 100%; height: auto; object-fit: cover; display: block;" />
-            <div style="position: absolute; bottom: 2rem; left: 1.5rem; background: var(--white); padding: 1.25rem 1.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 1rem;">
+            <div class="card-white" style="position: absolute; bottom: 2rem; left: 1.5rem; background: var(--white); padding: 1.25rem 1.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 1rem;">
               <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem;">
                 🌐
               </div>
               <div>
                 <div style="font-weight: 800; color: var(--wine-deep); font-size: 1.1rem;">Global Reach</div>
-                <div style="font-size: 0.85rem; color: var(--grey-mid);">Nigeria &amp; Qatar</div>
+                <div style="font-size: 0.85rem; color: #520D2D; font-weight: 600;">Nigeria &amp; Qatar</div>
               </div>
             </div>
           </div>
@@ -135,70 +135,70 @@
 
         <!-- 6 Reasons Grid -->
         <div class="iso-cards-grid" style="margin-top: 6rem;">
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="globe" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">International Experience</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">Proven track record delivering ISO certification across both Nigeria and Qatar — understanding regional compliance nuances.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">Proven track record delivering ISO certification across both Nigeria and Qatar — understanding regional compliance nuances.</p>
           </div>
 
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="trending-up" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">Practical Implementation</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">We embed ISO into how you actually work — not just documentation exercises. Your team will live and breathe the standard.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">We embed ISO into how you actually work — not just documentation exercises. Your team will live and breathe the standard.</p>
           </div>
 
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="brain-circuit" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">Expert Consultants</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">Our team comprises seasoned ISO professionals with deep knowledge across multiple industries and international frameworks.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">Our team comprises seasoned ISO professionals with deep knowledge across multiple industries and international frameworks.</p>
           </div>
 
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="zap" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">Faster Timeline</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">Our structured methodology is optimised for speed. We help clients achieve certification up to 40% faster than industry average.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">Our structured methodology is optimised for speed. We help clients achieve certification up to 40% faster than industry average.</p>
           </div>
 
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="handshake" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">End-to-End Support</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">From first consultation to final certification and beyond — we stay with you throughout the entire journey.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">From first consultation to final certification and beyond — we stay with you throughout the entire journey.</p>
           </div>
 
-          <div style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(107,29,59,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div class="card-white" style="background: var(--white); border-radius: 12px; padding: 2rem; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
             <div style="color: var(--gold); margin-bottom: 1.2rem; background: rgba(201,168,76,0.1); width: fit-content; padding: 0.8rem; border-radius: 12px;">
               <i data-lucide="target" style="width: 28px; height: 28px;"></i>
             </div>
             <h4 style="color: var(--wine-deep); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem;">Results-Focused</h4>
-            <p style="color: var(--grey-mid); font-size: 0.9rem; line-height: 1.7;">We don't just inform — we sell confidence. Our clients win contracts, pass audits, and grow their business as a result.</p>
+            <p style="color: #4a2030; font-size: 0.9rem; line-height: 1.7;">We don't just inform — we sell confidence. Our clients win contracts, pass audits, and grow their business as a result.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Meet the Founder -->
-    <section class="section-pad" id="founder">
+    <section class="section-pad cinematic-section" id="founder">
       <div class="container">
         <div style="display: grid; grid-template-columns: minmax(300px, 0.8fr) 1.2fr; gap: 4rem; align-items: flex-start;" class="hero-grid">
           <div>
             <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); margin-bottom: 1.5rem;">
               <img src="assets/founder.jpeg" alt="Nasiru Mohammed Basheer Owolabi" style="width: 100%; height: auto; object-fit: cover; display: block;" />
             </div>
-            <div style="background: var(--grey-light); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(107,29,59,0.08);">
-              <h4 style="color: var(--wine-deep); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Profile Summary</h4>
-              <ul style="list-style: none; padding: 0; margin: 0; color: var(--grey-dark); font-size: 0.95rem;">
-                <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);"><strong>Nationality:</strong> Nigerian</li>
-                <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);"><strong>Languages:</strong> English, Arabic, French</li>
+            <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px); padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(201,168,76,0.22); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+              <h4 style="color: var(--white); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Profile Summary</h4>
+              <ul style="list-style: none; padding: 0; margin: 0; color: rgba(255, 255, 255, 0.78); font-size: 0.95rem;">
+                <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);"><strong>Nationality:</strong> Nigerian</li>
+                <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);"><strong>Languages:</strong> English, Arabic, French</li>
                 <li style="padding: 0.6rem 0;"><strong>Designations:</strong> CQMSAI, LEEA, MMIM, Grad-IOSH, CPCSRM</li>
               </ul>
             </div>
@@ -206,11 +206,11 @@
 
           <div>
             <div class="gold-line"></div>
-            <div class="badge-gold" style="margin-bottom: 1rem; background: rgba(201,168,76,0.1); color: var(--gold-dark);">Meet Our Founder</div>
-            <h2 class="font-display" style="font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--wine-deep); font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;">
+            <div class="badge-gold" style="margin-bottom: 1rem;">Meet Our Founder</div>
+            <h2 class="font-display" style="font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--white); font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;">
               Nasiru Mohammed Basheer Owolabi
             </h2>
-            <h3 style="color: var(--gold); font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem;">Lead Consultant &amp; Visionary</h3>
+            <h3 style="color: var(--gold-light); font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem;">Lead Consultant &amp; Visionary</h3>
 
             <p style="color: var(--grey-mid); line-height: 1.8; font-size: 1.05rem; margin-bottom: 2.5rem;">
               A seasoned expert with a prolific track record in occupational health, safety, and integrated management systems, Nasiru brings decades of cross-regional experience spanning Nigeria and the Middle East. He is dedicated to embedding sustainable quality models within organizations, fostering corporate resilience, and elevating standards across global industries.
@@ -249,7 +249,7 @@
     </section>
 
     <!-- How It Works (5-Step Process) -->
-    <section class="section-pad" style="background: linear-gradient(135deg, var(--wine-deep) 0%, var(--wine-dark) 100%); position: relative; overflow: hidden;">
+    <section class="section-pad cinematic-section" style="background: linear-gradient(135deg, var(--wine-deep) 0%, var(--wine-dark) 100%); position: relative; overflow: hidden;">
       <div class="container" style="position: relative; z-index: 2;">
         <div style="text-align: center; margin-bottom: 5rem;">
           <div class="gold-line" style="margin: 0 auto 1.5rem;"></div>

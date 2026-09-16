@@ -1,19 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
 
 :root {
-  /* Brand Palette */
-  --wine: #6B1D3B;
+  /* Brand Luxury Royal Wine Palette */
+  --wine-base: #18030D;
+  --wine-deep: #120109;
+  --wine-dark: #260515;
+  --wine: #520D2D;
+  --wine-mid: #6B1D3B;
   --wine-light: #8B2550;
-  --wine-dark: #4A0F28;
-  --wine-deep: #3A0A1F;
+  --wine-glow: rgba(139, 37, 80, 0.38);
+
+  /* Metallic Champagne Gold Palette */
   --gold: #C9A84C;
-  --gold-light: #E8C86A;
+  --gold-light: #F0D57E;
   --gold-dark: #A8872E;
-  --grey-light: #F5F3F0;
-  --grey-mid: #9E9E9E;
-  --grey-dark: #3A3A3A;
+  --gold-glow: rgba(201, 168, 76, 0.28);
+
+  /* Contrast & Liquid Glass Neutral Tokens */
   --white: #FFFFFF;
-  --black: #0D0D0D;
+  --text-pure: #FFFFFF;
+  --text-primary: rgba(255, 255, 255, 0.94);
+  --text-secondary: rgba(255, 255, 255, 0.76);
+  --text-muted: rgba(255, 255, 255, 0.52);
+
+  --grey-light: #260515; /* replaced light grey with rich dark wine */
+  --grey-mid: rgba(255, 255, 255, 0.68);
+  --grey-dark: #FFFFFF;
+  --black: #080105;
+
+  /* Liquid Glass Tokens */
+  --glass-card-bg: rgba(255, 255, 255, 0.04);
+  --glass-card-bg-hover: rgba(255, 255, 255, 0.075);
+  --glass-border: rgba(201, 168, 76, 0.22);
+  --glass-border-hover: rgba(201, 168, 76, 0.55);
+  --glass-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  --glass-blur: 16px;
 }
 
 * {
@@ -28,15 +49,143 @@ html {
 
 body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--white);
-  color: var(--grey-dark);
+  background-color: var(--wine-base);
+  background-image: 
+    radial-gradient(circle at 50% 0%, #3B0820 0%, transparent 60%),
+    radial-gradient(circle at 100% 40%, #2A0617 0%, transparent 50%),
+    radial-gradient(circle at 0% 80%, #300619 0%, transparent 50%),
+    linear-gradient(180deg, #18030D 0%, #1F0411 50%, #120109 100%);
+  background-attachment: fixed;
+  color: var(--text-secondary);
   overflow-x: hidden;
   line-height: 1.6;
+  cursor: url('../assets/cursor-logo.png') 16 16, url('assets/cursor-logo.png') 16 16, auto;
+}
+
+/* Ensure links and buttons show the logo cursor */
+a, button, input, select, textarea, [role="button"], label {
+  cursor: url('../assets/cursor-logo.png') 16 16, url('assets/cursor-logo.png') 16 16, pointer;
+}
+
+/* Custom Interactive Logo Cursor (No Ring Around Cursor) */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 100002;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+  will-change: transform;
+}
+
+#custom-cursor img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  background: transparent;
+  display: block;
+}
+
+/* Cursor Interactive States */
+body.cursor-hover #custom-cursor {
+  transform: translate(-50%, -50%) scale(1.24);
+  filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.6));
+}
+
+body.cursor-click #custom-cursor {
+  transform: translate(-50%, -50%) scale(0.82);
+}
+
+/* Card Liquid Glass Pill — glides between cards like the nav pill */
+.card-liquid-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(201, 168, 76, 0.20) 45%,
+    rgba(139, 37, 80, 0.24) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(201, 168, 76, 0.50);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.50),
+    inset 0 -2px 4px rgba(201, 168, 76, 0.35),
+    0 0 20px rgba(201, 168, 76, 0.15);
+  transition:
+    transform 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    width 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    height 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    opacity 0.28s ease;
+  overflow: hidden;
+  will-change: transform, width, height;
+}
+
+/* Top meniscus specular shine on card pill */
+.card-liquid-pill::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 8%;
+  right: 8%;
+  height: 36%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+/* Dynamic glare that tracks cursor position inside card */
+.card-liquid-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(
+    circle 80px at var(--pill-x, 50%) var(--pill-y, 50%),
+    rgba(255, 255, 255, 0.50) 0%,
+    rgba(201, 168, 76, 0.35) 40%,
+    transparent 75%
+  );
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+/* Card grid wrappers must be position:relative to contain the pill */
+.iso-cards-grid,
+.support-cards-grid,
+.testim-grid {
+  position: relative;
+}
+
+@media (pointer: coarse) {
+  #custom-cursor {
+    display: none !important;
+  }
+  body, a, button, input, select, textarea {
+    cursor: auto !important;
+  }
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 7px; }
-::-webkit-scrollbar-track { background: var(--wine-dark); }
+::-webkit-scrollbar-track { background: var(--wine-deep); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
 
@@ -54,14 +203,14 @@ body {
   background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
 }
 
-.text-wine { color: var(--wine); }
-.text-wine-deep { color: var(--wine-deep); }
+.text-wine { color: var(--gold-light); }
+.text-wine-deep { color: var(--gold-light); }
 .text-gold { color: var(--gold); }
 .text-gold-light { color: var(--gold-light); }
 .text-gold-dark { color: var(--gold-dark); }
 .text-white { color: var(--white); }
 .text-grey-mid { color: var(--grey-mid); }
-.text-grey-dark { color: var(--grey-dark); }
+.text-grey-dark { color: var(--white); }
 
 .bg-wine { background-color: var(--wine); }
 .bg-wine-dark { background-color: var(--wine-dark); }
@@ -79,6 +228,296 @@ body {
 
 .section-pad {
   padding: 5rem 1.5rem;
+}
+
+/* ─── White Section Utility ──────────────────────────────────────────────────
+   Apply .section-white to any <section> to flip it to a clean white background
+   with proper dark text, wine/gold accents, and adapted glass cards.           */
+.section-white {
+  background: #ffffff !important;
+}
+
+/* Headings inside white sections → wine-dark */
+.section-white h1,
+.section-white h2,
+.section-white h3,
+.section-white h4,
+.section-white h5 {
+  color: var(--wine-dark) !important;
+}
+
+/* Body text inside white sections → dark grey */
+.section-white p,
+.section-white li,
+.section-white span:not(.badge-gold):not([style*="color"]) {
+  color: #4a2030 !important;
+}
+
+/* Gold line divider stays gold */
+.section-white .gold-line {
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+}
+
+/* Gold badge adapts to white — darker border */
+.section-white .badge-gold {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: rgba(201, 168, 76, 0.55);
+  color: var(--gold-dark);
+}
+
+/* Cards on white background — clean, crisp white card with champagne gold border */
+.section-white .iso-card,
+.section-white .support-card,
+.section-white .testim-card,
+.section-white .card-glass,
+.card-white {
+  background: #ffffff !important;
+  border: 1px solid rgba(201, 168, 76, 0.35) !important;
+  box-shadow:
+    0 10px 32px rgba(82, 13, 45, 0.08),
+    0 2px 8px rgba(82, 13, 45, 0.04),
+    inset 0 1.5px 3px rgba(255, 255, 255, 1) !important;
+}
+
+.section-white .iso-card:hover,
+.section-white .support-card:hover,
+.section-white .testim-card:hover,
+.card-white:hover {
+  border-color: rgba(201, 168, 76, 0.7) !important;
+  box-shadow:
+    0 20px 48px rgba(82, 13, 45, 0.14),
+    0 0 28px rgba(201, 168, 76, 0.18),
+    inset 0 1.5px 3px rgba(255, 255, 255, 1) !important;
+}
+
+/* Card pill on white sections gets a subtle wine-gold glow behind text */
+.section-white .card-liquid-pill {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.70) 0%,
+    rgba(201, 168, 76, 0.22) 50%,
+    rgba(82, 13, 45, 0.12) 100%
+  ) !important;
+  border-color: rgba(201, 168, 76, 0.55) !important;
+  box-shadow:
+    0 8px 28px rgba(82, 13, 45, 0.10),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
+    0 0 16px rgba(201, 168, 76, 0.15) !important;
+}
+
+/* Ensure all elements inside cards stay above the liquid pill */
+.iso-card *,
+.support-card *,
+.testim-card *,
+.card-white * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Testimonial card text on white */
+.section-white .testim-card p {
+  color: #381220 !important;
+}
+
+/* Icon containers inside white sections */
+.section-white [style*="color: var(--wine)"],
+.section-white [style*="color:var(--wine)"] {
+  color: var(--wine-mid) !important;
+}
+
+/* Logo marquee section stays white cleanly */
+.section-logos {
+  background: #f8f5f0;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+.section-logos p {
+  color: #7a4a5a !important;
+}
+
+/* ─── White Background & White Card Typography Overrides ─────────────────────
+   Guarantees that ANY card, section, or container with a white or light background
+   has ultra-crisp, dark, highly legible typography — never white or invisible text. */
+
+/* Sections with white background */
+section.section-white,
+section[style*="background: var(--white)"],
+section[style*="background:var(--white)"],
+section[style*="background: #fff"],
+section[style*="background:#fff"],
+section[style*="background: white"],
+section[style*="background:white"],
+main[style*="background: var(--white)"],
+main[style*="background: #fff"] {
+  background: #ffffff !important;
+  color: #381220 !important;
+}
+
+section.section-white h1,
+section.section-white h2,
+section.section-white h3,
+section.section-white h4,
+section.section-white h5,
+section[style*="background: var(--white)"] h1,
+section[style*="background: var(--white)"] h2,
+section[style*="background: var(--white)"] h3,
+section[style*="background: var(--white)"] h4,
+section[style*="background: var(--white)"] h5,
+section[style*="background: #fff"] h1,
+section[style*="background: #fff"] h2,
+section[style*="background: #fff"] h3,
+section[style*="background: #fff"] h4,
+section[style*="background: #fff"] h5,
+section[style*="background: white"] h1,
+section[style*="background: white"] h2,
+section[style*="background: white"] h3,
+section[style*="background: white"] h4,
+section[style*="background: white"] h5 {
+  color: var(--wine-deep) !important;
+}
+
+section.section-white p,
+section[style*="background: var(--white)"] p,
+section[style*="background: #fff"] p,
+section[style*="background: white"] p {
+  color: #381220 !important;
+}
+
+/* Any Card with White Background */
+div[style*="background: var(--white)"],
+div[style*="background:var(--white)"],
+div[style*="background: #fff"],
+div[style*="background:#fff"],
+div[style*="background: white"],
+div[style*="background:white"],
+div[style*="background: #ffffff"],
+a[style*="background: var(--white)"],
+.card-white,
+.section-white .iso-card,
+.section-white .support-card,
+.section-white .testim-card,
+.section-white .card-glass {
+  background: #ffffff !important;
+  color: #381220 !important;
+}
+
+/* Headings inside any white card */
+div[style*="background: var(--white)"] h1,
+div[style*="background: var(--white)"] h2,
+div[style*="background: var(--white)"] h3,
+div[style*="background: var(--white)"] h4,
+div[style*="background: var(--white)"] h5,
+div[style*="background: #fff"] h1,
+div[style*="background: #fff"] h2,
+div[style*="background: #fff"] h3,
+div[style*="background: #fff"] h4,
+div[style*="background: #fff"] h5,
+div[style*="background: white"] h1,
+div[style*="background: white"] h2,
+div[style*="background: white"] h3,
+div[style*="background: white"] h4,
+div[style*="background: white"] h5,
+div[style*="background: #ffffff"] h1,
+div[style*="background: #ffffff"] h2,
+div[style*="background: #ffffff"] h3,
+div[style*="background: #ffffff"] h4,
+div[style*="background: #ffffff"] h5,
+.card-white h1, .card-white h2, .card-white h3, .card-white h4,
+.section-white .iso-card h4,
+.section-white .support-card h4,
+.section-white .testim-card h4 {
+  color: var(--wine-deep) !important;
+}
+
+/* Paragraphs inside any white card */
+div[style*="background: var(--white)"] p,
+div[style*="background:var(--white)"] p,
+div[style*="background: #fff"] p,
+div[style*="background:#fff"] p,
+div[style*="background: white"] p,
+div[style*="background:white"] p,
+div[style*="background: #ffffff"] p,
+.card-white p,
+.section-white .iso-card p,
+.section-white .support-card p,
+.section-white .testim-card p {
+  color: #381220 !important;
+  line-height: 1.7;
+}
+
+/* Strong / Bold elements inside white cards */
+div[style*="background: var(--white)"] strong,
+div[style*="background: #fff"] strong,
+div[style*="background: white"] strong,
+div[style*="background: #ffffff"] strong,
+.card-white strong,
+.section-white strong {
+  color: var(--wine-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* Elements styled with var(--grey-dark) or var(--grey-mid) inside white cards or white sections */
+div[style*="background: var(--white)"] [style*="color: var(--grey-dark)"],
+div[style*="background: var(--white)"] [style*="color:var(--grey-dark)"],
+div[style*="background: var(--white)"] [style*="color: var(--grey-mid)"],
+div[style*="background: var(--white)"] [style*="color:var(--grey-mid)"],
+div[style*="background: #fff"] [style*="color: var(--grey-dark)"],
+div[style*="background: #fff"] [style*="color:var(--grey-dark)"],
+div[style*="background: #fff"] [style*="color: var(--grey-mid)"],
+div[style*="background: #fff"] [style*="color:var(--grey-mid)"],
+div[style*="background: white"] [style*="color: var(--grey-dark)"],
+div[style*="background: white"] [style*="color:var(--grey-dark)"],
+div[style*="background: white"] [style*="color: var(--grey-mid)"],
+div[style*="background: white"] [style*="color:var(--grey-mid)"],
+section[style*="background: var(--white)"] [style*="color: var(--grey-dark)"],
+section[style*="background: var(--white)"] [style*="color:var(--grey-dark)"],
+section[style*="background: var(--white)"] [style*="color: var(--grey-mid)"],
+section[style*="background: var(--white)"] [style*="color:var(--grey-mid)"],
+.section-white [style*="color: var(--grey-dark)"],
+.section-white [style*="color:var(--grey-dark)"],
+.section-white [style*="color: var(--grey-mid)"],
+.section-white [style*="color:var(--grey-mid)"],
+.card-white [style*="color: var(--grey-dark)"],
+.card-white [style*="color:var(--grey-dark)"],
+.card-white [style*="color: var(--grey-mid)"],
+.card-white [style*="color:var(--grey-mid)"] {
+  color: #381220 !important;
+}
+
+/* Any white text overrides inside white cards */
+div[style*="background: var(--white)"] [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+div[style*="background: var(--white)"] [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold),
+div[style*="background: #fff"] [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+div[style*="background: #fff"] [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold),
+div[style*="background: white"] [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+div[style*="background: white"] [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold),
+section[style*="background: var(--white)"] [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+section[style*="background: var(--white)"] [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold),
+.section-white [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+.section-white [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold),
+.card-white [style*="color: var(--white)"]:not(.btn-gold):not(.badge-gold),
+.card-white [style*="color:var(--white)"]:not(.btn-gold):not(.badge-gold) {
+  color: var(--wine-deep) !important;
+}
+
+/* Subtext / spans inside white cards */
+div[style*="background: var(--white)"] span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]),
+div[style*="background: #fff"] span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]),
+div[style*="background: white"] span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]),
+section[style*="background: var(--white)"] span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]),
+.section-white span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]),
+.card-white span:not(.badge-gold):not([style*="color: var(--gold)"]):not([style*="color: var(--wine)"]):not([style*="color:var(--gold)"]):not([style*="color:var(--wine)"]) {
+  color: #381220 !important;
+}
+
+/* White card borders and shadows */
+div[style*="background: var(--white)"],
+div[style*="background: #fff"],
+div[style*="background: white"],
+.card-white {
+  border: 1px solid rgba(201, 168, 76, 0.35) !important;
+  box-shadow: 0 8px 30px rgba(24, 3, 13, 0.08) !important;
 }
 
 /* Gold Divider */
@@ -199,11 +638,13 @@ body {
 /* Form Inputs */
 .form-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(201, 168, 76, 0.25);
-  border-radius: 6px;
-  padding: 0.85rem 1.1rem;
-  color: var(--white);
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 168, 76, 0.28) !important;
+  border-radius: 8px;
+  padding: 0.85rem 1.15rem;
+  color: var(--white) !important;
   font-family: 'Outfit', sans-serif;
   font-size: 0.95rem;
   transition: all 0.3s ease;
@@ -211,13 +652,13 @@ body {
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .form-input:focus {
-  border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+  border-color: var(--gold) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.25), 0 0 15px rgba(201, 168, 76, 0.15) !important;
 }
 
 select.form-input option {
@@ -264,17 +705,22 @@ select.form-input option {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1rem 1.5rem;
-  background: transparent;
-  transition: all 0.35s ease;
+  padding: 0.9rem 1.5rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+  box-shadow: 0 4px 25px rgba(82, 13, 45, 0.08);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .navbar.scrolled {
-  background: rgba(58, 10, 31, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
-  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  padding: 0.65rem 1.5rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.5);
+  box-shadow: 0 8px 32px rgba(82, 13, 45, 0.12), 0 1px 3px rgba(201, 168, 76, 0.2);
 }
 
 .nav-container {
@@ -288,6 +734,11 @@ select.form-input option {
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  transition: transform 0.25s ease;
+}
+
+.brand-logo:hover {
+  transform: translateY(-1px);
 }
 
 .brand-logo img {
@@ -296,67 +747,180 @@ select.form-input option {
   width: 44px;
   height: 44px;
   object-fit: cover;
+  border: 1.5px solid rgba(201, 168, 76, 0.55);
+  box-shadow: 0 3px 12px rgba(82, 13, 45, 0.15);
 }
 
 .brand-name {
-  color: var(--white);
-  font-weight: 700;
-  font-size: 1.15rem;
+  color: var(--wine-deep);
+  font-weight: 800;
+  font-size: 1.18rem;
   line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .brand-sub {
-  color: var(--gold);
+  color: var(--gold-dark);
   font-size: 0.65rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
+/* Desktop Navigation & Liquid Glass Pill */
 .desktop-nav {
+  position: relative;
   display: flex;
-  gap: 2rem;
+  gap: 0.4rem;
   list-style: none;
+  align-items: center;
+  padding: 0.25rem;
+  border-radius: 9999px;
+}
+
+.desktop-nav > li {
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
-.desktop-nav a {
-  color: rgba(255, 255, 255, 0.82);
+.desktop-nav a:not(.btn-gold) {
+  position: relative;
+  z-index: 2;
+  color: var(--wine-deep);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.92rem;
-  transition: color 0.3s ease;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
+  padding: 0.55rem 1.1rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
 }
 
-.desktop-nav a:hover,
-.desktop-nav a.active {
-  color: var(--gold-light);
+.desktop-nav a:not(.btn-gold):hover,
+.desktop-nav a:not(.btn-gold).active {
+  color: var(--wine-light);
+  font-weight: 700;
+}
+
+/* Liquid Glass Pill Indicator */
+.nav-liquid-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(201, 168, 76, 0.22) 45%,
+    rgba(139, 37, 80, 0.14) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(201, 168, 76, 0.55);
+  box-shadow:
+    0 8px 24px rgba(82, 13, 45, 0.12),
+    0 2px 8px rgba(201, 168, 76, 0.18),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(201, 168, 76, 0.35),
+    0 0 16px rgba(201, 168, 76, 0.22);
+  transition:
+    transform 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    width 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    height 0.42s cubic-bezier(0.23, 1, 0.32, 1.15),
+    opacity 0.28s ease;
+  overflow: hidden;
+}
+
+/* Specular curved reflection meniscus (bright top shine) */
+.nav-liquid-pill::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 10%;
+  right: 10%;
+  height: 42%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.15) 100%);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Dynamic liquid refraction glare tracking cursor */
+.nav-liquid-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle 55px at var(--liquid-x, 50%) var(--liquid-y, 50%),
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(201, 168, 76, 0.42) 40%,
+    transparent 75%
+  );
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+/* Nav CTA button styling */
+.desktop-nav .btn-gold {
+  position: relative;
+  z-index: 2;
+  margin-left: 0.6rem;
+  padding: 0.6rem 1.45rem !important;
+  font-size: 0.86rem !important;
+  font-weight: 600;
+  border-radius: 9999px !important;
+  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.35);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.desktop-nav .btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.45);
 }
 
 .hamburger-btn {
-  background: none;
+  background: rgba(82, 13, 45, 0.06);
   border: 1px solid rgba(201, 168, 76, 0.4);
-  border-radius: 4px;
-  padding: 0.45rem;
+  border-radius: 8px;
+  padding: 0.5rem;
   cursor: pointer;
   display: none;
-  color: var(--gold);
+  color: var(--wine-deep);
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
 }
 
+.hamburger-btn:hover {
+  background: rgba(201, 168, 76, 0.18);
+  border-color: var(--wine-base);
+}
+
 .mobile-nav-drawer {
   display: none;
-  background: var(--wine-deep);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   padding: 1.5rem;
-  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  border-top: 1px solid rgba(201, 168, 76, 0.25);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.4);
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(82, 13, 45, 0.15);
+  animation: fadeIn 0.25s ease-out;
 }
 
 .mobile-nav-drawer.open {
@@ -365,15 +929,21 @@ select.form-input option {
 
 .mobile-nav-drawer a {
   display: block;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--wine-deep);
   text-decoration: none;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-weight: 500;
+  padding: 0.85rem 0.5rem;
+  border-bottom: 1px solid rgba(82, 13, 45, 0.08);
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-.mobile-nav-drawer a:hover {
-  color: var(--gold);
+.mobile-nav-drawer a:hover,
+.mobile-nav-drawer a.active {
+  color: var(--wine-light);
+  font-weight: 700;
+  background: rgba(201, 168, 76, 0.15);
+  padding-left: 0.85rem;
 }
 
 /* Video Hero Section */
@@ -508,41 +1078,165 @@ select.form-input option {
   gap: 1.5rem;
 }
 
-.iso-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid rgba(201, 168, 76, 0.15);
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+/* Cards - True Liquid Glassmorphism with smooth motion */
+.iso-card,
+.support-card,
+.testim-card,
+.card-glass {
+  background: rgba(255, 255, 255, 0.045) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  border: 1px solid rgba(201, 168, 76, 0.24) !important;
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.48),
+    0 2px 8px rgba(0, 0, 0, 0.28),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.24),
+    inset 0 -1.5px 3px rgba(201, 168, 76, 0.14) !important;
   position: relative;
+  z-index: 1; /* sit above the sibling card-liquid-pill */
   overflow: hidden;
+  transition:
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1.1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease !important;
+  will-change: transform;
+}
+
+/* Meniscus top-edge shimmer on all cards */
+.iso-card::after,
+.support-card::after,
+.testim-card::after,
+.card-glass::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 40%, rgba(201,168,76,0.6) 60%, transparent);
+  border-radius: 0 0 4px 4px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.55;
+  transition: opacity 0.45s ease;
+}
+
+.iso-card:hover::after,
+.support-card:hover::after,
+.testim-card:hover::after,
+.card-glass:hover::after {
+  opacity: 1;
+}
+
+.iso-card {
+  border-radius: 18px;
+  padding: 2rem;
   text-decoration: none;
   display: block;
 }
 
 .iso-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(107, 29, 59, 0.09);
-  border-color: var(--gold);
+  transform: translateY(-10px) scale(1.015) !important;
+  border-color: rgba(201, 168, 76, 0.7) !important;
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.58),
+    0 0 42px rgba(139, 37, 80, 0.38),
+    inset 0 1.5px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+.iso-card h4,
+.support-card h4 {
+  color: var(--white) !important;
+  position: relative;
+  z-index: 2;
+}
+
+.iso-card p,
+.support-card p {
+  color: rgba(255, 255, 255, 0.76) !important;
+  position: relative;
+  z-index: 2;
+}
+
+.iso-card span {
+  background: rgba(201, 168, 76, 0.16) !important;
+  color: var(--gold-light) !important;
+  border: 1px solid rgba(201, 168, 76, 0.38) !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── White Section Card Text Overrides ──────────────────────────────────────
+   These must beat the !important rules above via compound specificity.         */
+.section-white .iso-card h4,
+.section-white .support-card h4,
+.section-white .testim-card h4 {
+  color: var(--wine-dark) !important;
+}
+
+.section-white .iso-card p,
+.section-white .support-card p,
+.section-white .testim-card p {
+  color: #4a2030 !important;
+}
+
+/* ISO badge tag (the "ISO 9001" pill) — wine on white */
+.section-white .iso-card span {
+  background: rgba(82, 13, 45, 0.07) !important;
+  color: var(--wine) !important;
+  border: 1px solid rgba(82, 13, 45, 0.18) !important;
+}
+
+/* "Learn More →" link inside ISO cards */
+.section-white .iso-card div[style*="color: var(--gold-dark)"],
+.section-white .iso-card > div:last-child {
+  color: var(--gold-dark) !important;
+}
+
+/* Icon wrappers inside support cards on white — wine tint */
+.section-white .support-card > div:first-child {
+  background: rgba(82, 13, 45, 0.07) !important;
+  color: var(--wine-mid) !important;
+}
+
+/* All divs with inline color:var(--wine-deep) inside cards on white — keep */
+.section-white .iso-card div,
+.section-white .support-card div,
+.section-white .testim-card div {
+  color: inherit;
+}
+
+/* Testimonial card name, subtitle, tag */
+.section-white .testim-card [style*="color: var(--white)"],
+.section-white .testim-card [style*="color:var(--white)"] {
+  color: var(--wine-dark) !important;
+}
+
+.section-white .testim-card [style*="rgba(255,255,255,0.5)"],
+.section-white .testim-card [style*="rgba(255, 255, 255, 0.5)"] {
+  color: #7a4a5a !important;
+}
+
+.section-white .testim-card [style*="color: var(--gold)"],
+.section-white .testim-card [style*="color:var(--gold)"] {
+  color: var(--gold-dark) !important;
 }
 
 .support-card {
-  background: var(--white);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 1.75rem;
-  border: 1px solid rgba(107, 29, 59, 0.08);
-  transition: all 0.3s ease;
   display: flex;
   gap: 1.25rem;
   align-items: flex-start;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .support-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold-light);
-  box-shadow: 0 10px 25px rgba(107, 29, 59, 0.06);
+  transform: translateY(-7px) scale(1.012) !important;
+  border-color: var(--gold) !important;
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(201, 168, 76, 0.28),
+    inset 0 1.5px 4px rgba(255, 255, 255, 0.35) !important;
 }
 
 .testim-grid {
@@ -552,23 +1246,19 @@ select.form-input option {
 }
 
 .testim-card {
-  background: rgba(255, 255, 255, 0.03);
   border-radius: 20px;
   padding: 2.5rem 2rem;
-  border: 1px solid rgba(201, 168, 76, 0.15);
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  transition: all 0.4s ease;
 }
 
 .testim-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(201, 168, 76, 0.4);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  transform: translateY(-10px) scale(1.015) !important;
+  border-color: rgba(201, 168, 76, 0.6) !important;
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.58),
+    0 0 40px rgba(139, 37, 80, 0.32),
+    inset 0 1.5px 4px rgba(255, 255, 255, 0.4) !important;
 }
 
 /* Lightbox Modal */
@@ -689,4 +1379,138 @@ select.form-input option {
     grid-template-columns: 1fr !important;
   }
   .stat-number { font-size: 2rem; }
+}
+
+/* ==========================================================================
+   Cinematic Drop-in Animation Engine
+   ========================================================================== */
+
+/* Full Section Cinematic Drop-In */
+.cinematic-section {
+  opacity: 0;
+  transform: translateY(50px) scale(0.985);
+  filter: blur(10px);
+  transition:
+    opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.cinematic-section.cinematic-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Nested Stagger Elements (Cards, Highlights, Badges) */
+.cinematic-section .stagger-item,
+.cinematic-section .iso-card,
+.cinematic-section .support-card,
+.cinematic-section .testim-card,
+.cinematic-section .process-step,
+.cinematic-section .service-card,
+.cinematic-section .feature-card,
+.cinematic-section .stat-card {
+  opacity: 0;
+  transform: translateY(32px) scale(0.975);
+  filter: blur(6px);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.cinematic-section.cinematic-in .stagger-item,
+.cinematic-section.cinematic-in .iso-card,
+.cinematic-section.cinematic-in .support-card,
+.cinematic-section.cinematic-in .testim-card,
+.cinematic-section.cinematic-in .process-step,
+.cinematic-section.cinematic-in .service-card,
+.cinematic-section.cinematic-in .feature-card,
+.cinematic-section.cinematic-in .stat-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Cascading Stagger Delays */
+.cinematic-section.cinematic-in .stagger-item:nth-child(1),
+.cinematic-section.cinematic-in .iso-card:nth-child(1),
+.cinematic-section.cinematic-in .support-card:nth-child(1),
+.cinematic-section.cinematic-in .testim-card:nth-child(1),
+.cinematic-section.cinematic-in .process-step:nth-child(1),
+.cinematic-section.cinematic-in .service-card:nth-child(1) { transition-delay: 0.08s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(2),
+.cinematic-section.cinematic-in .iso-card:nth-child(2),
+.cinematic-section.cinematic-in .support-card:nth-child(2),
+.cinematic-section.cinematic-in .testim-card:nth-child(2),
+.cinematic-section.cinematic-in .process-step:nth-child(2),
+.cinematic-section.cinematic-in .service-card:nth-child(2) { transition-delay: 0.16s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(3),
+.cinematic-section.cinematic-in .iso-card:nth-child(3),
+.cinematic-section.cinematic-in .support-card:nth-child(3),
+.cinematic-section.cinematic-in .testim-card:nth-child(3),
+.cinematic-section.cinematic-in .process-step:nth-child(3),
+.cinematic-section.cinematic-in .service-card:nth-child(3) { transition-delay: 0.24s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(4),
+.cinematic-section.cinematic-in .iso-card:nth-child(4),
+.cinematic-section.cinematic-in .support-card:nth-child(4),
+.cinematic-section.cinematic-in .testim-card:nth-child(4),
+.cinematic-section.cinematic-in .process-step:nth-child(4),
+.cinematic-section.cinematic-in .service-card:nth-child(4) { transition-delay: 0.32s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(5),
+.cinematic-section.cinematic-in .iso-card:nth-child(5),
+.cinematic-section.cinematic-in .support-card:nth-child(5),
+.cinematic-section.cinematic-in .testim-card:nth-child(5) { transition-delay: 0.40s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(6),
+.cinematic-section.cinematic-in .iso-card:nth-child(6),
+.cinematic-section.cinematic-in .support-card:nth-child(6),
+.cinematic-section.cinematic-in .testim-card:nth-child(6) { transition-delay: 0.48s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(7),
+.cinematic-section.cinematic-in .iso-card:nth-child(7),
+.cinematic-section.cinematic-in .support-card:nth-child(7),
+.cinematic-section.cinematic-in .testim-card:nth-child(7) { transition-delay: 0.56s; }
+
+.cinematic-section.cinematic-in .stagger-item:nth-child(8),
+.cinematic-section.cinematic-in .iso-card:nth-child(8),
+.cinematic-section.cinematic-in .support-card:nth-child(8),
+.cinematic-section.cinematic-in .testim-card:nth-child(8) { transition-delay: 0.64s; }
+
+/* Cinematic Headings & Hero Overlays */
+.cinematic-title {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(8px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.cinematic-section.cinematic-in .cinematic-title,
+.hero-wrapper.cinematic-in .cinematic-title {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-section,
+  .cinematic-section .stagger-item,
+  .cinematic-title {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }
