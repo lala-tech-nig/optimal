@@ -2,40 +2,48 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const Admin = require('./models/Admin');
 const cookieParser = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
 
-// Load env vars
+// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// CORS — allow all localhost ports, file:// origin (null), and production CLIENT_URL
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:3000',
-  'http://localhost:5000',
-  'http://localhost:8080',
-  'http://127.0.0.1:3000',
-  'http://127.0.0.1:5000',
-  'http://127.0.0.1:8080',
-].filter(Boolean);
+// Ensure upload directories exist for local file uploads
+const uploadsDir = path.join(__dirname, 'uploads', 'gallery');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Universal CORS & Preflight Middleware (supports optimalconsult.com.ng, localhost, and all clients)
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+
+  // Handle preflight OPTIONS request immediately
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (file://, curl, Postman, mobile apps)
-    if (!origin) return callback(null, true);
-    // Allow any localhost/127.0.0.1 port
-    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
-      return callback(null, true);
-    }
-    // Allow explicitly configured origins
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    callback(new Error(`CORS blocked: ${origin}`));
-  },
-  credentials: true
+  origin: true, // Dynamically reflect origin to support credentials across optimalconsult.com.ng and localhost
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
 
 app.use(express.json());
@@ -44,23 +52,27 @@ app.use(cookieParser());
 
 // ─── Health Check ────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
   res.json({
     ok: true,
-    status: 'Optimal API running',
+    status: 'Optimal Management Consultancy API running',
     timestamp: new Date().toISOString(),
-    db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    db: isConnected ? 'mongodb_connected' : 'memory_fallback_active',
+    port: process.env.PORT || 5000
   });
 });
 
-// ─── Connect to MongoDB ───────────────────────────────────────────────────────
+// ─── Connect to MongoDB (Non-blocking & Graceful) ────────────────────────────
 const connectDB = async () => {
+  const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/optimal_consultancy';
   try {
-    const conn = await mongoose.connect(
-      process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/optimal_consultancy'
-    );
+    const conn = await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 3000
+    });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
 
-    // Seed default admin if none exists
+    // Seed default admin if none exists in MongoDB
+    const Admin = require('./models/Admin');
     const adminExists = await Admin.findOne();
     if (!adminExists) {
       const defaultAdmin = new Admin({
@@ -69,11 +81,11 @@ const connectDB = async () => {
         name: 'Optimal Admin'
       });
       await defaultAdmin.save();
-      console.log('🔐 Default admin created: admin@optimalconsult.com.ng / Password123!');
+      console.log('🔐 Default admin initialized: admin@optimalconsult.com.ng / Password123!');
     }
   } catch (error) {
-    console.error(`❌ MongoDB connection error: ${error.message}`);
-    process.exit(1);
+    console.warn(`⚠️ MongoDB connection: ${error.message}`);
+    console.warn('💡 Server operating with in-memory storage fallback. To persist to MongoDB, configure MONGO_URI in .env');
   }
 };
 
@@ -97,6 +109,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Optimal Backend running on http://localhost:${PORT}`);
   console.log(`   Health: http://localhost:${PORT}/api/health`);
 });

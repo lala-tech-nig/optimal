@@ -50,9 +50,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Backend Integration
 
-The client communicates asynchronously via `fetch()` with the Express / MongoDB backend (running on `http://localhost:5000` by default):
+The client communicates asynchronously via `fetch()` with the Express / MongoDB backend (hosted at `https://optimal-fkiy.onrender.com` by default, or `http://localhost:5000` in local development):
 - **Leads**: `POST /api/leads`
 - **Gallery**: `GET /api/gallery`, `POST /api/gallery`, `DELETE /api/gallery/:id`
 - **Admin Auth & Stats**: `POST /api/auth/login`, `GET /api/stats`, `GET /api/leads`, `PATCH /api/leads/:id`
 
-To customize the backend URL for staging or production, edit `js/config.js`.
+The default base API URL is configured in `js/config.js` (`https://optimal-fkiy.onrender.com`). You can also override it dynamically via `localStorage.setItem('optimal_api_url', '...')`.

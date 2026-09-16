@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cursor) {
       cursor = document.createElement('div');
       cursor.id = 'custom-cursor';
-      cursor.innerHTML = `<img src="${getAssetPath('logo.png')}" alt="Optimal Cursor Logo" />`;
+      cursor.innerHTML = `<img src="${getAssetPath('optimallogotran.png')}" alt="Optimal Cursor Logo" />`;
       document.body.appendChild(cursor);
     }
 
@@ -387,13 +387,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCinematicAnimations();
 
-  // 8. Update Year in Footer
+  // 8. Document Viewer Modal Controller (View-Only / Downloads Disabled)
+  const initDocViewer = () => {
+    const modal = document.getElementById('doc-viewer-modal');
+    if (!modal) return;
+
+    const modalIframe = modal.querySelector('#doc-modal-iframe');
+    const modalTitle = modal.querySelector('#doc-modal-title');
+    const closeBtn = modal.querySelector('#doc-modal-close');
+
+    const openModal = (url, title) => {
+      // Append parameters to suppress browser PDF toolbars and download options
+      const viewOnlyUrl = url.includes('#') ? url : `${url}#toolbar=0&navpanes=0&scrollbar=1`;
+      if (modalIframe) modalIframe.src = viewOnlyUrl;
+      if (modalTitle) modalTitle.textContent = title;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      if (modalIframe) modalIframe.src = '';
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('[data-open-doc]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const docUrl = btn.getAttribute('data-open-doc');
+        const docTitle = btn.getAttribute('data-doc-title') || 'Official Document (View Only)';
+        openModal(docUrl, docTitle);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    // Prevent context menu (Save As) on document viewer
+    modal.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  };
+
+  initDocViewer();
+
+  // 9. Floating & Bouncing Logo Watermark across all pages
+  const initFloatingWatermark = () => {
+    if (document.getElementById('optimal-floating-watermark')) return;
+
+    const watermark = document.createElement('div');
+    watermark.id = 'optimal-floating-watermark';
+    const logoSrc = getAssetPath('optimallogotran.png');
+
+    const isMobile = window.innerWidth <= 768;
+    const width = isMobile ? 120 : 180;
+    const height = isMobile ? 100 : 150;
+
+    watermark.style.cssText = `
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: ${width}px;
+      height: ${height}px;
+      pointer-events: none;
+      z-index: 998;
+      opacity: 0.12;
+      filter: drop-shadow(0 0 24px rgba(201, 168, 76, 0.4));
+      user-select: none;
+      -webkit-user-select: none;
+      will-change: transform;
+      transition: opacity 0.3s ease;
+    `;
+
+    watermark.innerHTML = `
+      <img src="${logoSrc}" alt="Optimal Watermark" style="width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block;" />
+    `;
+
+    document.body.appendChild(watermark);
+
+    // Initial random position & velocity
+    let posX = Math.random() * Math.max(20, window.innerWidth - width - 40) + 10;
+    let posY = Math.random() * Math.max(20, window.innerHeight - height - 40) + 10;
+    let velX = (Math.random() > 0.5 ? 1 : -1) * (isMobile ? 0.75 : 1.15);
+    let velY = (Math.random() > 0.5 ? 1 : -1) * (isMobile ? 0.75 : 1.15);
+    let rotation = 0;
+    let rotSpeed = 0.08;
+
+    const updateWatermark = () => {
+      const maxX = Math.max(0, window.innerWidth - width);
+      const maxY = Math.max(0, window.innerHeight - height);
+
+      posX += velX;
+      posY += velY;
+      rotation += rotSpeed;
+
+      // Bounce on left/right boundary
+      if (posX <= 0) {
+        posX = 0;
+        velX = Math.abs(velX);
+        rotSpeed = (Math.random() * 0.12 + 0.04) * (Math.random() > 0.5 ? 1 : -1);
+      } else if (posX >= maxX) {
+        posX = maxX;
+        velX = -Math.abs(velX);
+        rotSpeed = (Math.random() * 0.12 + 0.04) * (Math.random() > 0.5 ? 1 : -1);
+      }
+
+      // Bounce on top/bottom boundary
+      if (posY <= 0) {
+        posY = 0;
+        velY = Math.abs(velY);
+        rotSpeed = (Math.random() * 0.12 + 0.04) * (Math.random() > 0.5 ? 1 : -1);
+      } else if (posY >= maxY) {
+        posY = maxY;
+        velY = -Math.abs(velY);
+        rotSpeed = (Math.random() * 0.12 + 0.04) * (Math.random() > 0.5 ? 1 : -1);
+      }
+
+      watermark.style.transform = `translate3d(${posX.toFixed(1)}px, ${posY.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg)`;
+
+      requestAnimationFrame(updateWatermark);
+    };
+
+    requestAnimationFrame(updateWatermark);
+
+    window.addEventListener('resize', () => {
+      const currentMaxX = Math.max(0, window.innerWidth - width);
+      const currentMaxY = Math.max(0, window.innerHeight - height);
+      if (posX > currentMaxX) posX = currentMaxX;
+      if (posY > currentMaxY) posY = currentMaxY;
+    });
+  };
+
+  initFloatingWatermark();
+
+  // 10. Update Year in Footer
   const yearSpan = document.getElementById('current-year');
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  // 9. Initialize Lucide Icons if available
+  // 11. Initialize Lucide Icons if available
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons();
   }
