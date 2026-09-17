@@ -60,8 +60,8 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
 
-// Handle preflight OPTIONS requests for all routes
-app.options('*', cors(corsOptions));
+// Handle preflight OPTIONS requests for all routes (Node 22+ compatible wildcard)
+app.options('/(.*)', cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use(express.json());
