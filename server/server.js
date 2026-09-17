@@ -20,31 +20,49 @@ if (!fs.existsSync(uploadsDir)) {
 // Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Universal CORS & Preflight Middleware (supports optimalconsult.com.ng, localhost, and all clients)
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+// CORS configuration
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  // Production domains
+  'https://optimalconsult.com.ng',
+  'https://www.optimalconsult.com.ng',
+  'https://optimal-fkiy.onrender.com',
+  // Local development
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'http://localhost:8080',
+  'http://localhost:4000',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5000',
+  'http://127.0.0.1:8080'
+].filter(Boolean);
 
-  // Handle preflight OPTIONS request immediately
-  if (req.method === 'OPTIONS') {
-    return res.status(204).end();
-  }
-  next();
-});
-
-app.use(cors({
-  origin: true, // Dynamically reflect origin to support credentials across optimalconsult.com.ng and localhost
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (curl, Postman, server-to-server, mobile apps)
+    if (!origin) return callback(null, true);
+    // Allow any localhost / 127.0.0.1 port in development
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+      return callback(null, true);
+    }
+    // Allow explicitly whitelisted origins
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // Block unknown origins in production; allow in dev
+    if (process.env.NODE_ENV === 'production') {
+      return callback(new Error(`CORS: Origin '${origin}' not allowed`), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+};
+
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
